@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SchoolManagement.Data\SchoolManagement.Data.csproj" />
     <ProjectReference Include="..\SchoolManagement.Domain\SchoolManagement.Domain.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Services\SchoolManagement.Services.csproj" />
   </ItemGroup>
 
 </Project>
