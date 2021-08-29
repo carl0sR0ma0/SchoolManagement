@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SchoolManagement.Data\SchoolManagement.Data.csproj" />
+    <ProjectReference Include="..\SchoolManagement.IoC\SchoolManagement.IoC.csproj" />
   </ItemGroup>
 
 </Project>
