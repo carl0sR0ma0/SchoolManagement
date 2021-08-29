@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Models\" />
-    <Folder Include="Enums\" />
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
   </ItemGroup>
 
 </Project>

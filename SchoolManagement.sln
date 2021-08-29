@@ -11,15 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Infra", "5.Infra", "{FBF2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Application", "2.Application", "{31D9F6EC-0460-463E-9FDD-1A0B1712C17D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.API", "src\SchoolManagement.API\SchoolManagement.API.csproj", "{53CB34A8-0799-45DF-9650-99A22EAF1A6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.API", "src\SchoolManagement.API\SchoolManagement.API.csproj", "{53CB34A8-0799-45DF-9650-99A22EAF1A6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Domain", "src\SchoolManagement.Domain\SchoolManagement.Domain.csproj", "{64DC691A-A66A-4EA6-A5C3-CB54FE4506C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Domain", "src\SchoolManagement.Domain\SchoolManagement.Domain.csproj", "{64DC691A-A66A-4EA6-A5C3-CB54FE4506C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Data", "src\SchoolManagement.Data\SchoolManagement.Data.csproj", "{078623B8-DD64-4253-B7C6-7AE449D2392D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Data", "src\SchoolManagement.Data\SchoolManagement.Data.csproj", "{078623B8-DD64-4253-B7C6-7AE449D2392D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Services", "3.Services", "{8B10F5CA-66FD-4365-88A7-BBF816C60C5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Services", "src\SchoolManagement.Services\SchoolManagement.Services.csproj", "{F7435FC3-81B1-4575-97A8-CE32CFDB4D52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Services", "src\SchoolManagement.Services\SchoolManagement.Services.csproj", "{F7435FC3-81B1-4575-97A8-CE32CFDB4D52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
