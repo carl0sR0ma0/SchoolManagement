@@ -1,36 +1,30 @@
 ﻿using SchoolManagement.Domain.Entities;
 using SchoolManagement.Domain.Enums;
 using SchoolManagement.Domain.Validators;
+using SchoolManager.Core.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolManagement.Domain.Models
 {
     public class Aluno : Pessoa
     {
         // CONSTRUTORES
-        public Aluno() {}
-
-        //public Aluno(long RA, List<Responsavel> responsavel)
-        //{
-        //    this.RA = RA;
-        //    this.Responsavel = new List<Responsavel>();
-        //}
+        protected Aluno() {}
 
         public Aluno (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ra)
         {
-            this.Nome = _nome;
-            this.DataNascimento = _dataNascimento;
-            this.RG = _rg;
-            this.CPF = _cpf;
-            this.Sexo = _sexo;
-            this.Telefone = _telefone;
-            this.RA = _ra;
-            this.Responsavel = new List<Responsavel>();
-            this._errors = new List<string>();
+            Nome = _nome;
+            DataNascimento = _dataNascimento;
+            RG = _rg;
+            CPF = _cpf;
+            Sexo = _sexo;
+            Telefone = _telefone;
+            RA = _ra;
+            _errors = new List<string>();
+            Responsavel = new List<Responsavel>();
+
+            Validate();
         }
         // PROPRIEDADES
         public long RA { get; set; }
@@ -52,7 +46,7 @@ namespace SchoolManagement.Domain.Models
                 {
                     this._errors.Add(error.ErrorMessage);
                 }
-                throw new Exception("Alguns campos estão inválidos, por favor corrija-os! " + this._errors[0]);
+                throw new DomainException("Alguns campos estão inválidos, por favor corrija-os! ", this._errors);
             }
 
             return true;

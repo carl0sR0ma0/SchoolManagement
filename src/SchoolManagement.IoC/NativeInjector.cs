@@ -3,7 +3,6 @@ using SchoolManagement.Data.Repositories;
 using SchoolManagement.Domain.Interfaces;
 using SchoolManagement.Services.Interfaces;
 using SchoolManagement.Services.Services;
-using System;
 
 namespace SchoolManagement.IoC
 {

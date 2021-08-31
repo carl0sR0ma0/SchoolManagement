@@ -1,36 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.API.Utilities;
+using SchoolManagement.API.ViewModel;
+using SchoolManagement.Services.DTO;
 using SchoolManagement.Services.Interfaces;
-using SchoolManagement.Services.ViewModel;
+using SchoolManager.Core.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    //[Route("[controller]")]
     public class AlunoController : Controller
     {
-        private readonly IAlunoService service;
+        private readonly IAlunoService _service;
+        private readonly IMapper _mapper;
 
-        public AlunoController(IAlunoService service)
+        public AlunoController(IAlunoService service, IMapper mapper)
         {
-            this.service = service;
+            _service = service;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public IActionResult Post(AlunoCreateViewModel aluno)
+        [Route("/[controller]/create")]
+        public async Task<IActionResult> Post([FromBody] CreateAlunoViewModel alunoViewModel)
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                return Ok(service.Post(aluno));
+                var alunoDTO = _mapper.Map<AlunoDTO>(alunoViewModel);
+                var alunoCreated = await _service.Post(alunoDTO);
+
+                return Ok(new ResultViewModel
+                {
+                    Message = "Aluno criado com sucesso!",
+                    Success = true,
+                    Data = alunoCreated
+                });
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(Responses.DomainErrorMessage(ex.Message, ex.Errors));
             }
             catch (Exception)
             {
-                throw;
+                return StatusCode(500, Responses.ApplicationErrorMessage());
             }
         }
     }
