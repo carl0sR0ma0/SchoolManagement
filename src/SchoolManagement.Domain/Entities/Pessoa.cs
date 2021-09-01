@@ -1,10 +1,7 @@
 ﻿using SchoolManagement.Domain.Enums;
 using SchoolManagement.Domain.Validators;
+using SchoolManager.Core.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolManagement.Domain.Entities
 {
@@ -28,7 +25,7 @@ namespace SchoolManagement.Domain.Entities
                 {
                     this._errors.Add(error.ErrorMessage);
                 }
-                throw new Exception("Alguns campos estão inválidos, por favor corrija-os! " + this._errors[0]);
+                throw new DomainException("Alguns campos estão inválidos, por favor corrija-os! ", this._errors);
             }
 
             return true;
