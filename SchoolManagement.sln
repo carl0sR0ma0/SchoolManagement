@@ -41,7 +41,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "schoolmanagement.webapp", "
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "50812"
+		SlnRelativePath = "src\schoolmanagement.webapp\"
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.Core", "6.Core", "{4C3A1444-FFB1-48F7-AFF7-8A741F1D03C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManager.Core", "src\SchoolManager.Core\SchoolManager.Core.csproj", "{8BC08B9A-67EC-45B0-B65E-90A981A2B364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +78,10 @@ Global
 		{60E17AEF-A13D-4342-BFAF-5347CCA514BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60E17AEF-A13D-4342-BFAF-5347CCA514BA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{60E17AEF-A13D-4342-BFAF-5347CCA514BA}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{8BC08B9A-67EC-45B0-B65E-90A981A2B364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC08B9A-67EC-45B0-B65E-90A981A2B364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC08B9A-67EC-45B0-B65E-90A981A2B364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC08B9A-67EC-45B0-B65E-90A981A2B364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +93,7 @@ Global
 		{F7435FC3-81B1-4575-97A8-CE32CFDB4D52} = {8B10F5CA-66FD-4365-88A7-BBF816C60C5B}
 		{45250338-C699-4D31-A73A-9C0100B73BD3} = {FBF2C20E-DA21-420A-9407-2B0EA6473AF0}
 		{60E17AEF-A13D-4342-BFAF-5347CCA514BA} = {1A2FFD26-79B7-4B4F-A7A1-7F9D7366B6BC}
+		{8BC08B9A-67EC-45B0-B65E-90A981A2B364} = {4C3A1444-FFB1-48F7-AFF7-8A741F1D03C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7DAB245-22E6-4820-B60F-C82C0BFC89B1}

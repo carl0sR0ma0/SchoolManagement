@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Data.Mappings;
 using SchoolManagement.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.ORM
 {
@@ -16,7 +12,7 @@ namespace SchoolManagement.Data.ORM
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new AlunoMap());
         }
     }
 }
