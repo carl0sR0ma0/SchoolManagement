@@ -11,12 +11,12 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.0-4",
     "@popperjs/core": "^2.9.3",
+    "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "nuxt": "^2.15.8",
     "vue": "^3.0.0",
-    "vue-resource": "^1.5.3",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {

@@ -1,12 +1,12 @@
 <script>
-import Sidebar from '@/components/sidebar/Sidebar'
-import { sidebarWidth } from '@/components/sidebar/state'
+import Sidebar from "@/components/sidebar/Sidebar";
+import { sidebarWidth } from "@/components/sidebar/state";
 export default {
   components: { Sidebar },
   setup() {
-    return { sidebarWidth }
-  }
-}
+    return { sidebarWidth };
+  },
+};
 </script>
 
 <template>
