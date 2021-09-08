@@ -81,8 +81,18 @@ namespace SchoolManagement.API.Controllers
         {
             try
             {
-                await _service.Remove(id);
+                var aluno = await _service.Get(id);
 
+                if (aluno == null)
+                {
+                    return Ok(new ResultViewModel
+                    {
+                        Message = "Nenhum aluno encontrado com o ID informado.",
+                        Success = true,
+                        Data = aluno
+                    });
+                }
+                await _service.Remove(id);
                 return Ok(new ResultViewModel
                 {
                     Message = "Aluno Removido com Sucesso!",
