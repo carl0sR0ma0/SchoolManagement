@@ -32,6 +32,7 @@ namespace SchoolManagement.API
             {
                 cfg.CreateMap<Aluno, AlunoDTO>().ReverseMap();
                 cfg.CreateMap<CreateAlunoViewModel, AlunoDTO>().ReverseMap();
+                cfg.CreateMap<UpdateAlunoViewModel, AlunoDTO>().ReverseMap();
             });
             services.AddSingleton(autoMapperConfig.CreateMapper());
             services.AddSwaggerGen(c =>
