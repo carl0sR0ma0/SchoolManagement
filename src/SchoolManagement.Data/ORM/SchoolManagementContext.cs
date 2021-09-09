@@ -10,9 +10,12 @@ namespace SchoolManagement.Data.ORM
 
         public DbSet<Aluno> Alunos { get; set; }
 
+        public DbSet<Curso> Cursos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AlunoMap());
+            modelBuilder.ApplyConfiguration(new CursoMap());
         }
     }
 }

@@ -12,10 +12,12 @@ namespace SchoolManagement.IoC
         {
             #region Services
             services.AddScoped<IAlunoService, AlunoService>();
+            services.AddScoped<ICursoService, CursoService>();
             #endregion
 
             #region Repositories
             services.AddScoped<IAlunoRepository, AlunoRepository>();
+            services.AddScoped<ICursoRepository, CursoRepository>();            
             #endregion
         }
     }
