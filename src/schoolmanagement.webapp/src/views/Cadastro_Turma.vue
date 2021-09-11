@@ -1,53 +1,61 @@
 <template>
+<div class="container">
   <div class="center">
-    <h1>Cadastro de Alunos</h1>
-    <div class="txt_field">
-      <input type="text" v-model="ra" required />
-      <span></span>
-      <label>RA do Aluno</label>
+    <h1>Cadastro de Turma</h1>
+    <div class="form-floating mb-3">
+      <input v-model="ra" type="text" class="form-control" placeholder="teste" required>
+      <label for="floatingInput">RA do Aluno</label>
     </div>
-    <div class="txt_field">
-      <input type="text" v-model="nome" required />
-      <span></span>
-      <label>Nome</label>
+    <div class="form-floating mb-3">
+      <input v-model="nome" type="text" class="form-control" placeholder="teste" required>
+      <label for="floatingInput">Nome</label>
     </div>
-    <div class="txt_field">
-      <input type="date" v-model="dataNascimento" required />
-      <span></span>
-      <label>Data de Nascimento</label>
+    <div class="form-floating mb-3">
+      <input v-model="dataNascimento" type="text" class="form-control" placeholder="teste"
+      onfocus="(this.type='date')" onblur="(this.type='text')" required>
+      <label for="floatingInput">Data de Nascimento</label>
     </div>
-    <div class="txt_field">
-      <input type="text" v-model="rg" />
-      <span></span>
-      <label>RG</label>
+    <div class="form-floating mb-3">
+      <input v-model="rg" type="text" class="form-control" placeholder="teste">
+      <label for="floatingInput">RG</label>
     </div>
-    <div class="txt_field">
-      <input type="text" v-model="cpf" />
-      <span></span>
-      <label>CPF</label>
+    <div class="form-floating mb-3">
+      <input v-model="nome" type="text" class="form-control" placeholder="teste">
+      <label for="floatingInput">CPF</label>
     </div>
-    <div class="txt_field">
-      <input type="text" v-model="telefone" />
-      <span></span>
-      <label>Telefone</label>
+    <div class="form-floating mb-3">
+      <input v-model="telefone" type="text" class="form-control" placeholder="teste">
+      <label for="floatingInput">Telefone</label>
     </div>
-    <div class="txt_field">
-      <input type="number" v-model="sexo" required />
-      <span></span>
-      <label>Sexo</label>
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gridRadios" id="sexo0" checked>
+        <label class="form-check-label" for="gridRadios1">
+          Masculino
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gridRadios" id="sexo1">
+        <label class="form-check-label" for="gridRadios2">
+          Feminino
+        </label>
+      </div>
     </div>
-    <button class="btn btnInput" @click="addAluno">Enviar</button>
+    </fieldset>
+    <div class="d-grid gap-2">
+    <button type="button" class="btn btn-success" @click="addAluno" >Enviar</button>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
-import { collapsed, toggleSidebar } from "@/components/sidebar/state";
 import axios from "axios";
 
 export default {
-  setup() {
-    return { collapsed, toggleSidebar };
-  },
+  name: "Cadastro_Turma",
   data() {
     return {
       ra: "",
