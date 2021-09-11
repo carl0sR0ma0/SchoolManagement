@@ -8,11 +8,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 //pages
-import Cadastro_Aluno from "./views/Cadastro_Aluno.vue";
-import Cadastro_Professor from "./views/Cadastro_Professor.vue";
-import Cadastro_Curso from "./views/Cadastro_Curso.vue";
-import Cadastro_Serie from "./views/Cadastro_Serie.vue";
-import Cadastro_Turma from "./views/Cadastro_Turma.vue";
+import Cadastro_Aluno from "./views/Aluno/Cadastro_Aluno.vue";
+import Cadastro_Professor from "./views/Professor/Cadastro_Professor.vue";
+import Cadastro_Curso from "./views/Curso/Cadastro_Curso.vue";
+import Cadastro_Serie from "./views/Serie/Cadastro_Serie.vue";
+import Cadastro_Turma from "./views/Turma/Cadastro_Turma.vue";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
