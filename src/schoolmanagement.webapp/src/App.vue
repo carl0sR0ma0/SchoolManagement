@@ -1,40 +1,144 @@
+<template>
+  <div id="app">
+    <div id="view" :class="[{ nocollapsed: collapsed }]">
+      <router-view />
+    </div>
+    <sidebar-menu
+      class="sidebar"
+      :menu="menu"
+      :collapsed="collapsed"
+      @item-click="onItemClick"
+      @collapse="onCollapse"
+    />
+  </div>
+</template>
+
 <script>
-import Sidebar from "@/components/sidebar/Sidebar";
-import { sidebarWidth } from "@/components/sidebar/state";
 export default {
-  components: { Sidebar },
-  setup() {
-    return { sidebarWidth };
+  name: "App",
+  data() {
+    return {
+      menu: [
+        {
+          header: true,
+          title: "Sistema Escolar",
+          icon: 'fas fa-school',
+          hiddenOnCollapse: true
+        },
+        {
+          href: "/",
+          title: "Principal",
+          icon: 'fa fa-user'
+        },
+        {
+          href: "/",
+          title: "Teste",
+          icon: "fas fa-address-card",
+        },
+        {
+          title: "Cadastros",
+          icon: "fa fa-list-ul",
+          child: [
+            {
+              href: "/Cadastro_Aluno",
+              title: "Aluno",
+              icon: "fa fa-file-alt",
+            },
+            {
+              href: "/Cadastro_Professor",
+              title: "Professor",
+              icon: "fa fa-file-alt",
+            },
+            {
+              href: "/Cadastro_Serie",
+              title: "Serie",
+              icon: "fa fa-file-alt",
+            },
+            {
+              href: "/Cadastro_Turma",
+              title: "Turma",
+              icon: "fa fa-file-alt",
+            },
+            {
+              href: "/Cadastro_Curso",
+              title: "Curso",
+              icon: "fa fa-file-alt",
+            },
+          ],
+        },
+                {
+          title: "Consulta",
+          icon: "fa fa-list-ul",
+          child: [
+            {
+              href: "/Consulta_Aluno",
+              title: "Consulta Aluno",
+              icon: "fa fa-file-alt"
+            },
+            {
+              href: "/Consulta_Professor",
+              title: "Consulta_Professor",
+              icon: "fa fa-file-alt",
+            },
+          ],
+        },
+      ],
+      collapsed: true,
+    };
   },
+ methods: {
+    onItemClick() {
+      console.log("onItemClick");
+    },
+    onCollapse(c) {
+      console.log("onCollapse");
+      this.collapsed = c;
+    }
+  }
 };
 </script>
 
-<template>
-  <Sidebar />
-  <div :style="{ 'margin-left': sidebarWidth }">
+<style>
+
+#view.nocollapsed {
+  padding-left: 350px;
+}
+#view.collapsed {
+  padding-left: 50px;
+}
+
+.sidebar.v-sidebar-menu .vsm-arrow:after {
+  content: "\f105";
+  font-family: 'FontAwesome';
+}
+.sidebar.v-sidebar-menu .collapse-btn:after {
+  content: "\f07e";
+  font-family: 'FontAwesome';
+}
+</style>
+
+<!-- <template>
+  <div id="app">
+    <nav-bar-component />
+    <side-bar-component />
     <router-view />
   </div>
 </template>
 
+<script>
+
+import NavBarComponent from './components/NavBarComponent.vue'
+import SideBarComponent from './components/SideBarComponent.vue'
+
+export default {
+  
+  components:{
+    NavBarComponent,
+    SideBarComponent
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</style>-->
