@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <div id="view" :class="[{ nocollapsed: collapsed }]">
-      <router-view />
+    <div id="view" :class="[{'collapsed' : collapsed}]">
+      <router-view/>
     </div>
     <sidebar-menu
       class="sidebar"
       :menu="menu"
       :collapsed="collapsed"
+      @toggle-collapse="onToggleCollapse"
       @item-click="onItemClick"
       @collapse="onCollapse"
     />
@@ -86,21 +87,25 @@ export default {
       collapsed: true,
     };
   },
- methods: {
+    methods: {
     onItemClick() {
       console.log("onItemClick");
     },
     onCollapse(c) {
       console.log("onCollapse");
       this.collapsed = c;
-    }
+    },
+    onToggleCollapse(collapsed) {
+      console.log("onCollapse");
+      this.collapsed = collapsed;
+    },
   }
 };
 </script>
 
 <style>
 
-#view.nocollapsed {
+#view {
   padding-left: 350px;
 }
 #view.collapsed {
@@ -109,11 +114,11 @@ export default {
 
 .sidebar.v-sidebar-menu .vsm-arrow:after {
   content: "\f105";
-  font-family: 'FontAwesome';
+  font-family: "FontAwesome";
 }
 .sidebar.v-sidebar-menu .collapse-btn:after {
   content: "\f07e";
-  font-family: 'FontAwesome';
+  font-family: "FontAwesome";
 }
 </style>
 
