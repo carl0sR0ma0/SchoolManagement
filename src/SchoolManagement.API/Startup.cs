@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SchoolManagement.API.ViewModel;
 using SchoolManagement.API.ViewModel.CursoViewModel;
+using SchoolManagement.API.ViewModel.ProfessorViewModel;
 using SchoolManagement.API.ViewModel.TurmaViewModel;
 using SchoolManagement.Data.ORM;
 using SchoolManagement.Domain.Models;
@@ -43,6 +44,10 @@ namespace SchoolManagement.API
                 cfg.CreateMap<Turma, TurmaDTO>().ReverseMap();
                 cfg.CreateMap<CreateTurmaViewModel, TurmaDTO>().ReverseMap();
                 cfg.CreateMap<UpdateTurmaViewModel, TurmaDTO>().ReverseMap();
+
+                cfg.CreateMap<Professor, ProfessorDTO>().ReverseMap();
+                cfg.CreateMap<CreateProfessorViewModel, ProfessorDTO>().ReverseMap();
+                cfg.CreateMap<UpdateProfessorViewModel, ProfessorDTO>().ReverseMap();
             });
             services.AddSingleton(autoMapperConfig.CreateMapper());
             services.AddSwaggerGen(c =>
