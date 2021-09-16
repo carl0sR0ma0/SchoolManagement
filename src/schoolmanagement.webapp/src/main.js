@@ -13,6 +13,7 @@ import Cadastro_Professor from "./views/Professor/Cadastro_Professor.vue";
 import Cadastro_Curso from "./views/Curso/Cadastro_Curso.vue";
 import Cadastro_Serie from "./views/Serie/Cadastro_Serie.vue";
 import Cadastro_Turma from "./views/Turma/Cadastro_Turma.vue";
+import Consulta_Aluno from "./views/Aluno/Consulta_Aluno.vue";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -54,6 +55,11 @@ const router = new VueRouter({
       path: "/Cadastro_Turma",
       name: "Cadastro_Turma",
       component: Cadastro_Turma
+    },
+    {
+      path: "/Consulta_Aluno",
+      name: "Consulta_Aluno",
+      component: Consulta_Aluno
     },
   ]
 });
