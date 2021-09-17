@@ -10,22 +10,21 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Repositories
 {
-    public class CursoRepository : Repository<Curso>, ICursoRepository
+    public class TurmaRepository : Repository<Turma>, ITurmaRepository
     {
-        public CursoRepository(SchoolManagementContext context) : base(context)
+        public TurmaRepository(SchoolManagementContext context) : base(context)
         {
         }
-        public virtual async Task<List<Curso>> Get()
+        public virtual async Task<List<Turma>> Get()
         {
-            return await _context.Set<Curso>().Include(t => t.Series).AsNoTracking().ToListAsync();
+            return await _context.Set<Turma>().AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<Curso> Get(long id)
+        public virtual async Task<Turma> Get(long id)
         {
-            var obj = await _context.Set<Curso>()
+            var obj = await _context.Set<Turma>()
                 .AsNoTracking()
                 .Where(x => x.Id == id)
-                .Include(t => t.Series)
                 .ToListAsync();
 
             return obj.FirstOrDefault();

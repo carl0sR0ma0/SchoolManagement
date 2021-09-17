@@ -1,23 +1,23 @@
 <template>
-<div class="container">
-  <div class="center">
-    <h1>Consulta de Alunos</h1>
-  <div>
-<b-col lg="6" class="my-1">
-        <b-form-group
-          label-for="filter-input"
-          label-cols-sm="3"
-          label-align-sm="right"
-          label-size="sm"
-          class="mb-0"
-        >
-          <b-input-group size="sm">
-            <b-form-input
-              id="filter-input"
-              v-model="filter"
-              type="search"
-              placeholder="Procurar Aluno"
-            ></b-form-input>
+  <div class="container">
+    <div class="center">
+      <h1>Consulta de Alunos</h1>
+      <div>
+        <b-col lg="6" class="my-1">
+          <b-form-group
+            label-for="filter-input"
+            label-cols-sm="3"
+            label-align-sm="right"
+            label-size="sm"
+            class="mb-0"
+          >
+            <b-input-group size="sm">
+              <b-form-input
+                id="filter-input"
+                v-model="filter"
+                type="search"
+                placeholder="Procurar Aluno"
+              ></b-form-input>
 
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Limpar</b-button>
@@ -32,7 +32,6 @@
     </b-table>
   </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -42,47 +41,38 @@ export default {
   name: "Consulta_Aluno",
   data() {
     return {
-      alunos: [
+      alunos: [],
+      fields: [
         {
-          ra: "123456",
-          nome:"Rafael Alves",
-           dataNascimento: "17/07/1995",
-        }
+          key: "nome",
+          sortable: true,
+        },
+        {
+          key: "ra",
+          sortable: false,
+        },
+        {
+          key: "dataNascimento",
+          label: "Data Nascimento",
+          sortable: false,
+          variant: "", //Colocar cor na tabela
+        },
+        {
+          key: "actions",
+          label: "Ações",
+        },
       ],
-
-        fields: [
-          {
-            key: 'nome',
-            sortable: true
-          },
-          {
-            key: 'ra',
-            sortable: false
-          },
-          {
-            key: 'dataNascimento',
-            label: 'Data Nascimento',
-            sortable: false,
-            variant: '' //Colocar cor na tabela
-          },
-          {
-            key: 'actions',
-            label: 'Ações'
-          },
-        ],
-        filter: null,
-        filterOn: [],
-      }
-    },
+      filter: null,
+      filterOn: [],
+    };
+  },
   created() {
-      axios.get("https://localhost:5001/Aluno/get").then((res) => {
-        this.alunos = res.data.data;
-      });
+    axios.get("https://localhost:5001/Aluno/get").then((res) => {
+      this.alunos = res.data.data;
+    });
   },
 
-  methods: {
-
-  },
+  methods: {},
 };
 </script>
 

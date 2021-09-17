@@ -3,9 +3,9 @@ using SchoolManagement.Domain.Models;
 
 namespace SchoolManagement.Domain.Validators
 {
-    public class CursoValidator : AbstractValidator<Curso>
+    public class SerieValidator : AbstractValidator<Serie>
     {
-        public CursoValidator()
+        public SerieValidator()
         {
             RuleFor(x => x)
                 .NotEmpty()
@@ -17,6 +17,10 @@ namespace SchoolManagement.Domain.Validators
 
                 .MinimumLength(3)
                 .WithMessage("O nome deve ter no mínimo 3 caracteres.");
+            
+            RuleFor(x => x.Descricao)
+                .MinimumLength(10)
+                .WithMessage("A descrição deve ter no mínimo 10 caracteres.");
         }
     }
 }

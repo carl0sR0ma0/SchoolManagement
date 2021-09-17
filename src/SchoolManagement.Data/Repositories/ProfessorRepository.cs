@@ -2,30 +2,24 @@
 using SchoolManagement.Data.ORM;
 using SchoolManagement.Domain.Interfaces;
 using SchoolManagement.Domain.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Repositories
 {
-    public class CursoRepository : Repository<Curso>, ICursoRepository
+    public class ProfessorRepository : Repository<Professor>, IProfessorRepository
     {
-        public CursoRepository(SchoolManagementContext context) : base(context)
+        public ProfessorRepository(SchoolManagementContext context) : base(context) { }
+        public virtual async Task<List<Professor>> Get()
         {
+            return await _context.Set<Professor>().AsNoTracking().ToListAsync();
         }
-        public virtual async Task<List<Curso>> Get()
+        public virtual async Task<Professor> Get(long id)
         {
-            return await _context.Set<Curso>().Include(t => t.Series).AsNoTracking().ToListAsync();
-        }
-
-        public virtual async Task<Curso> Get(long id)
-        {
-            var obj = await _context.Set<Curso>()
+            var obj = await _context.Set<Professor>()
                 .AsNoTracking()
                 .Where(x => x.Id == id)
-                .Include(t => t.Series)
                 .ToListAsync();
 
             return obj.FirstOrDefault();
@@ -34,7 +28,8 @@ namespace SchoolManagement.Data.Repositories
         public virtual async Task Remove(long id)
         {
             var obj = await Get(id);
-            if (obj != null )
+
+            if (obj != null)
             {
                 _context.Remove(obj);
                 await _context.SaveChangesAsync();
@@ -42,3 +37,4 @@ namespace SchoolManagement.Data.Repositories
         }
     }
 }
+
