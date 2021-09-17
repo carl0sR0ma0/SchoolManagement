@@ -2,35 +2,47 @@
   <div class="container">
     <div class="center">
       <h1>Consulta de Alunos</h1>
-      <div>
-        <b-col lg="6" class="my-1">
-          <b-form-group
-            label-for="filter-input"
-            label-cols-sm="3"
-            label-align-sm="right"
-            label-size="sm"
-            class="mb-0"
-          >
-            <b-input-group size="sm">
-              <b-form-input
-                id="filter-input"
-                v-model="filter"
-                type="search"
-                placeholder="Procurar Aluno"
-              ></b-form-input>
+    </div>
+    <b-col lg="6" class="my-1">
+      <b-form-group
+        label-for="filter-input"
+        label-cols-sm="3"
+        label-align-sm="right"
+        label-size="sm"
+        class="mb-0"
+      >
+        <b-input-group size="sm">
+          <b-form-input
+            id="filter-input"
+            v-model="filter"
+            type="search"
+            placeholder="Procurar Aluno"
+          ></b-form-input>
 
-            <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''">Limpar</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
-    <b-table striped hover :items="alunos" :fields="fields" :filter="filter" :filter-included-fields="filterOn">
-      <template v-slot:cell(actions)= "data">
-        <b-button variant="outline-primary" :to="'/Detalhe_Aluno/${alunos.ra}'" @click="editar(data.id)">Editar</b-button>
+          <b-input-group-append style="margin-left: 10px">
+            <b-button :disabled="!filter" @click="filter = ''">Limpar</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </b-form-group>
+    </b-col>
+
+    <b-table
+      striped
+      hover
+      :items="alunos"
+      :fields="fields"
+      :filter="filter"
+      :filter-included-fields="filterOn"
+    >
+      <template v-slot:cell(actions)="data">
+        <!-- <a :to="`/Detalhe_Aluno/${alunos[0].id}`">{{ data.value }}</a> -->
+        <b-button
+          variant="outline-primary"
+          :to="`/Detalhe_Aluno/${data.item.id}`"
+          >Editar</b-button
+        >
       </template>
     </b-table>
-  </div>
   </div>
 </template>
 

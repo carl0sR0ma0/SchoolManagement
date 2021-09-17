@@ -1,118 +1,135 @@
 <template>
-    <div class="container">
-        <div class="center">
-            <h1>{{aluno.nome}}</h1>
-        </div>
-        <b-button class="btnVoltar" variant="outline-info" @click="voltar()">Voltar</b-button>
-    <table class="content-table">
-        <tbody>
-            <tr>
-                <td >Ra</td>
-                <td>
-                    <label for="">{{aluno.ra}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td>Nome</td>
-                <td>
-                    <label v-if="visualizando" for="">{{aluno.nome}}</label>
-                    <b-form-input v-else v-model="aluno.nome" />
-                </td>
-            </tr>
-            <tr>
-                <td>Data de Nascimento</td>
-                <td>
-                    <label v-if="visualizando" for="">{{aluno.dataNascimento}}</label>
-                    <b-form-input v-else v-model="aluno.dataNascimento" />
-                </td>
-            </tr>
-            <tr>
-                <td>RG</td>
-                <td>
-                    <label v-if="visualizando" for="">{{aluno.rg}}</label>
-                    <b-form-input v-else v-model="aluno.rg" />
-                </td>
-            </tr>
-            <tr>
-                <td>CPF</td>
-                <td>
-                    <label v-if="visualizando" for="">{{aluno.cpf}}</label>
-                    <b-form-input v-else v-model="aluno.cpf" />
-                </td>
-            </tr>
-            <tr>
-                <td>Telefone</td>
-                <td>
-                    <label v-if="visualizando" for="">{{aluno.telefone}}</label>
-                    <b-form-input v-else v-model="aluno.telefone" />
-                </td>
-            </tr>
-            <tr>
-                <td>Sexo</td>
-                <td>
-                    <label for="">{{aluno.sexo}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td><b-button v-if="visualizando" variant="outline-primary" @click="EditarAluno()" >Editar</b-button>
-                <b-button v-else variant="outline-danger" @click="Cancelar()" >Cancelar</b-button>
-                </td>
-            </tr>
-            <tr v-if="!visualizar">
-                <td></td>
-                <td><b-button variant="outline-sucess" @click="SalvarAluno(aluno)" >Salvar</b-button></td>
-            </tr>
-        </tbody>
-    </table>
+  <div class="container">
+    <div class="center">
+      <h1>{{ aluno.nome }}</h1>
     </div>
+    <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
+      >Voltar</b-button
+    >
+    <table class="content-table">
+      <tbody>
+        <tr>
+          <td>Ra</td>
+          <td>
+            <label for="">{{ aluno.ra }}</label>
+          </td>
+        </tr>
+        <tr>
+          <td>Nome</td>
+          <td>
+            <label v-if="visualizando" for="">{{ aluno.nome }}</label>
+            <b-form-input v-else v-model="aluno.nome" />
+          </td>
+        </tr>
+        <tr>
+          <td>Data de Nascimento</td>
+          <td>
+            <label v-if="visualizando" for="">{{ aluno.dataNascimento }}</label>
+            <b-form-input v-else v-model="aluno.dataNascimento" />
+          </td>
+        </tr>
+        <tr>
+          <td>RG</td>
+          <td>
+            <label v-if="visualizando" for="">{{ aluno.rg }}</label>
+            <b-form-input v-else v-model="aluno.rg" />
+          </td>
+        </tr>
+        <tr>
+          <td>CPF</td>
+          <td>
+            <label v-if="visualizando" for="">{{ aluno.cpf }}</label>
+            <b-form-input v-else v-model="aluno.cpf" />
+          </td>
+        </tr>
+        <tr>
+          <td>Telefone</td>
+          <td>
+            <label v-if="visualizando" for="">{{ aluno.telefone }}</label>
+            <b-form-input v-else v-model="aluno.telefone" />
+          </td>
+        </tr>
+        <tr>
+          <td>Sexo</td>
+          <td>
+            <label for="">{{ aluno.sexo }}</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b-button
+              v-if="visualizando"
+              variant="outline-primary"
+              @click="EditarAluno()"
+              >Editar</b-button
+            >
+            <b-button v-else variant="outline-danger" @click="Cancelar()"
+              >Cancelar</b-button
+            >
+          </td>
+        </tr>
+        <tr v-if="!visualizando">
+          <td></td>
+          <td>
+            <b-button variant="outline-sucess" @click="SalvarAluno()"
+              >Salvar</b-button
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 
 export default {
-        components:{
-        },
-        data(){
-            return{
-                alunos:{},
-                ra: this.$route.params.ra,
-                visualizando: true,
-            }
-        },
-        methods: {
-            voltar(){
-                this.$router.back();
-            },
-            EditarAluno(){
-                this.visualizando = !this.visualizando;
-            },
-            Cancelar(){
-                this.visualizando = !this.visualizando;
-            },
-            SalvarAluno(_aluno){
-                let _alunoEditar = {
-                        nome: _aluno.nome,
-                        dataNascimento: _aluno.dataNascimento,
-                        rg: _aluno.rg,
-                        cpf: _aluno.cpf,
-                        telefone: _aluno.telefone,
-                }
-                this.$http
-                .put('https://localhost:5001/Aluno/${_alunoEditar.id}', _alunoEditar);
-        },
-        created() {
-        axios.get("https://localhost:5001/Aluno/get").then((res) => {
-            console.log(res.data.data);
-        });
-      }
-    }
+  components: {},
+  data() {
+    return {
+      aluno: {},
+      id: this.$route.params.id,
+      visualizando: true,
+    };
+  },
+  methods: {
+    voltar() {
+      this.$router.back();
+    },
+    EditarAluno() {
+      this.visualizando = !this.visualizando;
+    },
+    Cancelar() {
+      this.visualizando = !this.visualizando;
+    },
+    SalvarAluno() {
+      let _alunoEditar = {
+        id: this.id,
+        ra: this.aluno.ra,
+        nome: this.aluno.nome,
+        dataNascimento: this.aluno.dataNascimento,
+        rg: this.aluno.rg,
+        cpf: this.aluno.cpf,
+        telefone: this.aluno.telefone,
+        sexo: this.aluno.sexo,
+      };
+
+      axios.put("https://localhost:5001/Aluno/update", _alunoEditar);
+      this.visualizando = !this.visualizando;
+    },
+  },
+  created() {
+    axios.get(`https://localhost:5001/Aluno/get/${this.id}`).then((res) => {
+      this.aluno = res.data.data;
+    });
+  },
 };
 </script>
 
 <style scoped>
 .btnVoltar {
-    float: right;
+  float: right;
 }
 
 .content-table {
