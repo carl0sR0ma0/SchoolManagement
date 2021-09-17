@@ -10,25 +10,36 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Repositories
 {
-    public class CursoRepository : Repository<Curso>, ICursoRepository
+    public class SerieRepository : Repository<Serie>, ISerieRepository
     {
-        public CursoRepository(SchoolManagementContext context) : base(context)
+        public SerieRepository(SchoolManagementContext context) : base(context)
         {
         }
-        public virtual async Task<List<Curso>> Get()
+        public virtual async Task<List<Serie>> Get()
         {
-            return await _context.Set<Curso>().Include(t => t.Series).AsNoTracking().ToListAsync();
+            return await _context.Set<Serie>().Include(x => x.Curso).AsNoTracking().ToListAsync();
         }
 
-        public virtual async Task<Curso> Get(long id)
+        public virtual async Task<Serie> Get(long id)
         {
-            var obj = await _context.Set<Curso>()
+            var obj = await _context.Set<Serie>()
                 .AsNoTracking()
                 .Where(x => x.Id == id)
-                .Include(t => t.Series)
+                .Include(x => x.Curso)
                 .ToListAsync();
 
             return obj.FirstOrDefault();
+        }
+
+        public virtual async Task<List<Serie>> GetSeriesByCourse(long cursoId)
+        {
+            var obj = await _context.Set<Serie>()
+                .AsNoTracking()
+                .Where(x => x.CursoId == cursoId)
+                .Include(x => x.Curso)
+                .ToListAsync();
+
+            return obj.ToList();
         }
 
         public virtual async Task Remove(long id)

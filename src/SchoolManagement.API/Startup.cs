@@ -8,12 +8,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SchoolManagement.API.ViewModel;
 using SchoolManagement.API.ViewModel.CursoViewModel;
+using SchoolManagement.API.ViewModel.SerieViewModel;
 using SchoolManagement.API.ViewModel.ProfessorViewModel;
 using SchoolManagement.API.ViewModel.TurmaViewModel;
 using SchoolManagement.Data.ORM;
 using SchoolManagement.Domain.Models;
 using SchoolManagement.IoC;
 using SchoolManagement.Services.DTO;
+using Newtonsoft.Json;
 
 namespace SchoolManagement.API
 {
@@ -29,8 +31,6 @@ namespace SchoolManagement.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
             var autoMapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Aluno, AlunoDTO>().ReverseMap();
@@ -39,6 +39,11 @@ namespace SchoolManagement.API
 
                 cfg.CreateMap<Curso, CursoDTO>().ReverseMap();
                 cfg.CreateMap<CreateCursoViewModel, CursoDTO>().ReverseMap();
+                cfg.CreateMap<UpdateSerieViewModel, CursoDTO>().ReverseMap();
+                
+                cfg.CreateMap<Serie, SerieDTO>().ReverseMap();
+                cfg.CreateMap<CreateSerieViewModel, SerieDTO>().ReverseMap();
+                cfg.CreateMap<UpdateSerieViewModel, SerieDTO>().ReverseMap();
                 cfg.CreateMap<UpdateCursoViewModel, CursoDTO>().ReverseMap();
 
                 cfg.CreateMap<Turma, TurmaDTO>().ReverseMap();
@@ -63,6 +68,10 @@ namespace SchoolManagement.API
                         .AllowAnyHeader());
             });
             NativeInjector.RegisterServices(services);
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

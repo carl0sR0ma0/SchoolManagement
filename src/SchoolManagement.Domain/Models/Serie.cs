@@ -9,30 +9,28 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Domain.Models
 {
-    public class Curso : Base
+    public class Serie : Base
     {
-        protected Curso()
+        protected Serie()
         {
         }
 
-        public Curso(string nome, string serieIni, string serieFin, string coordenador)
+        public Serie(string nome, string descricao, long cursoId)
         {
             Nome = nome;
-            SerieIni = serieIni;
-            SerieFin = serieFin;
-            Coordenador = coordenador;
-            Series = new List<Serie>();
+            Descricao = descricao;
+            CursoId = cursoId;
         }
 
         public string Nome { get; set; }
-        public string SerieIni { get; set; }
-        public string SerieFin { get; set; }
-        public string Coordenador { get; set; }
-        public List<Serie> Series { get; set; }
+        public string Descricao { get; set; }
+
+        public long CursoId { get; set; }
+        public Curso Curso { get; set; }
 
         public override bool Validate()
         {
-            var validator = new CursoValidator();
+            var validator = new SerieValidator();
             var validation = validator.Validate(this);
 
             if (!validation.IsValid)

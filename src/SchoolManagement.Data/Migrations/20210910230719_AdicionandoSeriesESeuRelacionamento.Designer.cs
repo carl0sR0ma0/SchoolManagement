@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20210910230719_AdicionandoSeriesESeuRelacionamento")]
+    partial class AdicionandoSeriesESeuRelacionamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,47 +83,6 @@ namespace SchoolManagement.Data.Migrations
                     b.ToTable("Cursos");
                 });
 
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CPF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ctps")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataAdmissao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RG")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Sexo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Telefone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Titulacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Professores");
-                });
-
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>
                 {
                     b.Property<long>("Id")
@@ -167,38 +128,6 @@ namespace SchoolManagement.Data.Migrations
                     b.HasIndex("CursoId");
 
                     b.ToTable("Series");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Turma", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Ano")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QtdAlunos")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sigla")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Situacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Turno")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Turmas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>

@@ -19,6 +19,7 @@ namespace SchoolManagement.Services.DTO
             SerieIni = serieIni;
             SerieFin = serieFin;
             Coordenador = coordenador;
+            Series = new List<SerieDTO>();
         }
 
         public long Id { get; set; }
@@ -26,5 +27,6 @@ namespace SchoolManagement.Services.DTO
         public string SerieIni { get; set; }
         public string SerieFin { get; set; }
         public string Coordenador { get; set; }
+        public List<SerieDTO> Series { get; set; }
     }
 }

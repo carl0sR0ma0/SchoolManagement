@@ -15,10 +15,13 @@ namespace SchoolManagement.IoC
             services.AddScoped<ICursoService, CursoService>();
             services.AddScoped<ITurmaService, TurmaService>();
             services.AddScoped<IProfessorService, ProfessorService>();
+            services.AddScoped<ISerieService, SerieService>();
             #endregion
 
             #region Repositories
             services.AddScoped<IAlunoRepository, AlunoRepository>();
+            services.AddScoped<ICursoRepository, CursoRepository>();
+            services.AddScoped<ISerieRepository, SerieRepository>();
             services.AddScoped<ICursoRepository, CursoRepository>();            
             services.AddScoped<ITurmaRepository, TurmaRepository>();            
             services.AddScoped<IProfessorRepository, ProfessorRepository>();            
