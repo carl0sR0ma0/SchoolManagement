@@ -27,7 +27,7 @@
       </b-col>
     <b-table striped hover :items="alunos" :fields="fields" :filter="filter" :filter-included-fields="filterOn">
       <template v-slot:cell(actions)= "data">
-        <b-button variant="outline-primary" @click="editar(data.id)">Editar</b-button>
+        <b-button variant="outline-primary" :to="'/Detalhe_Aluno/${alunos.ra}'" @click="editar(data.id)">Editar</b-button>
       </template>
     </b-table>
   </div>
@@ -43,6 +43,11 @@ export default {
   data() {
     return {
       alunos: [
+        {
+          ra: "123456",
+          nome:"Rafael Alves",
+           dataNascimento: "17/07/1995",
+        }
       ],
 
         fields: [
@@ -71,35 +76,12 @@ export default {
     },
   created() {
       axios.get("https://localhost:5001/Aluno/get").then((res) => {
-        console.log(res.data.data);
+        this.alunos = res.data.data;
       });
   },
 
   methods: {
-    addAluno() {
-      let _aluno = {
-        ra: this.ra,
-        nome: this.nome,
-        dataNascimento: this.dataNascimento,
-        rg: this.rg,
-        cpf: this.cpf,
-        telefone: this.telefone,
-        sexo: this.sexo,
-      };
 
-      axios.post("https://localhost:5001/Aluno/create", _aluno).then((res) => {
-        console.log(res.data.data);
-        this.alunos.push(res.data);
-      });
-
-      this.ra = "";
-      this.Nome = "";
-      this.DataNascimento = "";
-      this.Rg = "";
-      this.Cpf = "";
-      this.Telefone = "";
-      this.Sexo = "";
-    },
   },
 };
 </script>
