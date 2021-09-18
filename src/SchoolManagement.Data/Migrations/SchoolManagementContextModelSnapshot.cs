@@ -23,7 +23,9 @@ namespace SchoolManagement.Data.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CPF")
@@ -52,6 +54,74 @@ namespace SchoolManagement.Data.Migrations
                     b.ToTable("Alunos");
                 });
 
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Curso", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Coordenador")
+                        .HasMaxLength(80)
+                        .HasColumnType("VARCHAR(80)");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SerieFin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SerieIni")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cursos");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CPF")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ctps")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DataAdmissao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RG")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titulacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Professores");
+                });
+
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>
                 {
                     b.Property<long>("Id")
@@ -60,7 +130,7 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<long?>("AlunoId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("BIGINT");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
@@ -72,6 +142,65 @@ namespace SchoolManagement.Data.Migrations
                     b.ToTable("Responsavel");
                 });
 
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Serie", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CursoId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(255)
+                        .HasColumnType("VARCHAR(255)");
+
+                    b.Property<string>("Nome")
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CursoId");
+
+                    b.ToTable("Series");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Turma", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Ano")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QtdAlunos")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sigla")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Situacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Turno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Turmas");
+                });
+
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>
                 {
                     b.HasOne("SchoolManagement.Domain.Models.Aluno", null)
@@ -79,9 +208,25 @@ namespace SchoolManagement.Data.Migrations
                         .HasForeignKey("AlunoId");
                 });
 
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Serie", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Models.Curso", "Curso")
+                        .WithMany("Series")
+                        .HasForeignKey("CursoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Curso");
+                });
+
             modelBuilder.Entity("SchoolManagement.Domain.Models.Aluno", b =>
                 {
                     b.Navigation("Responsavel");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Curso", b =>
+                {
+                    b.Navigation("Series");
                 });
 #pragma warning restore 612, 618
         }
