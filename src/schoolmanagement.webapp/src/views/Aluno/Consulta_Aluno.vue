@@ -33,14 +33,8 @@
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
-    >
-      <template v-slot:cell(actions)="data">
-        <!-- <a :to="`/Detalhe_Aluno/${alunos[0].id}`">{{ data.value }}</a> -->
-        <b-button
-          variant="outline-primary"
-          :to="`/Detalhe_Aluno/${data.item.id}`"
-          >Editar</b-button
-        >
+    > <template #cell(nome)="data">
+        <a style="text-decoration: none; color: black" :href="`#/Detalhe_Aluno/${data.item.id}`">{{ data.item.nome }}</a>
       </template>
     </b-table>
   </div>
@@ -57,21 +51,12 @@ export default {
       fields: [
         {
           key: "nome",
+          label: 'Nome',
           sortable: true,
         },
         {
           key: "ra",
           sortable: false,
-        },
-        {
-          key: "dataNascimento",
-          label: "Data Nascimento",
-          sortable: false,
-          variant: "", //Colocar cor na tabela
-        },
-        {
-          key: "actions",
-          label: "Ações",
         },
       ],
       filter: null,
@@ -92,5 +77,9 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   font-family: "Poppins", sans-serif;
+}
+
+a:hover {
+  color: #f00
 }
 </style>

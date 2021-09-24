@@ -2,16 +2,7 @@
   <div class="container">
     <div class="center">
       <h1>Cadastro de Alunos</h1>
-      <div class="form-floating mb-3">
-        <input
-          v-model="ra"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          required
-        />
-        <label for="floatingInput">RA do Aluno</label>
-      </div>
+
       <div class="form-floating mb-3">
         <input
           v-model="nome"
@@ -61,37 +52,36 @@
         />
         <label for="floatingInput">Telefone</label>
       </div>
-      <fieldset class="row mb-3">
-        <!-- Corrigir => Sexo para enviar o valor CORRETO -->
-        <legend class="col-form-label col-sm-2 pt-0">Sexo</legend>
-        <div class="col-sm-10">
+            <fieldset class="row mb-3">
+        <legend class="col-form-label col-sm-2 pt-0" style="margin-left:15px">Sexo</legend>
+        <div class="col-sm">
           <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
-              name="gridRadios"
-              id="sexo0"
+              name="gridRadios1"
+              v-model="sexo"
+              value="Masculino"
               checked
             />
-            <label class="form-check-label" for="gridRadios1">
-              Masculino
-            </label>
+            <label class="form-check-label" for="gridRadios1"> Masculino </label>
           </div>
           <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
-              name="gridRadios"
-              id="sexo1"
+              name="gridRadios2"
+              v-model="sexo"
+              value="Feminino"
             />
             <label class="form-check-label" for="gridRadios2"> Feminino </label>
           </div>
         </div>
       </fieldset>
-      <div class="d-grid gap-2">
-        <button type="button" class="btn btn-success" @click="addAluno">
-          Enviar
-        </button>
+      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
+        <b-button type="button" class="btn btn-success" @click="addAluno">
+          Salvar
+        </b-button>
       </div>
     </div>
   </div>
@@ -102,6 +92,8 @@ import axios from "axios";
 
 export default {
   name: "Cadastro_Aluno",
+
+
   data() {
     return {
       ra: "",
@@ -113,7 +105,12 @@ export default {
       sexo: "",
     };
   },
+
   created() {},
+
+  randomNumber: function () {
+  this.random = Math.floor(Math.random())
+  },
 
   methods: {
     addAluno() {
