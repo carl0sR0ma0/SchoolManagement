@@ -96,7 +96,6 @@ export default {
 
   data() {
     return {
-      ra: "",
       nome: "",
       dataNascimento: "",
       rg: "",
@@ -108,14 +107,10 @@ export default {
 
   created() {},
 
-  randomNumber: function () {
-  this.random = Math.floor(Math.random())
-  },
-
   methods: {
     addAluno() {
       let _aluno = {
-        ra: this.ra,
+        ra: this.randomNumber(),
         nome: this.nome,
         dataNascimento: this.dataNascimento,
         rg: this.rg,
@@ -128,14 +123,17 @@ export default {
         console.log(res.data);
       });
 
-      this.ra = "";
-      this.Nome = "";
-      this.DataNascimento = "";
-      this.Rg = "";
-      this.Cpf = "";
-      this.Telefone = "";
-      this.Sexo = "";
+      this.nome = "";
+      this.dataNascimento = "";
+      this.rg = "";
+      this.cpf = "";
+      this.telefone = "";
+      this.sexo = "";
     },
+
+    randomNumber(){
+      return Math.floor(Math.random()*256)
+    }
   },
 };
 </script>
