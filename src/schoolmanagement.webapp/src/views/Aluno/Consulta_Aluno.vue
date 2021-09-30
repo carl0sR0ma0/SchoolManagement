@@ -35,6 +35,31 @@
       :filter-included-fields="filterOn"
     > <template #cell(nome)="data">
         <a style="text-decoration: none; color: black" :href="`#/Detalhe_Aluno/${data.item.id}`">{{ data.item.nome }}</a>
+      </template>    > 
+      <template #cell(options)=data>
+        <b-row cols="2" cols-sm="4" class="text-center">
+        <b-button v-b-modal[data.item]
+                  size="sm"
+                  variant="outline-danger" 
+                  class="mb-2"
+                  >
+          <b-icon icon="trash" aria-hidden="true"></b-icon>
+        </b-button>
+            <b-modal
+              :id="data.item"
+              ref="modal" 
+              centered title="BootstrapVue"  
+                > 
+              <p class="my-4">Deseja Realmente excluir o Aluno {{ data.item.nome }}</p>   
+            </b-modal>
+        <b-button style="margin: 0 15px;"
+                  size="sm"
+                  variant="outline-primary" 
+                  class="mb-2"
+                  >
+          <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
+        </b-button>
+        </b-row>
       </template>
     </b-table>
   </div>
@@ -47,6 +72,7 @@ export default {
   name: "Consulta_Aluno",
   data() {
     return {
+      show: false,
       alunos: [],
       fields: [
         {
@@ -56,6 +82,11 @@ export default {
         },
         {
           key: "ra",
+          sortable: false,
+        },
+        {
+          key: "options",
+          label: '',
           sortable: false,
         },
       ],
@@ -69,7 +100,7 @@ export default {
     });
   },
 
-  methods: {},
+
 };
 </script>
 
