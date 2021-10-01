@@ -147,8 +147,4 @@ export default {
 * {
   font-family: "Poppins", sans-serif;
 }
-
-a:hover {
-  color: #f00
-}
 </style>
