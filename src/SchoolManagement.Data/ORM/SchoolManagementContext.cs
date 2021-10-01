@@ -13,6 +13,7 @@ namespace SchoolManagement.Data.ORM
         public DbSet<Serie> Series { get; set; }
         public DbSet<Turma> Turmas { get; set; }
         public DbSet<Professor> Professores { get; set; }
+        public DbSet<Colaborador> Colaboradores { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,7 @@ namespace SchoolManagement.Data.ORM
             modelBuilder.ApplyConfiguration(new SerieMap());
             modelBuilder.ApplyConfiguration(new TurmaMap());
             modelBuilder.ApplyConfiguration(new ProfessorMap());
+            modelBuilder.ApplyConfiguration(new ColaboradorMap());
         }
     }
 }
