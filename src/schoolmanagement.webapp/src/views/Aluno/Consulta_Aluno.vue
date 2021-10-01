@@ -33,26 +33,18 @@
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
-    > <template #cell(nome)="data">
-        <a style="text-decoration: none; color: black" :href="`#/Detalhe_Aluno/${data.item.id}`">{{ data.item.nome }}</a>
-      </template>    > 
-      <template #cell(options)=data>
+    > 
+      <template v-slot:cell(options)="data">
         <b-row cols="2" cols-sm="4" class="text-center">
-        <b-button v-b-modal[data.item]
+        <b-button @click="Excluir(data)"
                   size="sm"
                   variant="outline-danger" 
                   class="mb-2"
                   >
           <b-icon icon="trash" aria-hidden="true"></b-icon>
         </b-button>
-            <b-modal
-              :id="data.item"
-              ref="modal" 
-              centered title="BootstrapVue"  
-                > 
-              <p class="my-4">Deseja Realmente excluir o Aluno {{ data.item.nome }}</p>   
-            </b-modal>
-        <b-button style="margin: 0 15px;"
+        <b-button @click="Editar(data)"
+                  style="margin: 0 15px;"
                   size="sm"
                   variant="outline-primary" 
                   class="mb-2"
@@ -62,6 +54,46 @@
         </b-row>
       </template>
     </b-table>
+    <b-modal centered ref="modalExcluir" >
+      <template v-slot:modal-header>
+        <b-container class="mb-2">
+          <b-icon scale="2.5" style="display: block; margin-left: auto; margin-right: auto" icon="exclamation-diamond" variant="danger"></b-icon>
+        </b-container>
+      </template>
+      <b-container fluid> Deseja Realmente Remover o Aluno ?</b-container>
+      <template v-slot:modal-footer="{hide, ok}">
+        <b-button variant="outline-danger" @click="hide()" > Não </b-button>
+        <b-button variant="outline-success" @click="ok()" > Sim </b-button>
+      </template>
+    </b-modal>
+    <b-modal centered ref="modalEditar" >
+      <template v-slot:modal-header>
+          <h5 style="margin: 0 10px; color:blue" >Editando o Aluno - Nome do Aluno</h5>
+      </template>
+        <b-container fluid> 
+          <form>
+            <b-form-group label="Nome" label-for="name-input">
+              <b-form-input
+                id="nome"
+                v-model="name"
+                required
+              > Nome do Aluno </b-form-input>
+            </b-form-group>
+            <b-form-group label="Data de Nascimento" label-for="name-input">
+              <b-form-input
+                id="datanascimento"
+                v-model="name"
+                type="date"
+                required
+              > Nome do Aluno </b-form-input>
+            </b-form-group>
+          </form>
+        </b-container>
+      <template v-slot:modal-footer="{hide, ok}">
+        <b-button variant="outline-danger" @click="hide()" > Cancelar </b-button>
+        <b-button variant="outline-success" @click="ok()" > Salvar </b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -82,17 +114,23 @@ export default {
         },
         {
           key: "ra",
-          sortable: false,
         },
         {
           key: "options",
           label: '',
-          sortable: false,
         },
       ],
       filter: null,
       filterOn: [],
     };
+  },
+  methods: {
+    Excluir(){
+      this.$refs.modalExcluir.show();
+    },
+    Editar(){
+      this.$refs.modalEditar.show();
+    },
   },
   created() {
     axios.get("https://localhost:5001/Aluno/get").then((res) => {
