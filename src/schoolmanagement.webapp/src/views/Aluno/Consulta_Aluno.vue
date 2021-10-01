@@ -73,15 +73,15 @@
         <b-container fluid> 
           <form>
             <label>Aluno</label>
-            <b-form-input v-model="aluno.nome">
+            <b-form-input />
             <label>RG</label>
-            <b-form-input v-model="aluno.rg" />
+            <b-form-input />
             <label>CPF</label>
-            <b-form-input v-model="aluno.cpf" />
+            <b-form-input />
             <label>Data de Nascimento</label>
-            <b-form-input v-model="aluno.dataNascimento" />
+            <b-form-input />
             <label>Telefone</label>
-            <b-form-input v-model="aluno.telefone" />
+            <b-form-input />
           </form>
         </b-container>
       <template v-slot:modal-footer="{hide, ok}">
