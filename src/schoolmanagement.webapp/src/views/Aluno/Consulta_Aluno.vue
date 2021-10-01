@@ -72,21 +72,16 @@
       </template>
         <b-container fluid> 
           <form>
-            <b-form-group label="Nome" label-for="name-input">
-              <b-form-input
-                id="nome"
-                v-model="name"
-                required
-              > Nome do Aluno </b-form-input>
-            </b-form-group>
-            <b-form-group label="Data de Nascimento" label-for="name-input">
-              <b-form-input
-                id="datanascimento"
-                v-model="name"
-                type="date"
-                required
-              > Nome do Aluno </b-form-input>
-            </b-form-group>
+            <label>Aluno</label>
+            <b-form-input v-model="aluno.nome">
+            <label>RG</label>
+            <b-form-input v-model="aluno.rg" />
+            <label>CPF</label>
+            <b-form-input v-model="aluno.cpf" />
+            <label>Data de Nascimento</label>
+            <b-form-input v-model="aluno.dataNascimento" />
+            <label>Telefone</label>
+            <b-form-input v-model="aluno.telefone" />
           </form>
         </b-container>
       <template v-slot:modal-footer="{hide, ok}">
