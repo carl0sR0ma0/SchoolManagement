@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="center">
-      <h1>Consulta de Alunos</h1>
+      <h1>Consulta de Curso</h1>
     </div>
     <b-col lg="6" class="my-1">
       <b-form-group
@@ -16,7 +16,7 @@
             id="filter-input"
             v-model="filter"
             type="search"
-            placeholder="Procurar Aluno"
+            placeholder="Procurar Curso"
           ></b-form-input>
 
           <b-input-group-append style="margin-left: 10px">
@@ -29,12 +29,12 @@
     <b-table
       striped
       hover
-      :items="alunos"
+      :items="cursos"
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
     > <template #cell(nome)="data">
-        <a style="text-decoration: none; color: black" :href="`#/Detalhe_Aluno/${data.item.id}`">{{ data.item.nome }}</a>
+        <a style="text-decoration: none; color: black" :href="`#/Detalhe_Curso/${data.item.id}`">{{ data.item.nome }}</a>
       </template>
     </b-table>
   </div>
@@ -44,10 +44,10 @@
 import axios from "axios";
 
 export default {
-  name: "Consulta_Aluno",
+  name: "Consulta_Curso",
   data() {
     return {
-      alunos: [],
+      cursos: [],
       fields: [
         {
           key: "nome",
@@ -55,7 +55,7 @@ export default {
           sortable: true,
         },
         {
-          key: "ra",
+          key: "id",
           sortable: false,
         },
       ],
@@ -64,8 +64,11 @@ export default {
     };
   },
   created() {
-    axios.get("https://localhost:5001/Aluno/get").then((res) => {
-      this.alunos = res.data.data;
+    axios.get("https://localhost:5001/Curso/get").then((res) => {
+      this.cursos = res.data.data;
+
+//Comando para visualizar no console do navegador, se os campos estão batendo com o backend
+      console.log('this.cursos :>> ', this.cursos);
     });
   },
 
