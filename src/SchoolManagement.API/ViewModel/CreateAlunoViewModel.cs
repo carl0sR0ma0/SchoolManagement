@@ -16,5 +16,10 @@ namespace SchoolManagement.API.ViewModel
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
         public long RA { get; set; }
+        public string CEP { get; set; }
+        public string Logradouro { get; set; }
+        public string Numero { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
     }
 }

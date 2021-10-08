@@ -2,30 +2,24 @@
 using SchoolManagement.Data.ORM;
 using SchoolManagement.Domain.Interfaces;
 using SchoolManagement.Domain.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Repositories
 {
-    public class TurmaRepository : Repository<Turma>, ITurmaRepository
+    public class ColaboradorRepository : Repository<Colaborador>, IColaboradorRepository
     {
-        public TurmaRepository(SchoolManagementContext context) : base(context)
+        public ColaboradorRepository(SchoolManagementContext context) : base(context) { }
+        public virtual async Task<List<Colaborador>> Get()
         {
+            return await _context.Set<Colaborador>().AsNoTracking().ToListAsync();
         }
-        public virtual async Task<List<Turma>> Get()
+        public virtual async Task<Colaborador> Get(long id)
         {
-            return await _context.Set<Turma>().Include(x => x.Serie).AsNoTracking().ToListAsync();
-        }
-
-        public virtual async Task<Turma> Get(long id)
-        {
-            var obj = await _context.Set<Turma>()
+            var obj = await _context.Set<Colaborador>()
                 .AsNoTracking()
                 .Where(x => x.Id == id)
-                .Include(x => x.Serie)
                 .ToListAsync();
 
             return obj.FirstOrDefault();
@@ -34,7 +28,8 @@ namespace SchoolManagement.Data.Repositories
         public virtual async Task Remove(long id)
         {
             var obj = await Get(id);
-            if (obj != null )
+
+            if (obj != null)
             {
                 _context.Remove(obj);
                 await _context.SaveChangesAsync();
@@ -42,3 +37,4 @@ namespace SchoolManagement.Data.Repositories
         }
     }
 }
+

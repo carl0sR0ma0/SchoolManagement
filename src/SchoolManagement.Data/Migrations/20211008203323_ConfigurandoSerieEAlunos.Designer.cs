@@ -3,21 +3,50 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20211008203323_ConfigurandoSerieEAlunos")]
+    partial class ConfigurandoSerieEAlunos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("SchoolManagement.Domain.Entities.Endereco", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bairro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CEP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logradouro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Numero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Enderecos");
+                });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Aluno", b =>
                 {
@@ -28,28 +57,16 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Bairro")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CEP")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CPF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cidade")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Logradouro")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("EnderecoId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Numero")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("RA")
@@ -66,6 +83,8 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnderecoId");
+
                     b.ToTable("Alunos");
                 });
 
@@ -78,22 +97,13 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Bairro")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CEP")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CPF")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("CPTS")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Cargo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cidade")
+                    b.Property<string>("Ctps")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataAdmissao")
@@ -102,16 +112,10 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Formacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logradouro")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("EnderecoId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Numero")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RG")
@@ -124,6 +128,8 @@ namespace SchoolManagement.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnderecoId");
 
                     b.ToTable("Colaboradores");
                 });
@@ -164,19 +170,10 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Bairro")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CEP")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CPF")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CPTS")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Cidade")
+                    b.Property<string>("Ctps")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataAdmissao")
@@ -185,19 +182,10 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Formacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Licenca")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logradouro")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("EnderecoId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Numero")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RG")
@@ -214,6 +202,8 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EnderecoId");
+
                     b.ToTable("Professores");
                 });
 
@@ -226,12 +216,6 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<long?>("AlunoId")
                         .HasColumnType("BIGINT");
-
-                    b.Property<string>("CPF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
@@ -302,6 +286,39 @@ namespace SchoolManagement.Data.Migrations
                     b.HasIndex("SerieId");
 
                     b.ToTable("Turmas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Aluno", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Entities.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Colaborador", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Entities.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Entities.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>

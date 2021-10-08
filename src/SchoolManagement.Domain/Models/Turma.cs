@@ -15,21 +15,23 @@ namespace SchoolManagement.Domain.Models
         {
         }
 
-        public Turma(string nome, string turno, string ano, string qtdAlunos, string sigla, string situacao)
+        public Turma(string nome, string turno, string ano, string sigla, string situacao, long serieId)
         {
             Nome = nome;
             Turno = turno;
             Ano = ano;
-            QtdAlunos = qtdAlunos;
             Sigla = sigla;
             Situacao = situacao;
+            SerieId = serieId;
         }
         public string Nome { get; set; }
         public string Turno { get; set; }
         public string Ano { get; set; }
-        public string QtdAlunos { get; set; }
         public string Sigla { get; set; }
         public string Situacao { get; set; }
+
+        public long SerieId { get; set; }
+        public Serie Serie { get; set; }
 
         public override bool Validate()
         {

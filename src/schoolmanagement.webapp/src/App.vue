@@ -81,6 +81,11 @@ export default {
               title: "Consulta_Professor",
               icon: "fa fa-file-alt",
             },
+            {
+              href: "/Consulta_Curso",
+              title: "Consulta_Curso",
+              icon: "fa fa-file-alt",
+            },
           ],
         },
       ],

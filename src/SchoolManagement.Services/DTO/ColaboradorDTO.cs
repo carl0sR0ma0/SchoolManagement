@@ -3,11 +3,11 @@ using System;
 
 namespace SchoolManagement.Services.DTO
 {
-    public class ProfessorDTO
+    public class ColaboradorDTO
     {
-        public ProfessorDTO() { }
+        public ColaboradorDTO() { }
 
-        public ProfessorDTO(long id, string nome, DateTime dataNascimento, string rG, string cPF, Sexo sexo, string telefone, long ctps, string licenca, string titulacao, DateTime dataAdmissao)
+        public ColaboradorDTO(long id, string nome, DateTime dataNascimento, string rG, string cPF, Sexo sexo, string telefone, long ctps, string cargo, DateTime dataAdmissao)
         {
             Id = id;
             Nome = nome;
@@ -17,8 +17,7 @@ namespace SchoolManagement.Services.DTO
             Sexo = sexo;
             Telefone = telefone;
             CTPS = ctps;
-            Licenca = licenca;
-            Titulacao = titulacao;
+            Cargo = cargo;
             DataAdmissao = dataAdmissao;
 
         }
@@ -31,8 +30,7 @@ namespace SchoolManagement.Services.DTO
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
         public long CTPS { get; set; }
-        public string Licenca { get; set; }
-        public string Titulacao { get; set; }
+        public string Cargo { get; set; }
         public DateTime DataAdmissao { get; set; }
     }
 }
