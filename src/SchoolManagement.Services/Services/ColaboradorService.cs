@@ -30,11 +30,9 @@ namespace SchoolManagement.Services.Services
                 colaboradorDTO.CPF,
                 colaboradorDTO.Sexo,
                 colaboradorDTO.Telefone,
-                colaboradorDTO.Ctps,
+                colaboradorDTO.CTPS,
                 colaboradorDTO.Cargo,
                 colaboradorDTO.DataAdmissao);
-
-
 
             colaborador.Validate();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Data.Mappings;
+using SchoolManagement.Domain.Entities;
 using SchoolManagement.Domain.Models;
 
 namespace SchoolManagement.Data.ORM

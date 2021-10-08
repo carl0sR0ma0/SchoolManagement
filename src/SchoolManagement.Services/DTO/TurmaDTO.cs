@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolManagement.Services.DTO
+﻿namespace SchoolManagement.Services.DTO
 {
     public class TurmaDTO
     {
@@ -12,7 +6,7 @@ namespace SchoolManagement.Services.DTO
         {
         }
 
-        public TurmaDTO(long id, string nome, string turno, string ano, string qtdAlunos, string sigla, string situacao)
+        public TurmaDTO(long id, string nome, string turno, string ano, string qtdAlunos, string sigla, string situacao, long serieId, SerieDTO serie)
         {
             Id = id;
             Nome = nome;
@@ -21,6 +15,8 @@ namespace SchoolManagement.Services.DTO
             QtdAlunos = qtdAlunos;
             Sigla = sigla;
             Situacao = situacao;
+            SerieId = serieId;
+            Serie = serie;
         }
 
         public long Id { get; set; }
@@ -30,6 +26,9 @@ namespace SchoolManagement.Services.DTO
         public string QtdAlunos { get; set; }
         public string Sigla { get; set; }
         public string Situacao { get; set; }
+
+        public long SerieId { get; set; }
+        public SerieDTO Serie { get; set; }
     }
 }
 

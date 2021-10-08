@@ -7,12 +7,13 @@ using System.Collections.Generic;
 
 namespace SchoolManagement.Domain.Models
 {
-    public class Colaborador : Pessoa
+    public class Colaborador : Funcionario
     {
         protected Colaborador() 
         {
         }
-        public Colaborador (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, string _ctps, string _cargo, DateTime _dataAdmissao)
+
+        public Colaborador (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ctps, string _cargo, DateTime _dataAdmissao)
         {
             Nome = _nome;
             DataNascimento = _dataNascimento;
@@ -20,7 +21,7 @@ namespace SchoolManagement.Domain.Models
             CPF = _cpf;
             Sexo = _sexo;
             Telefone = _telefone;
-            Ctps = _ctps;
+            CPTS = _ctps;
             Cargo = _cargo;
             DataAdmissao = _dataAdmissao; 
             _errors = new List<string>();
@@ -28,9 +29,7 @@ namespace SchoolManagement.Domain.Models
             Validate();
         }
 
-        public string Ctps { get; set; }
         public string Cargo { get; set; }
-        public DateTime DataAdmissao { get; set; }
 
         public override bool Validate()
         {

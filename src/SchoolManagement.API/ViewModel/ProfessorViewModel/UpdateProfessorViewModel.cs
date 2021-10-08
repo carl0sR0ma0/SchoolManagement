@@ -22,7 +22,8 @@ namespace SchoolManagement.API.ViewModel.ProfessorViewModel
         public string CPF { get; set; }
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
-        public string Ctps { get; set; }
+        public long CTPS { get; set; }
+        public string Licenca { get; set; }
         public string Titulacao { get; set; }
         public DateTime DataAdmissao { get; set; }
     }

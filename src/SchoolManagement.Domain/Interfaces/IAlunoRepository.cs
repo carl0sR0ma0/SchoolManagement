@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Domain.Models;
+﻿using SchoolManagement.Domain.Entities;
+using SchoolManagement.Domain.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
