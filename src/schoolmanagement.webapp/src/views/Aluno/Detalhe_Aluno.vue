@@ -1,12 +1,13 @@
 <template>
   <div class="container">
     <div class="center">
+      <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
+      >Voltar</b-button>
       <h1>{{ aluno.nome }}</h1>
     </div>
-    <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
-      >Voltar</b-button
-    >
-    <table class="content-table">
+
+    <div class="table-center">
+    <table  class="content-table">
       <tbody>
         <tr>
           <td>Ra</td>
@@ -55,29 +56,17 @@
             <label for="">{{ aluno.sexo }}</label>
           </td>
         </tr>
-        <tr>
-          <td>
-            <b-button
-              v-if="visualizando"
-              variant="outline-primary"
-              @click="EditarAluno()"
-              >Editar</b-button
-            >
-            <b-button v-else variant="outline-danger" @click="Cancelar()"
-              >Cancelar</b-button
-            >
-          </td>
-        </tr>
         <tr v-if="!visualizando">
           <td></td>
           <td>
-            <b-button variant="outline-sucess" @click="SalvarAluno()"
-              >Salvar</b-button
-            >
           </td>
         </tr>
       </tbody>
-    </table>
+    </table>            
+    <b-button variant="outline-success" @click="SalvarAluno()">Salvar</b-button>            
+    <b-button v-if="visualizando" variant="outline-primary" @click="EditarAluno()">Editar</b-button>
+    <b-button v-else variant="outline-danger" @click="Cancelar()">Cancelar</b-button>
+    </div>
   </div>
 </template>
 
@@ -130,6 +119,15 @@ export default {
 <style scoped>
 .btnVoltar {
   float: right;
+  margin-top: 25px; 
+}
+
+.table-center{        
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)         
 }
 
 .content-table {

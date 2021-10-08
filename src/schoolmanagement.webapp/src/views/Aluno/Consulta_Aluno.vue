@@ -33,16 +33,62 @@
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
-    >
-      <template v-slot:cell(actions)="data">
-        <!-- <a :to="`/Detalhe_Aluno/${alunos[0].id}`">{{ data.value }}</a> -->
-        <b-button
-          variant="outline-primary"
-          :to="`/Detalhe_Aluno/${data.item.id}`"
-          >Editar</b-button
-        >
+    > 
+      <template v-slot:cell(options)="data">
+        <b-row cols="2" cols-sm="4" class="text-center">
+        <b-button @click="Excluir(data)"
+                  size="sm"
+                  variant="outline-danger" 
+                  class="mb-2"
+                  >
+          <b-icon icon="trash" aria-hidden="true"></b-icon>
+        </b-button>
+        <b-button @click="Editar(data)"
+                  style="margin: 0 15px;"
+                  size="sm"
+                  variant="outline-primary" 
+                  class="mb-2"
+                  >
+          <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
+        </b-button>
+        </b-row>
       </template>
     </b-table>
+    <b-modal centered ref="modalExcluir" >
+      <template v-slot:modal-header>
+        <b-container class="mb-2">
+          <b-icon scale="2.5" style="display: block; margin-left: auto; margin-right: auto" icon="exclamation-diamond" variant="danger"></b-icon>
+        </b-container>
+      </template>
+      <b-container fluid> Deseja Realmente Remover o Aluno ?</b-container>
+      <template v-slot:modal-footer="{hide, ok}">
+        <b-button variant="outline-danger" @click="hide()" > Não </b-button>
+        <b-button variant="outline-success" @click="ok()" > Sim </b-button>
+      </template>
+    </b-modal>
+    <b-modal centered ref="modalEditar" >
+      <template v-slot:modal-header>
+          <h5 style="margin: 0 10px; color:blue" >Editando o Aluno - Nome do Aluno</h5>
+      </template>
+        <b-container fluid> 
+          <form>
+            <label>Aluno</label>
+            <b-form-input />
+            <label>RG</label>
+            <b-form-input />
+            <label>CPF</label>
+            <b-form-input />
+            <label>Data de Nascimento</label>
+            <b-form-input />
+            <label>Telefone</label>
+            <b-form-input />
+          </form>
+        </b-container>
+      <template v-slot:modal-footer="{hide, ok}">
+        <b-button variant="outline-danger" @click="hide()" > Cancelar </b-button>
+        <b-button variant="outline-success" @click="ok()" > Salvar </b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -53,30 +99,33 @@ export default {
   name: "Consulta_Aluno",
   data() {
     return {
+      show: false,
       alunos: [],
       fields: [
         {
           key: "nome",
+          label: 'Nome',
           sortable: true,
         },
         {
           key: "ra",
-          sortable: false,
         },
         {
-          key: "dataNascimento",
-          label: "Data Nascimento",
-          sortable: false,
-          variant: "", //Colocar cor na tabela
-        },
-        {
-          key: "actions",
-          label: "Ações",
+          key: "options",
+          label: '',
         },
       ],
       filter: null,
       filterOn: [],
     };
+  },
+  methods: {
+    Excluir(){
+      this.$refs.modalExcluir.show();
+    },
+    Editar(){
+      this.$refs.modalEditar.show();
+    },
   },
   created() {
     axios.get("https://localhost:5001/Aluno/get").then((res) => {
@@ -84,7 +133,7 @@ export default {
     });
   },
 
-  methods: {},
+
 };
 </script>
 
