@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.API.ViewModel.ProfessorViewModel
+namespace SchoolManagement.API.ViewModel.ColaboradorViewModel
 {
-    public class CreateProfessorViewModel
+    public class CreateColaboradorViewModel
     {
 
         [Required(ErrorMessage = "O nome não pode ser nulo.")]
@@ -19,9 +19,8 @@ namespace SchoolManagement.API.ViewModel.ProfessorViewModel
         public string CPF { get; set; }
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
-        public long CTPS { get; set; }
-        public string Licenca { get; set; }
-        public string Titulacao { get; set; }
+        public long Ctps { get; set; }
+        public string Cargo { get; set; }
         public DateTime DataAdmissao { get; set; }
     }
 }

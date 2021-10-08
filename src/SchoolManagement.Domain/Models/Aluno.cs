@@ -12,7 +12,7 @@ namespace SchoolManagement.Domain.Models
         // CONSTRUTORES
         protected Aluno() {}
 
-        public Aluno (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ra)
+        public Aluno (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ra, string _cep, string _logradouro, string _numero, string _bairro, string _cidade)
         {
             Nome = _nome;
             DataNascimento = _dataNascimento;
@@ -21,6 +21,11 @@ namespace SchoolManagement.Domain.Models
             Sexo = _sexo;
             Telefone = _telefone;
             RA = _ra;
+            CEP = _cep;
+            Logradouro = _logradouro;
+            Numero = _numero;
+            Bairro = _bairro;
+            Cidade = _cidade;
             _errors = new List<string>();
             Responsavel = new List<Responsavel>();
 
@@ -57,5 +62,7 @@ namespace SchoolManagement.Domain.Models
     {
         public long Id { get; set; }
         public string Nome { get; set; }
+        public string CPF { get; set; }
+        public string Email { get; set; }
     }
 }

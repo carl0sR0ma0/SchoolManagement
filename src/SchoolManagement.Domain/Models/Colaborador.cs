@@ -7,12 +7,13 @@ using System.Collections.Generic;
 
 namespace SchoolManagement.Domain.Models
 {
-    public class Professor : Funcionario
+    public class Colaborador : Funcionario
     {
-        protected Professor() 
+        protected Colaborador() 
         {
         }
-        public Professor (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ctps, string _licenca, string _titulacao, DateTime _dataAdmissao)
+
+        public Colaborador (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ctps, string _cargo, DateTime _dataAdmissao)
         {
             Nome = _nome;
             DataNascimento = _dataNascimento;
@@ -21,20 +22,18 @@ namespace SchoolManagement.Domain.Models
             Sexo = _sexo;
             Telefone = _telefone;
             CPTS = _ctps;
-            Licenca = _licenca;
-            Titulacao = _titulacao;
+            Cargo = _cargo;
             DataAdmissao = _dataAdmissao; 
             _errors = new List<string>();
 
             Validate();
         }
 
-        public string Licenca { get; set; }
-        public string Titulacao { get; set; }
+        public string Cargo { get; set; }
 
         public override bool Validate()
         {
-            var validator = new ProfessorValidator();
+            var validator = new ColaboradorValidator();
             var validation = validator.Validate(this);
 
             if (!validation.IsValid)
