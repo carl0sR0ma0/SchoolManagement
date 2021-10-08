@@ -13,6 +13,11 @@ namespace SchoolManagement.Domain.Entities
         public string CPF { get; set; }
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
+        public string CEP { get; set; }
+        public string Logradouro { get; set; }
+        public string Numero { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
 
         public override bool Validate()
         {

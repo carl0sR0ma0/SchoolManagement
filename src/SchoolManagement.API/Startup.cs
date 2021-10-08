@@ -40,12 +40,11 @@ namespace SchoolManagement.API
 
                 cfg.CreateMap<Curso, CursoDTO>().ReverseMap();
                 cfg.CreateMap<CreateCursoViewModel, CursoDTO>().ReverseMap();
-                cfg.CreateMap<UpdateSerieViewModel, CursoDTO>().ReverseMap();
+                cfg.CreateMap<UpdateCursoViewModel, CursoDTO>().ReverseMap();
                 
                 cfg.CreateMap<Serie, SerieDTO>().ReverseMap();
                 cfg.CreateMap<CreateSerieViewModel, SerieDTO>().ReverseMap();
                 cfg.CreateMap<UpdateSerieViewModel, SerieDTO>().ReverseMap();
-                cfg.CreateMap<UpdateCursoViewModel, CursoDTO>().ReverseMap();
 
                 cfg.CreateMap<Turma, TurmaDTO>().ReverseMap();
                 cfg.CreateMap<CreateTurmaViewModel, TurmaDTO>().ReverseMap();
@@ -59,6 +58,7 @@ namespace SchoolManagement.API
                 cfg.CreateMap<CreateColaboradorViewModel, ColaboradorDTO>().ReverseMap();
                 cfg.CreateMap<UpdateColaboradorViewModel, ColaboradorDTO>().ReverseMap();
             });
+
             services.AddSingleton(autoMapperConfig.CreateMapper());
             services.AddSwaggerGen(c =>
             {

@@ -19,7 +19,7 @@ namespace SchoolManagement.API.ViewModel.ColaboradorViewModel
         public string CPF { get; set; }
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
-        public string Ctps { get; set; }
+        public long Ctps { get; set; }
         public string Cargo { get; set; }
         public DateTime DataAdmissao { get; set; }
     }

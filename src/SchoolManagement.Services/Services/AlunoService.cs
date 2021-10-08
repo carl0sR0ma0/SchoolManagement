@@ -33,7 +33,13 @@ namespace SchoolManagement.Services.Services
                 alunoDTO.RG, alunoDTO.CPF,
                 alunoDTO.Sexo,
                 alunoDTO.Telefone,
-                alunoDTO.RA);
+                alunoDTO.RA,
+                alunoDTO.CEP,
+                alunoDTO.Logradouro,
+                alunoDTO.Numero,
+                alunoDTO.Bairro,
+                alunoDTO.Cidade
+            );
 
             aluno.Validate();
 
