@@ -39,7 +39,8 @@ namespace SchoolManagement.Services.Services
 
         public async Task<TurmaDTO> Post(TurmaDTO turmaDTO)
         {
-            Turma turma = new Turma(turmaDTO.Nome, turmaDTO.Turno, turmaDTO.Ano, turmaDTO.QtdAlunos, turmaDTO.Sigla, turmaDTO.Situacao);
+            Turma turma = new Turma(turmaDTO.Nome, turmaDTO.Turno, turmaDTO.Ano, turmaDTO.Sigla, turmaDTO.Situacao, turmaDTO.SerieId);
+
             turma.Validate();
 
             var turmaCreated = await _repository.Create(turma);

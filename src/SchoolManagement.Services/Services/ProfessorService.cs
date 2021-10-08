@@ -30,10 +30,10 @@ namespace SchoolManagement.Services.Services
                 professorDTO.CPF,
                 professorDTO.Sexo,
                 professorDTO.Telefone,
-                professorDTO.Ctps,
+                professorDTO.CTPS,
+                professorDTO.Licenca,
                 professorDTO.Titulacao,
                 professorDTO.DataAdmissao);
-
 
 
             professor.Validate();

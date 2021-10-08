@@ -7,7 +7,7 @@ namespace SchoolManagement.Services.DTO
     {
         public ProfessorDTO() { }
 
-        public ProfessorDTO(long id, string nome, DateTime dataNascimento, string rG, string cPF, Sexo sexo, string telefone, string ctps, string titulacao, DateTime dataAdmissao)
+        public ProfessorDTO(long id, string nome, DateTime dataNascimento, string rG, string cPF, Sexo sexo, string telefone, long ctps, string licenca, string titulacao, DateTime dataAdmissao)
         {
             Id = id;
             Nome = nome;
@@ -16,7 +16,8 @@ namespace SchoolManagement.Services.DTO
             CPF = cPF;
             Sexo = sexo;
             Telefone = telefone;
-            Ctps = ctps;
+            CTPS = ctps;
+            Licenca = licenca;
             Titulacao = titulacao;
             DataAdmissao = dataAdmissao;
 
@@ -29,7 +30,8 @@ namespace SchoolManagement.Services.DTO
         public string CPF { get; set; }
         public Sexo Sexo { get; set; }
         public string Telefone { get; set; }
-        public string Ctps { get; set; }
+        public long CTPS { get; set; }
+        public string Licenca { get; set; }
         public string Titulacao { get; set; }
         public DateTime DataAdmissao { get; set; }
     }

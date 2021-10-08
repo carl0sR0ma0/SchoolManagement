@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20211008221517_ReconfigurandoTabelaAluno")]
+    partial class ReconfigurandoTabelaAluno
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,13 +89,13 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<string>("CPF")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CPTS")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Cargo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ctps")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataAdmissao")
@@ -101,9 +103,6 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Formacao")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logradouro")
                         .HasColumnType("nvarchar(max)");
@@ -173,10 +172,10 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<string>("CPF")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CPTS")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Cidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ctps")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataAdmissao")
@@ -184,12 +183,6 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Formacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Licenca")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logradouro")
                         .HasColumnType("nvarchar(max)");
@@ -226,12 +219,6 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<long?>("AlunoId")
                         .HasColumnType("BIGINT");
-
-                    b.Property<string>("CPF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");

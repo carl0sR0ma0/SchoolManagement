@@ -15,6 +15,12 @@ namespace SchoolManagement.Data.Mappings
             builder.Property(t => t.Id)
                 .UseIdentityColumn()
                 .HasColumnType("BIGINT");
+
+            builder.HasOne(t => t.Serie)
+                .WithMany()
+                .HasForeignKey(t => t.SerieId)
+                .HasPrincipalKey(t => t.Id)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

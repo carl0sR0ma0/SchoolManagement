@@ -17,9 +17,10 @@ namespace SchoolManagement.API.ViewModel.TurmaViewModel
 
         public string Turno { get; set; }
         public string Ano { get; set; }
-        public string QtdAlunos { get; set; }
         public string Sigla { get; set; }
         public string Situacao { get; set; }
+
+        public long SerieId { get; set; }
     }
 }
 

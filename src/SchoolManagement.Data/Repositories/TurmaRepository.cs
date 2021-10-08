@@ -17,7 +17,7 @@ namespace SchoolManagement.Data.Repositories
         }
         public virtual async Task<List<Turma>> Get()
         {
-            return await _context.Set<Turma>().AsNoTracking().ToListAsync();
+            return await _context.Set<Turma>().Include(x => x.Serie).AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<Turma> Get(long id)
@@ -25,6 +25,7 @@ namespace SchoolManagement.Data.Repositories
             var obj = await _context.Set<Turma>()
                 .AsNoTracking()
                 .Where(x => x.Id == id)
+                .Include(x => x.Serie)
                 .ToListAsync();
 
             return obj.FirstOrDefault();
