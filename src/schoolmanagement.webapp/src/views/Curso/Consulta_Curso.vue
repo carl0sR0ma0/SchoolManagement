@@ -1,8 +1,8 @@
 <template>
+<div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Consulta de Curso</h1>
-    </div>
+      <h1>Consulta de Alunos</h1>
     <b-col lg="6" class="my-1">
       <b-form-group
         label-for="filter-input"
@@ -16,7 +16,7 @@
             id="filter-input"
             v-model="filter"
             type="search"
-            placeholder="Procurar Curso"
+            placeholder="Procurar Aluno"
           ></b-form-input>
 
           <b-input-group-append style="margin-left: 10px">
@@ -29,25 +29,62 @@
     <b-table
       striped
       hover
-      :items="cursos"
+      :items="alunos"
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
-    > <template #cell(nome)="data">
-        <a style="text-decoration: none; color: black" :href="`#/Detalhe_Curso/${data.item.id}`">{{ data.item.nome }}</a>
+    > 
+      <template v-slot:cell(options)="data">
+        <b-row cols="2" cols-sm="4" class="text-center">
+        <b-button @click="Excluir(data.item.id)"
+                  v-b-modal="'ModalExcluir'"
+                  size="sm"
+                  variant="outline-danger" 
+                  class="mb-2"
+                  >
+          <b-icon icon="trash" aria-hidden="true"></b-icon>
+        </b-button>
+        <b-button :href="`#/Detalhe_Aluno/${data.item.id}`"
+                  style="margin: 0 15px;"
+                  size="sm"
+                  variant="outline-primary" 
+                  class="mb-2"
+                  >
+          <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
+        </b-button>
+        </b-row>
       </template>
     </b-table>
   </div>
+    <b-modal ref="ModalExcluir"
+           id="ModalExcluir"
+           body-bg-variant="danger"
+           body-text-variant="light"
+           centered 
+           hide-footer
+           hide-header
+           >
+      <b-container fluid>
+        <b-row class="mb-1 text-center">
+          <b-col cols="3"></b-col>
+          <b-col>Aluno Excluído</b-col>
+          <b-col><b-button @click="close()">OK</b-button></b-col>
+        </b-row>
+      </b-container>
+  </b-modal>
+  </div>
+</div>
 </template>
 
 <script>
 import axios from "axios";
 
 export default {
-  name: "Consulta_Curso",
+  name: "Consulta_Aluno",
   data() {
     return {
-      cursos: [],
+      show: false,
+      alunos: [],
       fields: [
         {
           key: "nome",
@@ -55,24 +92,40 @@ export default {
           sortable: true,
         },
         {
-          key: "id",
-          sortable: false,
+          key: "ra",
+        },
+        {
+          key: "options",
+          label: '',
         },
       ],
       filter: null,
       filterOn: [],
     };
   },
-  created() {
-    axios.get("https://localhost:5001/Curso/get").then((res) => {
-      this.cursos = res.data.data;
-
-//Comando para visualizar no console do navegador, se os campos estão batendo com o backend
-      console.log('this.cursos :>> ', this.cursos);
+  methods: {
+    CarregarAlunos(){
+      axios.get("https://localhost:5001/Aluno/get").then((res) => {
+      this.alunos = res.data.data;
     });
+    },
+
+    Excluir(id){
+      axios.delete(`https://localhost:5001/Aluno/delete/${id}`);
+    },
+
+    close(){
+      this.CarregarAlunos();
+      this.$refs.ModalExcluir.hide();
+    }
   },
 
-  methods: {},
+  created() {
+    this.CarregarAlunos();
+  },
+
+
+
 };
 </script>
 
@@ -80,9 +133,5 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   font-family: "Poppins", sans-serif;
-}
-
-a:hover {
-  color: #f00
 }
 </style>

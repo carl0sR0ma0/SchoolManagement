@@ -1,10 +1,11 @@
 <template>
+<div class="temp">
   <div class="container">
     <div class="center">
       <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
       >Voltar</b-button>
       <h1>Editando o Aluno: {{ aluno.nome }}</h1>
-    </div>
+
      <div class="form-floating mb-3">
         <input
           type="text"
@@ -113,12 +114,15 @@
     <b-button variant="outline-success" @click="SalvarAluno()">Salvar</b-button> 
     </div>           
     </div>
+  </div>
+</div>
 </template>
 
 <script>
 import axios from "axios";
 
 export default {
+  name: "Detalhe_Aluno",
   components: {},
   data() {
     return {

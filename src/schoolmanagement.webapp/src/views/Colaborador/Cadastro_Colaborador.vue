@@ -152,7 +152,9 @@
            hide-footer
            >
       <template v-slot:modal-header="{close}">
+      <div center>
         Aluno Cadastrado
+      </div>
       <b-button @click="close">
         <b-icon icon="arrow90deg-left"/>
       </b-button>
@@ -170,7 +172,7 @@
 import axios from "axios";
 
 export default {
-  name: "Cadastro_Aluno",
+  name: "Cadastro_Colaborador",
 
 
   data() {
@@ -242,6 +244,11 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 .temp {
   margin: 0;
   padding: 0;
