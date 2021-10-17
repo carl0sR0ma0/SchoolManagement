@@ -122,27 +122,27 @@ const router = new VueRouter({
       component: Detalhe_Aluno,
     },
     {
-      path: "/Detalhe_Colaborador",
+      path: "/Detalhe_Colaborador/:id",
       name: "Detalhe_Colaborador",
       component: Detalhe_Colaborador,
     },
     {
-      path: "/Detalhe_Curso",
+      path: "/Detalhe_Curso/:id",
       name: "Detalhe_Curso",
       component: Detalhe_Curso,
     },
     {
-      path: "/Detalhe_Professor",
+      path: "/Detalhe_Professor/:id",
       name: "Detalhe_Professor",
       component: Detalhe_Professor,
     },
     {
-      path: "/Detalhe_Serie",
+      path: "/Detalhe_Serie/:id",
       name: "Detalhe_Serie",
       component: Detalhe_Serie,
     },
     {
-      path: "/Detalhe_Turma",
+      path: "/Detalhe_Turma/:id",
       name: "Detalhe_Turma",
       component: Detalhe_Turma,
     },
