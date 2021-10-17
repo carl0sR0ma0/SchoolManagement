@@ -36,14 +36,14 @@
     > 
       <template v-slot:cell(options)="data">
         <b-row cols="2" cols-sm="4" class="text-center">
-        <b-button @click="Excluir(data)"
+        <b-button @click="Excluir(data.item.id)"
                   size="sm"
                   variant="outline-danger" 
                   class="mb-2"
                   >
           <b-icon icon="trash" aria-hidden="true"></b-icon>
         </b-button>
-        <b-button @click="Editar(data)"
+        <b-button :href="`#/Detalhe_Aluno/${data.item.id}`"
                   style="margin: 0 15px;"
                   size="sm"
                   variant="outline-primary" 
@@ -54,41 +54,6 @@
         </b-row>
       </template>
     </b-table>
-    <b-modal centered ref="modalExcluir" >
-      <template v-slot:modal-header>
-        <b-container class="mb-2">
-          <b-icon scale="2.5" style="display: block; margin-left: auto; margin-right: auto" icon="exclamation-diamond" variant="danger"></b-icon>
-        </b-container>
-      </template>
-      <b-container fluid> Deseja Realmente Remover o Aluno ?</b-container>
-      <template v-slot:modal-footer="{hide, ok}">
-        <b-button variant="outline-danger" @click="hide()" > Não </b-button>
-        <b-button variant="outline-success" @click="ok()" > Sim </b-button>
-      </template>
-    </b-modal>
-    <b-modal centered ref="modalEditar" >
-      <template v-slot:modal-header>
-          <h5 style="margin: 0 10px; color:blue" >Editando o Aluno - Nome do Aluno</h5>
-      </template>
-        <b-container fluid> 
-          <form>
-            <label>Aluno</label>
-            <b-form-input />
-            <label>RG</label>
-            <b-form-input />
-            <label>CPF</label>
-            <b-form-input />
-            <label>Data de Nascimento</label>
-            <b-form-input />
-            <label>Telefone</label>
-            <b-form-input />
-          </form>
-        </b-container>
-      <template v-slot:modal-footer="{hide, ok}">
-        <b-button variant="outline-danger" @click="hide()" > Cancelar </b-button>
-        <b-button variant="outline-success" @click="ok()" > Salvar </b-button>
-      </template>
-    </b-modal>
   </div>
 </template>
 
@@ -120,18 +85,22 @@ export default {
     };
   },
   methods: {
-    Excluir(){
-      this.$refs.modalExcluir.show();
-    },
-    Editar(){
-      this.$refs.modalEditar.show();
-    },
-  },
-  created() {
-    axios.get("https://localhost:5001/Aluno/get").then((res) => {
+    CarregarAlunos(){
+      axios.get("https://localhost:5001/Aluno/get").then((res) => {
       this.alunos = res.data.data;
     });
+    },
+
+    Excluir(id){
+      axios.delete(`https://localhost:5001/Aluno/delete/${id}`);
+      this.CarregarAlunos();
+    },
   },
+
+  created() {
+    this.CarregarAlunos();
+  },
+
 
 
 };
