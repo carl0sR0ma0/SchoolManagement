@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div class="center">
-    <h1>Cadastro de Cursos</h1>
+    <h1>Cadastro de Curso</h1>
 
     <div class="form-floating mb-3">
       <input v-model="nome" type="text" class="form-control" placeholder="teste" required>

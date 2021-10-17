@@ -8,14 +8,16 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 
 //pages
+import Main from "./components/Main.vue";
 import Cadastro_Aluno from "./views/Aluno/Cadastro_Aluno.vue";
 import Cadastro_Professor from "./views/Professor/Cadastro_Professor.vue";
 import Cadastro_Curso from "./views/Curso/Cadastro_Curso.vue";
 import Cadastro_Serie from "./views/Serie/Cadastro_Serie.vue";
 import Cadastro_Turma from "./views/Turma/Cadastro_Turma.vue";
 import Consulta_Aluno from "./views/Aluno/Consulta_Aluno.vue";
-import Detalhe_Aluno from "./views/Aluno/Detalhe_Aluno.vue";
 import Consulta_Curso from "./views/Curso/Consulta_Curso.vue";
+import Detalhe_Aluno from "./views/Aluno/Detalhe_Aluno.vue";
+
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -33,6 +35,11 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 const router = new VueRouter({
   routes: [
+    {
+      path: "/",
+      name: "Main",
+      component: Main,
+    },
     {
       path: "/Cadastro_Aluno",
       name: "Cadastro_Aluno",

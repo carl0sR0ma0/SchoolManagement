@@ -1,7 +1,8 @@
-<template>
+<template >
+<div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Cadastro de Alunos</h1>
+      <h1>Cadastro de Aluno</h1>
 
       <div class="form-floating mb-3">
         <input
@@ -52,7 +53,66 @@
         />
         <label for="floatingInput">Telefone</label>
       </div>
-            <fieldset class="row mb-3">
+      <b-row>
+      <b-col cols="8">
+        <div class="form-floating mb-3">
+        <input
+          v-model="logradouro"
+          type="text"
+          class="form-control"
+          placeholder="teste"
+        />
+        <label for="floatingInput">Endereço</label>
+        </div>
+      </b-col>
+      <b-col cols="4">
+        <div class="form-floating mb-3">
+        <input
+          v-model="numero"
+          type="text"
+          class="form-control"
+          placeholder="teste"
+        />
+        <label for="floatingInput">Numero</label>
+        </div>
+      </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <div class="form-floating mb-3">
+          <input
+            v-model="bairro"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Bairro</label>
+          </div>
+        </b-col>
+        <b-col>
+          <div class="form-floating mb-3">
+          <input
+            v-model="cidade"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Cidade</label>
+          </div>
+        </b-col>
+        <b-col>
+        <div class="form-floating mb-3">
+        <input
+          v-model="cep"
+          type="text"
+          class="form-control"
+          placeholder="teste"
+        />
+        <label for="floatingInput">CEP</label>
+        </div>
+        </b-col>
+      </b-row>
+      <fieldset class="row mb-3">
         <legend class="col-form-label col-sm-2 pt-0" style="margin-left:15px">Sexo</legend>
         <div class="col-sm">
           <div class="form-check">
@@ -79,12 +139,23 @@
         </div>
       </fieldset>
       <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
-        <b-button type="button" class="btn btn-success" @click="addAluno">
+        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addAluno">
           Salvar
         </b-button>
       </div>
-    </div>
   </div>
+
+  <b-modal id="ModalConfirm" hide-footer>
+    <template #modal-title>
+      Aluno Cadastrado
+    </template>
+    <div class="d-block text-center">
+      <h3>O aluno {{memoria}} foi cadastrado com sucesso!</h3>
+    </div>
+  </b-modal>
+
+    </div>
+</div>
 </template>
 
 <script>
@@ -96,12 +167,19 @@ export default {
 
   data() {
     return {
+      ra: "",
       nome: "",
       dataNascimento: "",
       rg: "",
       cpf: "",
       telefone: "",
       sexo: "",
+      memoria: "",
+      logradouro: "",
+      numero: "",
+      bairro:"",
+      cidade:"",
+      cep: "",
     };
   },
 
@@ -117,7 +195,14 @@ export default {
         cpf: this.cpf,
         telefone: this.telefone,
         sexo: this.sexo,
+        logradouro: this.logradouro,
+        numero:  this.numero,
+        bairro: this.bairro,
+        cidade: this.cidade,
+        cep:  this.cep,
       };
+
+      this.memoria = _aluno.nome;
 
       axios.post("https://localhost:5001/Aluno/create", _aluno).then((res) => {
         console.log(res.data);
@@ -129,11 +214,21 @@ export default {
       this.cpf = "";
       this.telefone = "";
       this.sexo = "";
+      this.logradouro = "";
+      this.numero = "";
+      this.bairro = "";
+      this.cidade = "";
+      this.cep = "";
     },
 
     randomNumber(){
-      return Math.floor(Math.random()*256)
+      const random = Math.floor(Math.random()*256);
+      const cpf1 = this.cpf;
+      const ra1 = random + cpf1;
+      return ra1;
     }
+
+
   },
 };
 </script>
@@ -142,5 +237,18 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   font-family: "Poppins", sans-serif;
+}
+
+.temp {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background: #222;
+}
+
+.container{
+  background: #fff;
 }
 </style>
