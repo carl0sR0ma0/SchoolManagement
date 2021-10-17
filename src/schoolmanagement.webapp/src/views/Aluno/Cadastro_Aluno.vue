@@ -3,7 +3,6 @@
   <div class="container">
     <div class="center">
       <h1>Cadastro de Aluno</h1>
-
       <div class="form-floating mb-3">
         <input
           v-model="nome"
@@ -143,7 +142,7 @@
           Salvar
         </b-button>
       </div>
-  </div>
+    </div>
 
   <b-modal id="ModalConfirm"
            header-bg-variant="success"
@@ -161,7 +160,6 @@
         O aluno {{memoria}} foi cadastrado com sucesso!
       </div>
   </b-modal>
-
     </div>
 </div>
 </template>
@@ -241,7 +239,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .temp {
   margin: 0;
   padding: 0;
@@ -254,5 +252,16 @@ export default {
 .container{
   background: #fff;
   border-radius: 15px;
+}
+.center h1 {
+  text-align: center;
+  color: #1d1b31;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  font-weight: bold;
+}
+.center {
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 </style>
