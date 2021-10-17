@@ -80,7 +80,7 @@
 import axios from "axios";
 
 export default {
-  name: "Consulta_Aluno",
+  name: "Consulta_Colaborador",
   data() {
     return {
       show: false,
