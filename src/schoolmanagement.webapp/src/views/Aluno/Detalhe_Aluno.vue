@@ -4,7 +4,7 @@
     <div class="center">
       <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
       >Voltar</b-button>
-      <h1>Editando o Aluno: {{ aluno.nome }}</h1>
+      <h1>Editando o Aluno</h1>
 
      <div class="form-floating mb-3">
         <input

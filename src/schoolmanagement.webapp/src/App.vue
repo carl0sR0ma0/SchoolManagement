@@ -36,7 +36,7 @@ export default {
   text-align: center;
   color: #1d1b31;
   padding: 20px 0;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
   font-weight: bold;
 }
 .center {

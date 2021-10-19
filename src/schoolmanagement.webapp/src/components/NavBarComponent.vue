@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-icon icon="building" font-scale="2" variant="primary" />
+    <b-icon style="margin-left:15px" icon="building" font-scale="2" variant="primary" />
     <b-navbar-brand to="/" style="padding-left:15px" >School Management</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

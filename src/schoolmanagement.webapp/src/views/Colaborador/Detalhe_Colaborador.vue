@@ -2,119 +2,94 @@
 <div class="temp">
   <div class="container">
     <div class="center">
-      <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
+      <b-button class="btnVoltar" variant="info" @click="voltar()"
       >Voltar</b-button>
-      <h1>Editando o Aluno: {{ aluno.nome }}</h1>
+      <h1>Editando o Colaborador</h1>
 
-     <div class="form-floating mb-3">
+      <div class="form-floating mb-3">
         <input
+          v-model="colaborador.nome"
           type="text"
           class="form-control"
           placeholder="teste"
-          v-model="aluno.nome"
+          required
         />
         <label for="floatingInput">Nome</label>
       </div>
       <div class="form-floating mb-3">
         <input
+          v-model="colaborador.dataNascimento"
           type="text"
           class="form-control"
           placeholder="teste"
-          v-model="aluno.dataNascimento"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+          required
         />
         <label for="floatingInput">Data de Nascimento</label>
       </div>
-            <div class="form-floating mb-3">
+      <div class="form-floating mb-3">
         <input
+          v-model="colaborador.rg"
           type="text"
           class="form-control"
           placeholder="teste"
-          v-model="aluno.rg"
         />
         <label for="floatingInput">RG</label>
-      </div> 
+      </div>
       <div class="form-floating mb-3">
         <input
+          v-model="colaborador.cpf"
           type="text"
           class="form-control"
           placeholder="teste"
-          v-model="aluno.cpf"
         />
         <label for="floatingInput">CPF</label>
-      </div> 
+      </div>
       <div class="form-floating mb-3">
         <input
+          v-model="colaborador.telefone"
           type="text"
           class="form-control"
           placeholder="teste"
-          v-model="aluno.telefone"
         />
         <label for="floatingInput">Telefone</label>
       </div>
-      <b-row>
-      <b-col cols="8">
-        <div class="form-floating mb-3">
+      <div class="form-floating mb-3">
         <input
-          v-model="aluno.logradouro"
+          v-model="colaborador.cargo"
           type="text"
           class="form-control"
           placeholder="teste"
         />
-        <label for="floatingInput">Endereço</label>
-        </div>
-      </b-col>
-      <b-col cols="4">
-        <div class="form-floating mb-3">
-        <input
-          v-model="aluno.numero"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Numero</label>
-        </div>
-      </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <div class="form-floating mb-3">
-          <input
-            v-model="aluno.bairro"
-            type="text"
-            class="form-control"
-            placeholder="teste"
-          />
-          <label for="floatingInput">Bairro</label>
-          </div>
-        </b-col>
-        <b-col>
-          <div class="form-floating mb-3">
-          <input
-            v-model="aluno.cidade"
-            type="text"
-            class="form-control"
-            placeholder="teste"
-          />
-          <label for="floatingInput">Cidade</label>
-          </div>
-        </b-col>
-        <b-col>
-        <div class="form-floating mb-3">
-        <input
-          v-model="aluno.cep"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">CEP</label>
-        </div>
-        </b-col>
-      </b-row>
-    <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">   
-    <b-button variant="outline-success" @click="SalvarAluno()">Salvar</b-button> 
-    </div>           
-    </div>
+        <label for="floatingInput">Cargo</label>
+      </div>
+
+      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
+        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="SalvarColaborador">
+          Salvar
+        </b-button>
+      </div>
   </div>
+
+    <b-modal  ref="ModalConfirm"
+              id="ModalConfirm"
+              body-bg-variant="success"
+              body-text-variant="light"
+              centered 
+              hide-footer
+              hide-header
+           >
+      <b-container fluid>
+        <b-row class="mb-1 text-center">
+          <b-col cols="3"></b-col>
+          <b-col>Colaborador Atualizado!</b-col>
+          <b-col><b-button @click="close()">OK</b-button></b-col>
+        </b-row>
+      </b-container>
+  </b-modal>
+
+    </div>
 </div>
 </template>
 
@@ -125,38 +100,37 @@ export default {
   components: {},
   data() {
     return {
-      aluno: {},
+      colaborador: {},
       id: this.$route.params.id,
-      visualizando: true,
     };
   },
   methods: {
     voltar() {
       this.$router.back();
     },
-    SalvarAluno() {
-      let _alunoEditar = {
+    SalvarColaborador() {
+      let _colaboradorEditar = {
         id: this.id,
-        ra: this.aluno.ra,
-        nome: this.aluno.nome,
-        dataNascimento: this.aluno.dataNascimento,
-        rg: this.aluno.rg,
-        cpf: this.aluno.cpf,
-        telefone: this.aluno.telefone,
-        sexo: this.aluno.sexo,
-        logradouro: this.aluno.logradouro,
-        numero: this.aluno.numero,
-        bairro: this.aluno.bairro,
-        cidade: this.aluno.cidade,
-        cep: this.aluno.cep,
+        nome: this.colaborador.nome,
+        dataNascimento: this.colaborador.dataNascimento,
+        rg: this.colaborador.rg,
+        cpf: this.colaborador.cpf,
+        sexo: this.colaborador.sexo,
+        telefone: this.colaborador.telefone,
+        ctps: this.colaborador.ctps,
+        cargo: this.colaborador.cargo,
+        dataAdmissao: this.colaborador.dataAdmissao,
       };
-      axios.put("https://localhost:5001/Aluno/update", _alunoEditar);
-      this.visualizando = !this.visualizando;
+      axios.put("https://localhost:5001/Colaborador/update", _colaboradorEditar);
     },
+
+      close(){
+      this.$refs.ModalConfirm.hide();
+    }
   },
   created() {
-    axios.get(`https://localhost:5001/Aluno/get/${this.id}`).then((res) => {
-      this.aluno = res.data.data;
+    axios.get(`https://localhost:5001/Colaborador/get/${this.id}`).then((res) => {
+      this.colaborador = res.data.data;
     });
   },
 };

@@ -57,7 +57,7 @@ export default {
   .col-1 p{
     font-size: 16px;
     color: #b7b7b7;
-    font-weight: 100;
+    font-weight: 50;
   }
   .col-2 {
     position: relative;
@@ -66,7 +66,7 @@ export default {
     align-items: center;
   }
   .col-2 .controller{
-    width: 100%;
+    width: 50%;
     z-index: 2;
   }
   .color-box{
