@@ -2,7 +2,7 @@
 <div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Cadastro de Aluno</h1>
+      <h1>Cadastro de Colaborador</h1>
 
       <div class="form-floating mb-3">
         <input
@@ -53,62 +53,38 @@
         />
         <label for="floatingInput">Telefone</label>
       </div>
-      <b-row>
-      <b-col cols="8">
         <div class="form-floating mb-3">
         <input
-          v-model="logradouro"
+          v-model="ctps"
           type="text"
           class="form-control"
           placeholder="teste"
         />
-        <label for="floatingInput">Endereço</label>
+        <label for="floatingInput">CTPS</label>
         </div>
-      </b-col>
-      <b-col cols="4">
-        <div class="form-floating mb-3">
-        <input
-          v-model="numero"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Numero</label>
-        </div>
-      </b-col>
-      </b-row>
       <b-row>
         <b-col>
-          <div class="form-floating mb-3">
-          <input
-            v-model="bairro"
-            type="text"
-            class="form-control"
-            placeholder="teste"
-          />
-          <label for="floatingInput">Bairro</label>
-          </div>
+      <div class="form-floating mb-3">
+        <input
+          v-model="cargo"
+          type="text"
+          class="form-control"
+          placeholder="teste"
+        />
+        <label for="floatingInput">Cargo</label>
+      </div>
         </b-col>
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="cidade"
+            v-model="dataAdmissao"
             type="text"
             class="form-control"
             placeholder="teste"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"
           />
-          <label for="floatingInput">Cidade</label>
-          </div>
-        </b-col>
-        <b-col>
-        <div class="form-floating mb-3">
-        <input
-          v-model="cep"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">CEP</label>
+          <label for="floatingInput">Data de Admissão</label>
         </div>
         </b-col>
       </b-row>
@@ -139,7 +115,7 @@
         </div>
       </fieldset>
       <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
-        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addAluno">
+        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addColaborador">
           Salvar
         </b-button>
       </div>
@@ -153,14 +129,14 @@
            >
       <template v-slot:modal-header="{close}">
       <div center>
-        Aluno Cadastrado
+        Colaborador Cadastrado
       </div>
       <b-button @click="close">
         <b-icon icon="arrow90deg-left"/>
       </b-button>
       </template>
       <div class="text-center">
-        O aluno {{memoria}} foi cadastrado com sucesso!
+        O Colaborador {{memoria1}} foi cadastrado com sucesso!
       </div>
   </b-modal>
 
@@ -177,66 +153,53 @@ export default {
 
   data() {
     return {
-      ra: "",
       nome: "",
       dataNascimento: "",
       rg: "",
       cpf: "",
       telefone: "",
       sexo: "",
-      memoria: "",
-      logradouro: "",
-      numero: "",
-      bairro:"",
-      cidade:"",
-      cep: "",
+      ctps:"",
+      cargo: "",
+      dataAdmissao: "",
+      memoria1: "",
     };
   },
 
   created() {},
 
   methods: {
-    addAluno() {
-      let _aluno = {
-        ra: this.randomNumber(),
+    addColaborador() {
+      let _colaborador = {
         nome: this.nome,
         dataNascimento: this.dataNascimento,
         rg: this.rg,
         cpf: this.cpf,
-        telefone: this.telefone,
         sexo: this.sexo,
-        logradouro: this.logradouro,
-        numero:  this.numero,
-        bairro: this.bairro,
-        cidade: this.cidade,
-        cep:  this.cep,
+        telefone: this.telefone,
+        ctps: this.ctps,
+        cargo:  this.cargo,
+        dataAdmissao: this.dataAdmissao,
       };
 
-      this.memoria = _aluno.nome;
+      this.memoria1 = _colaborador.nome;
 
-      axios.post("https://localhost:5001/Aluno/create", _aluno).then((res) => {
+      axios.post("https://localhost:5001/Colaborador/create", _colaborador).then((res) => {
         console.log(res.data);
       });
 
-      this.nome = "";
-      this.dataNascimento = "";
-      this.rg = "";
-      this.cpf = "";
-      this.telefone = "";
-      this.sexo = "";
-      this.logradouro = "";
-      this.numero = "";
-      this.bairro = "";
-      this.cidade = "";
-      this.cep = "";
+      this.nome= "";
+      this.dataNascimento= "";
+      this.rg= "";
+      this.cpf= "";
+      this.telefone= "";
+      this.sexo= "";
+      this.memoria= "";
+      this.ctps="";
+      this.cargo= "";
+      this.dataAdmissao= "";
     },
 
-    randomNumber(){
-      const random = Math.floor(Math.random()*256);
-      const cpf1 = this.cpf;
-      const ra1 = random + cpf1;
-      return ra1;
-    }
 
 
   },

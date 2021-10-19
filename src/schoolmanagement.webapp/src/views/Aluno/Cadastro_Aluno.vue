@@ -137,7 +137,7 @@
           </div>
         </div>
       </fieldset>
-      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
+      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px;">
         <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addAluno">
           Salvar
         </b-button>
@@ -253,15 +253,5 @@ export default {
   background: #fff;
   border-radius: 15px;
 }
-.center h1 {
-  text-align: center;
-  color: #1d1b31;
-  padding: 20px 0;
-  border-bottom: 1px solid black;
-  font-weight: bold;
-}
-.center {
-  padding: 0 40px;
-  box-sizing: border-box;
-}
+
 </style>
