@@ -110,9 +110,29 @@
         </div>
         </b-col>
       </b-row>
-    <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">   
-    <b-button variant="outline-success" @click="SalvarAluno()">Salvar</b-button> 
-    </div>           
+      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
+              <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="SalvarAluno">
+                Salvar
+              </b-button>
+            </div>
+
+      <b-modal  ref="ModalConfirm"
+                id="ModalConfirm"
+                body-bg-variant="success"
+                body-text-variant="light"
+                centered 
+                hide-footer
+                hide-header
+            >
+        <b-container fluid>
+          <b-row class="mb-1 text-center">
+            <b-col cols="3"></b-col>
+            <b-col>Aluno Atualizado!</b-col>
+            <b-col><b-button @click="close()">OK</b-button></b-col>
+          </b-row>
+        </b-container>
+      </b-modal>         
+    
     </div>
   </div>
 </div>
@@ -154,6 +174,11 @@ export default {
       axios.put("https://localhost:5001/Aluno/update", _alunoEditar);
       this.visualizando = !this.visualizando;
     },
+
+      close(){
+      this.$refs.ModalConfirm.hide();
+    }
+
   },
   created() {
     axios.get(`https://localhost:5001/Aluno/get/${this.id}`).then((res) => {
