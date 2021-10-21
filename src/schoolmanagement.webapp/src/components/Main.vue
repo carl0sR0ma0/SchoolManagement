@@ -1,16 +1,10 @@
 <template>
-<div class="temp1">
-  <div class="row1">
-    <div class="col-1">
+<body>
+  <img src="@/assets/professor_1.png" class="controller" alt="">
+  <div class="box">
         <h2>School Management</h2>
-    </div>
-    <div class="col-2">
-      <img src="@/assets/professor_1.png" class="controller" alt="">
-      <div class="color-box"></div>
-    </div>
   </div>
-
-</div>
+</body>
 </template>
 
 <script>
@@ -21,64 +15,72 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.temp1 {
+  * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  }
+
+  body {
   display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  align-items: center;
   background: #222;
-}
-.row1{
-  padding-left: 8%;
+  }
+
+  .box{
+  position: relative;
+  width: 90vh;
+  height: 50vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin: 100px 0;
-}
- .col-1{
-   flex-basis: 40%;
-   position: relative;
-   margin-left: 50px;
- }
-  .col-1 h2{
-    font-size: 54px;
-    color: white;
-}
-  .col-1::after{
-    content: '';
-    width: 10px;
-    height: 100%;
-    background: linear-gradient(#ff469f, #ff6062);
-    position: absolute;
-    left: -40px;
-    top: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border-radius: 20px;
+  left: -100px;
   }
-  .col-1 p{
-    font-size: 16px;
-    color: #b7b7b7;
-    font-weight: 50;
+
+  .box:before{
+  content:'';
+  position: absolute;
+  width: 150%;
+  height: 140%;
+  background: linear-gradient(#14260d,#3b7326);
+  animation: animate 4s linear infinite;
   }
-  .col-2 {
-    position: relative;
-    flex-basis: 70%;
-    display: flex;
-    align-items: center;
-  }
-  .col-2 .controller{
-    width: 50%;
-    z-index: 2;
-  }
-  .color-box{
-    position: absolute;
-    right: 0;
-    top: 0;
-    background: linear-gradient(#ff469f, #ff6062);
-    border-radius: 20px 0 0 20px;
-    height: 100%;
-    width: 80%;
-    z-index: 1;
-    
+
+  .box:after{
+  content:'';
+  position: absolute;
+  inset: 4px;
+  background: rgba(0, 0, 0, 0.9);
   }
   
+  @keyframes animate {
+    0%
+    {
+      transform: rotate(0deg);
+    }
+    100%
+    {
+      transform: rotate(350deg);
+    }
+  }
+
+  .box h2{
+    font-size: 54px;
+    color: white;
+    z-index: 10;
+  }
+
+  .controller{
+    z-index:11;
+    width: 30vh;
+    left: 50px;
+    top: 100px;
+    position: relative;
+  }
+
 </style>
