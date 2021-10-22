@@ -10,23 +10,23 @@
         <b-col cols="8">
           <div class="form-floating mb-3">
           <input
-            v-model="turma.serieId"
-            type="text"
-            class="form-control"
-            placeholder="teste"
-          />
-          <label for="floatingInput">Série ID</label>
-          </div>
-        </b-col>
-        <b-col cols="4">
-          <div class="form-floating mb-3">
-          <input
             v-model="turma.nome"
             type="text"
             class="form-control"
             placeholder="teste"
           />
           <label for="floatingInput">Nome</label>
+          </div>
+        </b-col>
+                <b-col cols="4">
+          <div class="form-floating mb-3">
+          <input
+            v-model="turma.serieId"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Série ID</label>
           </div>
         </b-col>
       </b-row>
@@ -72,7 +72,7 @@
           <div class="form-floating mb-3">
           <input
             v-model="turma.situacao"
-            type="number"
+            type="text"
             class="form-control"
             placeholder="teste"
           />
