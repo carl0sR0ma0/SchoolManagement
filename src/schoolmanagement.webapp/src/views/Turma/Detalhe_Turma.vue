@@ -4,114 +4,85 @@
     <div class="center">
       <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
       >Voltar</b-button>
-      <h1>Editando o Aluno: {{ aluno.nome }}</h1>
+      <h1>Editando a Turma</h1>
 
-     <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          v-model="aluno.nome"
-        />
-        <label for="floatingInput">Nome</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          v-model="aluno.dataNascimento"
-        />
-        <label for="floatingInput">Data de Nascimento</label>
-      </div>
-            <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          v-model="aluno.rg"
-        />
-        <label for="floatingInput">RG</label>
-      </div> 
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          v-model="aluno.cpf"
-        />
-        <label for="floatingInput">CPF</label>
-      </div> 
-      <div class="form-floating mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          v-model="aluno.telefone"
-        />
-        <label for="floatingInput">Telefone</label>
-      </div>
-      <b-row>
-      <b-col cols="8">
-        <div class="form-floating mb-3">
-        <input
-          v-model="aluno.logradouro"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Endereço</label>
-        </div>
-      </b-col>
-      <b-col cols="4">
-        <div class="form-floating mb-3">
-        <input
-          v-model="aluno.numero"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Numero</label>
-        </div>
-      </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
+       <b-row>
+        <b-col cols="8">
           <div class="form-floating mb-3">
           <input
-            v-model="aluno.bairro"
+            v-model="turma.serieId"
             type="text"
             class="form-control"
             placeholder="teste"
           />
-          <label for="floatingInput">Bairro</label>
+          <label for="floatingInput">Série ID</label>
+          </div>
+        </b-col>
+        <b-col cols="4">
+          <div class="form-floating mb-3">
+          <input
+            v-model="turma.nome"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Nome</label>
+          </div>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <div class="form-floating mb-3">
+          <input
+            v-model="turma.turno"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Turno</label>
           </div>
         </b-col>
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="aluno.cidade"
+            v-model="turma.ano"
+            type="number"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Ano</label>
+          </div>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <div class="form-floating mb-3">
+          <input
+            v-model="turma.sigla"
             type="text"
             class="form-control"
             placeholder="teste"
           />
-          <label for="floatingInput">Cidade</label>
+          <label for="floatingInput">Sigla</label>
           </div>
         </b-col>
         <b-col>
-        <div class="form-floating mb-3">
-        <input
-          v-model="aluno.cep"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">CEP</label>
-        </div>
+          <div class="form-floating mb-3">
+          <input
+            v-model="turma.situacao"
+            type="number"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Situação</label>
+          </div>
         </b-col>
       </b-row>
+
     <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">   
-    <b-button variant="outline-success" @click="SalvarAluno()">Salvar</b-button> 
+    <b-button variant="outline-success" @click="SalvarTurma()">Salvar</b-button> 
     </div>           
     </div>
   </div>
@@ -125,38 +96,31 @@ export default {
   components: {},
   data() {
     return {
-      aluno: {},
+      turma: {},
       id: this.$route.params.id,
-      visualizando: true,
     };
   },
   methods: {
     voltar() {
       this.$router.back();
     },
-    SalvarAluno() {
-      let _alunoEditar = {
+    SalvarTurma() {
+      let _turmaEditar = {
         id: this.id,
-        ra: this.aluno.ra,
-        nome: this.aluno.nome,
-        dataNascimento: this.aluno.dataNascimento,
-        rg: this.aluno.rg,
-        cpf: this.aluno.cpf,
-        telefone: this.aluno.telefone,
-        sexo: this.aluno.sexo,
-        logradouro: this.aluno.logradouro,
-        numero: this.aluno.numero,
-        bairro: this.aluno.bairro,
-        cidade: this.aluno.cidade,
-        cep: this.aluno.cep,
+        nome: this.turma.nome,
+        turno: this.turma.turno,
+        ano: this.turma.ano,
+        sigla: this.turma.sigla,
+        situacao: this.turma.situacao,
+        serieId: this.turma.serieId,
       };
-      axios.put("https://localhost:5001/Aluno/update", _alunoEditar);
-      this.visualizando = !this.visualizando;
+      axios.put("https://localhost:5001/Turma/update", _turmaEditar);
+
     },
   },
   created() {
-    axios.get(`https://localhost:5001/Aluno/get/${this.id}`).then((res) => {
-      this.aluno = res.data.data;
+    axios.get(`https://localhost:5001/Turma/get/${this.id}`).then((res) => {
+      this.turma = res.data.data;
     });
   },
 };
