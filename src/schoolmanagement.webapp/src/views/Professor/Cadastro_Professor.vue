@@ -2,7 +2,7 @@
 <div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Cadastro de Aluno</h1>
+      <h1>Cadastro de Professor</h1>
 
       <div class="form-floating mb-3">
         <input
@@ -11,10 +11,14 @@
           class="form-control"
           placeholder="teste"
           required
-        />
+          />
         <label for="floatingInput">Nome</label>
       </div>
-      <div class="form-floating mb-3">
+
+
+      <b-row>
+        <b-col>
+          <div class="form-floating mb-3">
         <input
           v-model="dataNascimento"
           type="text"
@@ -26,25 +30,53 @@
         />
         <label for="floatingInput">Data de Nascimento</label>
       </div>
-      <div class="form-floating mb-3">
+        </b-col>
+        
+        <b-col>
+        <div class="form-floating mb-3">
         <input
-          v-model="rg"
+          v-model="dataAdmissao"
           type="text"
           class="form-control"
           placeholder="teste"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+          required
         />
-        <label for="floatingInput">RG</label>
+        <label for="floatingInput">Data de Admissão</label>
       </div>
-      <div class="form-floating mb-3">
-        <input
-          v-model="cpf"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">CPF</label>
-      </div>
-      <div class="form-floating mb-3">
+        </b-col>
+      </b-row> 
+
+      <b-row>
+        <b-col>
+          <div class="form-floating mb-3">
+          <input
+            v-model="rg"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">RG</label>
+          </div>
+        </b-col>
+
+
+        <b-col>
+          <div class="form-floating mb-3">
+          <input
+            v-model="cpf"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">CPF</label>
+          </div>
+        </b-col>
+
+        
+        <b-col>
+        <div class="form-floating mb-3">
         <input
           v-model="telefone"
           type="text"
@@ -52,66 +84,51 @@
           placeholder="teste"
         />
         <label for="floatingInput">Telefone</label>
-      </div>
-      <b-row>
-      <b-col cols="8">
-        <div class="form-floating mb-3">
-        <input
-          v-model="logradouro"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Endereço</label>
         </div>
-      </b-col>
-      <b-col cols="4">
-        <div class="form-floating mb-3">
-        <input
-          v-model="numero"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Numero</label>
-        </div>
-      </b-col>
-      </b-row>
+        </b-col>
+      </b-row> 
+
       <b-row>
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="bairro"
-            type="text"
+            v-model="ctps"
+            type="number"
             class="form-control"
             placeholder="teste"
           />
-          <label for="floatingInput">Bairro</label>
+          <label for="floatingInput">CTPS</label>
           </div>
         </b-col>
+
+
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="cidade"
+            v-model="licenca"
             type="text"
             class="form-control"
             placeholder="teste"
           />
-          <label for="floatingInput">Cidade</label>
+          <label for="floatingInput">Licença</label>
           </div>
         </b-col>
+
+        
         <b-col>
         <div class="form-floating mb-3">
         <input
-          v-model="cep"
+          v-model="titulacao"
           type="text"
           class="form-control"
           placeholder="teste"
         />
-        <label for="floatingInput">CEP</label>
+        <label for="floatingInput">Titulação</label>
         </div>
         </b-col>
-      </b-row>
+      </b-row> 
+
+
       <fieldset class="row mb-3">
         <legend class="col-form-label col-sm-2 pt-0" style="margin-left:15px">Sexo</legend>
         <div class="col-sm">
@@ -138,8 +155,10 @@
           </div>
         </div>
       </fieldset>
-      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
-        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addAluno">
+
+
+      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; margin-top: 50px ">
+        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addProfessor">
           Salvar
         </b-button>
       </div>
@@ -153,14 +172,14 @@
            >
       <template v-slot:modal-header="{close}">
       <div center>
-        Aluno Cadastrado
+        Professor Cadastrado
       </div>
       <b-button @click="close">
         <b-icon icon="arrow90deg-left"/>
       </b-button>
       </template>
       <div class="text-center">
-        O aluno {{memoria}} foi cadastrado com sucesso!
+        O Professor {{memoria4}} foi cadastrado com sucesso!
       </div>
   </b-modal>
 
@@ -177,44 +196,40 @@ export default {
 
   data() {
     return {
-      ra: "",
       nome: "",
       dataNascimento: "",
       rg: "",
-      cpf: "",
-      telefone: "",
+      cpf: "",      
       sexo: "",
-      memoria: "",
-      logradouro: "",
-      numero: "",
-      bairro:"",
-      cidade:"",
-      cep: "",
+      telefone: "",      
+      ctps: "",
+      licenca: "",
+      titulacao:"",
+      dataAdmissao:"",      
+      memoria4: "",
     };
   },
 
   created() {},
 
   methods: {
-    addAluno() {
-      let _aluno = {
-        ra: this.randomNumber(),
+    addProfessor() {
+      let _professor = {
+        ctps: this.ctps,
         nome: this.nome,
         dataNascimento: this.dataNascimento,
         rg: this.rg,
         cpf: this.cpf,
         telefone: this.telefone,
         sexo: this.sexo,
-        logradouro: this.logradouro,
-        numero:  this.numero,
-        bairro: this.bairro,
-        cidade: this.cidade,
-        cep:  this.cep,
+        licenca: this.licenca,
+        titulacao: this.titulacao,
+        dataAdmissao:  this.dataAdmissao,
       };
 
-      this.memoria = _aluno.nome;
+      this.memoria4 = _professor.nome;
 
-      axios.post("https://localhost:5001/Aluno/create", _aluno).then((res) => {
+      axios.post("https://localhost:5001/Professor/create", _professor).then((res) => {
         console.log(res.data);
       });
 
@@ -224,20 +239,11 @@ export default {
       this.cpf = "";
       this.telefone = "";
       this.sexo = "";
-      this.logradouro = "";
-      this.numero = "";
-      this.bairro = "";
-      this.cidade = "";
-      this.cep = "";
+      this.ctps = "";
+      this.licenca = "";
+      this.titulacao = "";
+      this.dataAdmissao = "";
     },
-
-    randomNumber(){
-      const random = Math.floor(Math.random()*256);
-      const cpf1 = this.cpf;
-      const ra1 = random + cpf1;
-      return ra1;
-    }
-
 
   },
 };
@@ -250,7 +256,7 @@ export default {
   padding: 0;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 95vh;
   background: #212529;
 }
 
