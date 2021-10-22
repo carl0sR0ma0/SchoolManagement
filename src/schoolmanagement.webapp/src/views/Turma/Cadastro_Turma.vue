@@ -4,19 +4,8 @@
     <div class="center">
       <h1>Cadastro de Turma</h1>
 
-      <b-row>
+       <b-row>
         <b-col cols="8">
-          <div class="form-floating mb-3">
-          <input
-            v-model="serieId"
-            type="text"
-            class="form-control"
-            placeholder="teste"
-          />
-          <label for="floatingInput">Série ID</label>
-          </div>
-        </b-col>
-        <b-col cols="4">
           <div class="form-floating mb-3">
           <input
             v-model="nome"
@@ -25,6 +14,17 @@
             placeholder="teste"
           />
           <label for="floatingInput">Nome</label>
+          </div>
+        </b-col>
+                <b-col cols="4">
+          <div class="form-floating mb-3">
+          <input
+            v-model="serieId"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Série ID</label>
           </div>
         </b-col>
       </b-row>
@@ -70,7 +70,7 @@
           <div class="form-floating mb-3">
           <input
             v-model="situacao"
-            type="number"
+            type="text"
             class="form-control"
             placeholder="teste"
           />
@@ -124,6 +124,7 @@ export default {
       ano: "",
       sigla: "",
       situacao: "",
+      memoria6: "",
     };
   },
 
