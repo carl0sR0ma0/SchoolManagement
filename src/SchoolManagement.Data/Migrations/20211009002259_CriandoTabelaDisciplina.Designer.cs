@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20211009002259_CriandoTabelaDisciplina")]
+    partial class CriandoTabelaDisciplina
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,41 +155,6 @@ namespace SchoolManagement.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cursos");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("AlunoId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Situcao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("TurmaId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AlunoId")
-                        .IsUnique();
-
-                    b.HasIndex("TurmaId")
-                        .IsUnique();
-
-                    b.ToTable("Matriculas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Disciplina", b =>
@@ -372,25 +339,6 @@ namespace SchoolManagement.Data.Migrations
                     b.HasIndex("SerieId");
 
                     b.ToTable("Turmas");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
-                {
-                    b.HasOne("SchoolManagement.Domain.Models.Aluno", "Aluno")
-                        .WithOne()
-                        .HasForeignKey("SchoolManagement.Domain.Models.Matricula", "AlunoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
-                        .WithOne()
-                        .HasForeignKey("SchoolManagement.Domain.Models.Matricula", "TurmaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Aluno");
-
-                    b.Navigation("Turma");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>

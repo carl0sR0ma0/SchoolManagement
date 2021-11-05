@@ -17,6 +17,7 @@ using SchoolManagement.Domain.Models;
 using SchoolManagement.IoC;
 using SchoolManagement.Services.DTO;
 using Newtonsoft.Json;
+using SchoolManagement.API.ViewModel.DisciplinaViewModel;
 using SchoolManagement.API.ViewModel.MatriculaViewModel;
 
 namespace SchoolManagement.API
@@ -58,6 +59,10 @@ namespace SchoolManagement.API
                 cfg.CreateMap<Colaborador, ColaboradorDTO>().ReverseMap();
                 cfg.CreateMap<CreateColaboradorViewModel, ColaboradorDTO>().ReverseMap();
                 cfg.CreateMap<UpdateColaboradorViewModel, ColaboradorDTO>().ReverseMap();
+
+                cfg.CreateMap<Disciplina, DisciplinaDTO>().ReverseMap();
+                cfg.CreateMap<CreateDisciplinaViewModel, DisciplinaDTO>().ReverseMap();
+                cfg.CreateMap<UpdateDisciplinaViewModel, DisciplinaDTO>().ReverseMap();
                 
                 cfg.CreateMap<Matricula, MatriculaDTO>().ReverseMap();
                 cfg.CreateMap<CreateMatriculaViewModel, MatriculaDTO>().ReverseMap();
