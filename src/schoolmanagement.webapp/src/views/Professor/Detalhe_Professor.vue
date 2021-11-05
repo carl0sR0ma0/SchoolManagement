@@ -8,11 +8,7 @@
 
      <div class="form-floating mb-3">
         <input
-<<<<<<< HEAD
           v-model="professor.nome"
-=======
-          v-model="nome"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
           type="text"
           class="form-control"
           placeholder="teste"
@@ -26,11 +22,7 @@
         <b-col>
           <div class="form-floating mb-3">
         <input
-<<<<<<< HEAD
           v-model="professor.dataNascimento"
-=======
-          v-model="dataNascimento"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
           type="text"
           class="form-control"
           placeholder="teste"
@@ -45,11 +37,7 @@
         <b-col>
         <div class="form-floating mb-3">
         <input
-<<<<<<< HEAD
           v-model="professor.dataAdmissao"
-=======
-          v-model="dataAdmissao"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
           type="text"
           class="form-control"
           placeholder="teste"
@@ -66,11 +54,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-<<<<<<< HEAD
             v-model="professor.rg"
-=======
-            v-model="rg"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
             type="text"
             class="form-control"
             placeholder="teste"
@@ -83,11 +67,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-<<<<<<< HEAD
             v-model="professor.cpf"
-=======
-            v-model="cpf"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
             type="text"
             class="form-control"
             placeholder="teste"
@@ -100,11 +80,7 @@
         <b-col>
         <div class="form-floating mb-3">
         <input
-<<<<<<< HEAD
           v-model="professor.telefone"
-=======
-          v-model="telefone"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
           type="text"
           class="form-control"
           placeholder="teste"
@@ -118,11 +94,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-<<<<<<< HEAD
             v-model="professor.ctps"
-=======
-            v-model="ctps"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
             type="text"
             class="form-control"
             placeholder="teste"
@@ -135,11 +107,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-<<<<<<< HEAD
             v-model="professor.licenca"
-=======
-            v-model="licenca"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
             type="text"
             class="form-control"
             placeholder="teste"
@@ -152,11 +120,7 @@
         <b-col>
         <div class="form-floating mb-3">
         <input
-<<<<<<< HEAD
           v-model="professor.titulacao"
-=======
-          v-model="titulacao"
->>>>>>> 45f91878cff485c1973d67b75e7447d53f68775f
           type="text"
           class="form-control"
           placeholder="teste"
