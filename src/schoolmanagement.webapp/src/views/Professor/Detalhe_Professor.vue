@@ -8,7 +8,7 @@
 
      <div class="form-floating mb-3">
         <input
-          v-model="nome"
+          v-model="professor.nome"
           type="text"
           class="form-control"
           placeholder="teste"
@@ -22,7 +22,7 @@
         <b-col>
           <div class="form-floating mb-3">
         <input
-          v-model="dataNascimento"
+          v-model="professor.dataNascimento"
           type="text"
           class="form-control"
           placeholder="teste"
@@ -37,7 +37,7 @@
         <b-col>
         <div class="form-floating mb-3">
         <input
-          v-model="dataAdmissao"
+          v-model="professor.dataAdmissao"
           type="text"
           class="form-control"
           placeholder="teste"
@@ -54,7 +54,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="rg"
+            v-model="professor.rg"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -67,7 +67,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="cpf"
+            v-model="professor.cpf"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -80,7 +80,7 @@
         <b-col>
         <div class="form-floating mb-3">
         <input
-          v-model="telefone"
+          v-model="professor.telefone"
           type="text"
           class="form-control"
           placeholder="teste"
@@ -94,7 +94,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="ctps"
+            v-model="professor.ctps"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -107,7 +107,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="licenca"
+            v-model="professor.licenca"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -120,7 +120,7 @@
         <b-col>
         <div class="form-floating mb-3">
         <input
-          v-model="titulacao"
+          v-model="professor.titulacao"
           type="text"
           class="form-control"
           placeholder="teste"
