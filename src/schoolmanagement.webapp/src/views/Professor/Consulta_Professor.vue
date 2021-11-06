@@ -2,7 +2,7 @@
 <div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Consulta de Alunos</h1>
+      <h1>Consulta de Professores</h1>
     <b-col lg="6" class="my-1">
       <b-form-group
         label-for="filter-input"
@@ -29,7 +29,7 @@
     <b-table
       striped
       hover
-      :items="alunos"
+      :items="professores"
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
@@ -44,7 +44,7 @@
                   >
           <b-icon icon="trash" aria-hidden="true"></b-icon>
         </b-button>
-        <b-button :href="`#/Detalhe_Aluno/${data.item.id}`"
+        <b-button :href="`#/Detalhe_Professor/${data.item.id}`"
                   style="margin: 0 15px;"
                   size="sm"
                   variant="outline-primary" 
@@ -67,7 +67,7 @@
       <b-container fluid>
         <b-row class="mb-1 text-center">
           <b-col cols="3"></b-col>
-          <b-col>Aluno Excluído</b-col>
+          <b-col>Professor Excluído</b-col>
           <b-col><b-button @click="close()">OK</b-button></b-col>
         </b-row>
       </b-container>
@@ -80,11 +80,11 @@
 import axios from "axios";
 
 export default {
-  name: "Consulta_Aluno",
+  name: "Consulta_Professor",
   data() {
     return {
       show: false,
-      alunos: [],
+      professores: [],
       fields: [
         {
           key: "nome",
@@ -104,24 +104,24 @@ export default {
     };
   },
   methods: {
-    CarregarAlunos(){
-      axios.get("https://localhost:5001/Aluno/get").then((res) => {
-      this.alunos = res.data.data;
+    CarregarProfessores(){
+      axios.get("https://localhost:5001/Professor/get").then((res) => {
+      this.professores = res.data.data;
     });
     },
 
     Excluir(id){
-      axios.delete(`https://localhost:5001/Aluno/delete/${id}`);
+      axios.delete(`https://localhost:5001/Professor/delete/${id}`);
     },
 
     close(){
-      this.CarregarAlunos();
+      this.CarregarProfessores();
       this.$refs.ModalExcluir.hide();
     }
   },
 
   created() {
-    this.CarregarAlunos();
+    this.CarregarProfessores();
   },
 
 

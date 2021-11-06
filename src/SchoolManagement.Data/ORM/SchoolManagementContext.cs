@@ -15,6 +15,8 @@ namespace SchoolManagement.Data.ORM
         public DbSet<Turma> Turmas { get; set; }
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Colaborador> Colaboradores { get; set; }
+        public DbSet<Disciplina> Disciplinas { get; set; }
+        public DbSet<Matricula> Matriculas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +26,8 @@ namespace SchoolManagement.Data.ORM
             modelBuilder.ApplyConfiguration(new TurmaMap());
             modelBuilder.ApplyConfiguration(new ProfessorMap());
             modelBuilder.ApplyConfiguration(new ColaboradorMap());
+            modelBuilder.ApplyConfiguration(new DisciplinaMap());
+            modelBuilder.ApplyConfiguration(new MatriculaMap());
         }
     }
 }

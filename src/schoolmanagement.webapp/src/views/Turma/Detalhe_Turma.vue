@@ -1,14 +1,16 @@
-<template >
+<template>
 <div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Cadastro de Turma</h1>
+      <b-button class="btnVoltar" variant="outline-info" @click="voltar()"
+      >Voltar</b-button>
+      <h1>Editando a Turma</h1>
 
        <b-row>
         <b-col cols="8">
           <div class="form-floating mb-3">
           <input
-            v-model="nome"
+            v-model="turma.nome"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -19,7 +21,7 @@
                 <b-col cols="4">
           <div class="form-floating mb-3">
           <input
-            v-model="serieId"
+            v-model="turma.serieId"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -33,7 +35,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="turno"
+            v-model="turma.turno"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -44,7 +46,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="ano"
+            v-model="turma.ano"
             type="number"
             class="form-control"
             placeholder="teste"
@@ -58,7 +60,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="sigla"
+            v-model="turma.sigla"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -69,7 +71,7 @@
         <b-col>
           <div class="form-floating mb-3">
           <input
-            v-model="situacao"
+            v-model="turma.situacao"
             type="text"
             class="form-control"
             placeholder="teste"
@@ -79,33 +81,11 @@
         </b-col>
       </b-row>
 
-      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
-        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addTurma">
-          Salvar
-        </b-button>
-      </div>
-  </div>
-
-  <b-modal id="ModalConfirm"
-           header-bg-variant="success"
-           header-text-variant="light"
-           centered 
-           hide-footer
-           >
-      <template v-slot:modal-header="{close}">
-      <div center>
-        Turma Cadastrada
-      </div>
-      <b-button @click="close">
-        <b-icon icon="arrow90deg-left"/>
-      </b-button>
-      </template>
-      <div class="text-center">
-        A Turma {{memoria6}} foi cadastrada com sucesso!
-      </div>
-  </b-modal>
-
+    <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">   
+    <b-button variant="outline-success" @click="SalvarTurma()">Salvar</b-button> 
+    </div>           
     </div>
+  </div>
 </div>
 </template>
 
@@ -113,64 +93,42 @@
 import axios from "axios";
 
 export default {
-  name: "Cadastro_Turma",
-
-
+  components: {},
   data() {
     return {
-      serieId: "",
-      nome: "",
-      turno: "",
-      ano: "",
-      sigla: "",
-      situacao: "",
-      memoria6: "",
+      turma: {},
+      id: this.$route.params.id,
     };
   },
-
-  created() {},
-
   methods: {
-    addTurma() {
-      let _turma = {
-        serieId: this.serieId,
-        nome: this.nome,
-        turno: this.turno,
-        ano: this.ano,
-        sigla: this.sigla,
-        situacao: this.situacao,
-      };
-
-      this.memoria6 = _turma.nome;
-
-      axios.post("https://localhost:5001/Turma/create", _turma).then((res) => {
-        console.log(res.data);
-      });
-
-      this.serieId = "";
-      this.nome = "";
-      this.turno = "";
-      this.ano = "";
-      this.sigla = "";
-      this.situacao = "";
+    voltar() {
+      this.$router.back();
     },
+    SalvarTurma() {
+      let _turmaEditar = {
+        id: this.id,
+        nome: this.turma.nome,
+        turno: this.turma.turno,
+        ano: this.turma.ano,
+        sigla: this.turma.sigla,
+        situacao: this.turma.situacao,
+        serieId: this.turma.serieId,
+      };
+      axios.put("https://localhost:5001/Turma/update", _turmaEditar);
 
+    },
+  },
+  created() {
+    axios.get(`https://localhost:5001/Turma/get/${this.id}`).then((res) => {
+      this.turma = res.data.data;
+    });
   },
 };
 </script>
 
 <style scoped>
-.temp {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  background: #212529;
-}
-
-.container{
-  background: #fff;
-  border-radius: 15px;
+.btnVoltar {
+  float: right;
+  margin-top: 25px; 
 }
 </style>
