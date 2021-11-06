@@ -17,6 +17,8 @@ namespace SchoolManagement.IoC
             services.AddScoped<IProfessorService, ProfessorService>();
             services.AddScoped<ISerieService, SerieService>();
             services.AddScoped<IColaboradorService, ColaboradorService>();
+            services.AddScoped<IDisciplinaService, DisciplinaService>();
+            services.AddScoped<IMatriculaService, MatriculaService>();
             #endregion
 
             #region Repositories
@@ -27,6 +29,8 @@ namespace SchoolManagement.IoC
             services.AddScoped<ITurmaRepository, TurmaRepository>();            
             services.AddScoped<IProfessorRepository, ProfessorRepository>();            
             services.AddScoped<IColaboradorRepository, ColaboradorRepository>();            
+            services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();            
+            services.AddScoped<IMatriculaRepository, MatriculaRepository>();            
             #endregion
         }
     }

@@ -1,8 +1,8 @@
 <template>
+<div class="temp">
   <div class="container">
     <div class="center">
-      <h1>Consulta de Curso</h1>
-    </div>
+      <h1>Consulta de Cursos</h1>
     <b-col lg="6" class="my-1">
       <b-form-group
         label-for="filter-input"
@@ -33,11 +33,47 @@
       :fields="fields"
       :filter="filter"
       :filter-included-fields="filterOn"
-    > <template #cell(nome)="data">
-        <a style="text-decoration: none; color: black" :href="`#/Detalhe_Curso/${data.item.id}`">{{ data.item.nome }}</a>
+    > 
+      <template v-slot:cell(options)="data">
+        <b-row cols="2" cols-sm="4" class="text-center">
+        <b-button @click="Excluir(data.item.id)"
+                  v-b-modal="'ModalExcluir'"
+                  size="sm"
+                  variant="outline-danger" 
+                  class="mb-2"
+                  >
+          <b-icon icon="trash" aria-hidden="true"></b-icon>
+        </b-button>
+        <b-button :href="`#/Detalhe_Curso/${data.item.id}`"
+                  style="margin: 0 15px;"
+                  size="sm"
+                  variant="outline-primary" 
+                  class="mb-2"
+                  >
+          <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
+        </b-button>
+        </b-row>
       </template>
     </b-table>
   </div>
+    <b-modal ref="ModalExcluir"
+           id="ModalExcluir"
+           body-bg-variant="danger"
+           body-text-variant="light"
+           centered 
+           hide-footer
+           hide-header
+           >
+      <b-container fluid>
+        <b-row class="mb-1 text-center">
+          <b-col cols="3"></b-col>
+          <b-col>Curso Excluído</b-col>
+          <b-col><b-button @click="close()">OK</b-button></b-col>
+        </b-row>
+      </b-container>
+  </b-modal>
+  </div>
+</div>
 </template>
 
 <script>
@@ -47,6 +83,7 @@ export default {
   name: "Consulta_Curso",
   data() {
     return {
+      show: false,
       cursos: [],
       fields: [
         {
@@ -55,34 +92,43 @@ export default {
           sortable: true,
         },
         {
-          key: "id",
-          sortable: false,
+          key: "coordenador",
+          label: 'Coordenador',
+        },
+        {
+          key: "options",
+          label: '',
         },
       ],
       filter: null,
       filterOn: [],
     };
   },
-  created() {
-    axios.get("https://localhost:5001/Curso/get").then((res) => {
+  methods: {
+    CarregarCursos(){
+      axios.get("https://localhost:5001/Curso/get").then((res) => {
       this.cursos = res.data.data;
-
-//Comando para visualizar no console do navegador, se os campos estão batendo com o backend
-      console.log('this.cursos :>> ', this.cursos);
     });
+    },
+
+    Excluir(id){
+      axios.delete(`https://localhost:5001/Curso/delete/${id}`);
+    },
+
+    close(){
+      this.CarregarCursos();
+      this.$refs.ModalExcluir.hide();
+    }
   },
 
-  methods: {},
+  created() {
+    this.CarregarCursos();
+  },
+
+
+
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-* {
-  font-family: "Poppins", sans-serif;
-}
-
-a:hover {
-  color: #f00
-}
 </style>
