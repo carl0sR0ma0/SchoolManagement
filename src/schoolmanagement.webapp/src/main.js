@@ -16,6 +16,8 @@ import Cadastro_Curso from "./views/Curso/Cadastro_Curso.vue";
 import Cadastro_Professor from "./views/Professor/Cadastro_Professor.vue";
 import Cadastro_Serie from "./views/Serie/Cadastro_Serie.vue";
 import Cadastro_Turma from "./views/Turma/Cadastro_Turma.vue";
+//Matricula
+import FormMatricula from "./views/Matricula/FormMatricula.vue";
 //Consulta
 import Consulta_Aluno from "./views/Aluno/Consulta_Aluno.vue";
 import Consulta_Colaborador from "./views/Colaborador/Consulta_Colaborador.vue";
@@ -30,7 +32,6 @@ import Detalhe_Curso from "./views/Curso/Detalhe_Curso.vue";
 import Detalhe_Professor from "./views/Professor/Detalhe_Professor.vue";
 import Detalhe_Serie from "./views/Serie/Detalhe_Serie.vue";
 import Detalhe_Turma from "./views/Turma/Detalhe_Turma.vue";
-
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -68,7 +69,7 @@ const router = new VueRouter({
       path: "/Cadastro_Curso",
       name: "Cadastro_Curso",
       component: Cadastro_Curso,
-    },    
+    },
     {
       path: "/Cadastro_Professor",
       name: "Cadastro_Professor",
@@ -145,6 +146,12 @@ const router = new VueRouter({
       path: "/Detalhe_Turma/:id",
       name: "Detalhe_Turma",
       component: Detalhe_Turma,
+    },
+    // Matricula
+    {
+      path: "/Matricula",
+      name: "Matricula",
+      component: FormMatricula,
     },
   ],
 });
