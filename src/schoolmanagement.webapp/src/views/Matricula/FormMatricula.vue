@@ -183,7 +183,6 @@ export default {
 
   watch: {
     cursoId(value) {
-      console.log("value :>> ", value);
       this.seriesAux = this.series.filter((x) => x.cursoId == value);
       this.serieId = null;
       this.seriesAux.unshift({ id: null, nome: "Selecione uma Série" });
