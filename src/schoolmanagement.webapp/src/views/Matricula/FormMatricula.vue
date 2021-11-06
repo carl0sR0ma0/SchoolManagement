@@ -59,18 +59,99 @@
             </option>
           </select>
         </div>
+        <div class="form-floating mb-3">
+          <select class="form-select" v-model="turmaId">
+            <option
+              v-for="turma in turmasAux"
+              :key="turma.id"
+              :value="turma.id"
+            >
+              {{ turma.nome }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            v-model="data"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+            onfocus="(this.type='datetime-local')"
+            onblur="(this.type='text')"
+            required
+          />
+          <label for="floatingInput">Data da Matricula</label>
+        </div>
+        <div class="form-floating mb-3">
+          <select class="form-select" v-model="situacao">
+            <option selected>Selecione uma opção</option>
+            <option value="ATIVA">ATIVA</option>
+            <option value="INATIVA">Inativa</option>
+          </select>
+        </div>
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="observacao"
+            style="height: 100px"
+            v-model="observacao"
+          ></textarea>
+          <label for="observacao">Observação</label>
+        </div>
+        <div
+          class="d-grid gap-5 mt-3"
+          style="padding-left: 100px; padding-right: 100px"
+        >
+          <b-button
+            v-b-modal="'ModalConfirm'"
+            type="button"
+            class="btn btn-success"
+            @click="addMatricula"
+          >
+            Salvar
+          </b-button>
+        </div>
       </div>
     </div>
+
+    <b-modal
+      id="ModalConfirm"
+      header-bg-variant="success"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        Aluno Matriculado
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
+        </b-button>
+      </template>
+      <div class="text-center">
+        O aluno {{ aluno.nome }} foi matriculado na turma {{ turmaId }} com
+        sucesso!
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "FormMatricula",
   data() {
     return {
       cursoId: null,
       serieId: null,
+      turmaId: null,
+      alunoId: null,
+      aluno: { id: 1, nome: "Carlos Romão" },
+      data: "",
+      situacao: "Selecione uma opção",
+      observacao: "",
       filter: null,
       alunoMatriculado: [],
       filterOn: [],
@@ -84,69 +165,38 @@ export default {
           key: "ra",
         },
       ],
-      alunos: [
-        { id: 1, nome: "Carlos Romão", ra: 22048192239 },
-        { id: 2, nome: "Rodrigo Fessore", ra: 22048192205 },
-        { id: 3, nome: "Luciano Romano", ra: 22048192214 },
-        { id: 4, nome: "Rafael Alves", ra: 22048182215 },
-      ],
-      cursos: [
-        { id: null, nome: "Selecione um Curso" },
-        { id: 1, nome: "Ensino Infantil I" },
-        { id: 2, nome: "Ensino Infantil II" },
-        { id: 3, nome: "Ensino Infantil III" },
-        { id: 4, nome: "Ensino Fundamental I" },
-        { id: 5, nome: "Ensino Fundamental II" },
-        { id: 6, nome: "Ensino Médio" },
-      ],
-      series: [
-        { id: null, nome: "Selecione uma Série" },
-        { id: 1, nome: "1ª Série EFI", cursoId: 4 },
-        { id: 2, nome: "2ª Série EFI", cursoId: 4 },
-        { id: 3, nome: "3ª Série EFI", cursoId: 4 },
-        { id: 4, nome: "4ª Série EFI", cursoId: 4 },
-        { id: 5, nome: "5ª Série EFII", cursoId: 5 },
-        { id: 6, nome: "6ª Série EFII", cursoId: 5 },
-        { id: 7, nome: "7ª Série EFII", cursoId: 5 },
-        { id: 8, nome: "8ª Série EFII", cursoId: 5 },
-        { id: 9, nome: "1ª Série EM", cursoId: 6 },
-        { id: 10, nome: "2ª Série EM", cursoId: 6 },
-        { id: 11, nome: "3ª Série EM", cursoId: 6 },
-        { id: 12, nome: "Pré I", cursoId: 1 },
-        { id: 13, nome: "Pré II", cursoId: 2 },
-        { id: 14, nome: "Pré III", cursoId: 2 },
-        { id: 15, nome: "Maternal", cursoId: 1 },
-      ],
+      alunos: [],
+      cursos: [],
+      series: [],
+      turmas: [],
       seriesAux: [{ id: null, nome: "Selecione uma Série" }],
+      turmasAux: [{ id: null, nome: "Selecione uma Turma" }],
     };
   },
 
   watch: {
     cursoId(value) {
-      console.log("value :>> ", value);
       this.seriesAux = this.series.filter((x) => x.cursoId == value);
-
-      // seriesAux.forEach((element) => {
-      //   let obj_serie = {
-      //     id: element.id,
-      //     nome: element.nome,
-      //     cursoId: element.cursoId,
-      //   };
-
-      //   if (!this.series.find((a) => a.id == obj_serie.id)) {
-      //     this.series.push(obj_serie);
-      //   }
-      // });
       this.serieId = null;
       this.seriesAux.unshift({ id: null, nome: "Selecione uma Série" });
-      console.log("this.series :>> ", this.seriesAux);
+    },
+
+    serieId(value) {
+      this.turmasAux = this.turmas.filter((x) => x.serieId == value);
+      this.turmaId = null;
+      this.turmasAux.unshift({ id: null, nome: "Selecione uma Turma" });
     },
 
     filter(value) {
-      let aluno = this.alunos.find((x) => x.nome == value);
+      let aluno = this.alunos.filter((x) => x.nome.includes(value));
+      if (!value) {
+        this.alunoMatriculado = [];
+        aluno = [];
+      }
 
       if (aluno) {
-        this.alunoMatriculado.push(aluno);
+        this.alunoMatriculado = [];
+        this.alunoMatriculado = aluno;
       }
     },
   },
@@ -155,7 +205,57 @@ export default {
     clearFieldSearch() {
       this.alunoMatriculado = [];
       this.filter = null;
+
+      this.cursoId = null;
+      this.serieId = null;
+      this.turmaId = null;
     },
+
+    loadStudents() {
+      const url = "https://localhost:5001/Aluno/get";
+
+      axios.get(url).then((res) => {
+        this.alunos = res.data.data;
+      });
+    },
+
+    loadCourse() {
+      const url = "https://localhost:5001/Curso/get";
+
+      axios.get(url).then((res) => {
+        this.cursos = res.data.data;
+        this.cursos.unshift({ id: null, nome: "Selecione um Curso..." });
+      });
+    },
+
+    loadSeries() {
+      const url = "https://localhost:5001/Serie/get";
+
+      axios.get(url).then((res) => {
+        this.series = res.data.data;
+        this.series.unshift({ id: null, nome: "Selecione uma Série..." });
+      });
+    },
+
+    loadClasses() {
+      const url = "https://localhost:5001/Turma/get";
+
+      axios.get(url).then((res) => {
+        this.turmas = res.data.data;
+        this.turmas.unshift({ id: null, nome: "Selecione uma Turma..." });
+      });
+    },
+
+    addMatricula() {
+      alert("Matricula Realizada com Sucesso!!!");
+    },
+  },
+
+  created() {
+    this.loadStudents();
+    this.loadCourse();
+    this.loadSeries();
+    this.loadClasses();
   },
 };
 </script>
