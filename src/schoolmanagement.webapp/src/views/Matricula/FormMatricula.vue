@@ -81,7 +81,7 @@
               {{ turma.nome }}
             </option>
           </select>
-        </div>
+      </div>
 
         <div class="form-floating mb-3">
           <input
@@ -94,14 +94,14 @@
             required
           />
           <label for="floatingInput">Data da Matricula</label>
-        </div>
+    </div>
         <div class="form-floating mb-3">
           <select class="form-select" v-model="situacao">
             <option selected>Selecione uma opção</option>
             <option value="ATIVA">ATIVA</option>
             <option value="INATIVA">INATIVA</option>
           </select>
-        </div>
+  </div>
         <div class="form-floating">
           <textarea
             class="form-control"
@@ -135,7 +135,7 @@
         <b-button @click="close">
           <b-icon icon="arrow90deg-left" />
         </b-button>
-      </template>
+</template>
       <div class="text-center">
         O aluno {{ aluno.nome }} foi matriculado na turma {{ turma.nome }} com
         sucesso!
@@ -183,6 +183,7 @@ export default {
 
   watch: {
     cursoId(value) {
+      console.log("value :>> ", value);
       this.seriesAux = this.series.filter((x) => x.cursoId == value);
       this.serieId = null;
       this.seriesAux.unshift({ id: null, nome: "Selecione uma Série" });
@@ -275,7 +276,7 @@ export default {
         this.$bvModal.show("ModalConfirm");
       });
     },
-  },
+    },
 
   created() {
     this.loadStudents();
