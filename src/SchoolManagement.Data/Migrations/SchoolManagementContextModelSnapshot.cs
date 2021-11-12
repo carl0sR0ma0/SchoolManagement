@@ -238,30 +238,30 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AlunoId")
-                        .HasColumnType("BIGINT");
+                    b.Property<int>("AulasSemanais")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CargaHoraria")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Observacao")
+                    b.Property<string>("ConteudoProgramatico")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Situacao")
+                    b.Property<string>("Ementa")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("TurmaId")
-                        .HasColumnType("BIGINT");
+                    b.Property<int>("FaltasPermitidas")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sigla")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlunoId")
-                        .IsUnique();
-
-                    b.HasIndex("TurmaId")
-                        .IsUnique();
-
-                    b.ToTable("Matriculas");
+                    b.ToTable("Disciplinas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Notas", b =>
@@ -272,28 +272,44 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<long>("DisciplinaId")
                         .HasColumnType("BIGINT");
 
+                    b.Property<long>("AlunoId")
+                        .HasColumnType("BIGINT");
                     b.Property<bool>("AprovadoReprovado")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
                     b.Property<double>("Media")
                         .HasColumnType("float");
 
+                    b.Property<string>("Observacao")
+                        .HasColumnType("nvarchar(max)");
                     b.Property<double>("Nota1")
                         .HasColumnType("float");
 
+                    b.Property<string>("Situacao")
+                        .HasColumnType("nvarchar(max)");
                     b.Property<double>("Nota2")
                         .HasColumnType("float");
 
+                    b.Property<long>("TurmaId")
+                        .HasColumnType("BIGINT");
                     b.Property<double>("Nota3")
                         .HasColumnType("float");
 
+                    b.HasKey("Id");
                     b.Property<double>("Nota4")
                         .HasColumnType("float");
 
+                    b.HasIndex("AlunoId")
+                        .IsUnique();
                     b.HasKey("AlunoId", "DisciplinaId");
 
+                    b.HasIndex("TurmaId")
+                        .IsUnique();
                     b.HasIndex("DisciplinaId");
 
+                    b.ToTable("Matriculas");
                     b.ToTable("Notas");
                 });
 
