@@ -46,7 +46,7 @@ namespace SchoolManagement.Data.Migrations
                 name: "IX_Matriculas_TurmaId",
                 table: "Matriculas",
                 column: "TurmaId",
-                unique: true);
+                unique: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
