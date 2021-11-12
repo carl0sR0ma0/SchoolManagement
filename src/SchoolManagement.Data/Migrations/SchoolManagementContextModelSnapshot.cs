@@ -178,8 +178,6 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<int>("FaltasPermitidas")
                         .HasColumnType("int");
-                    b.Property<int>("FaltasPermitidas")
-                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
@@ -215,15 +213,11 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id", "ProfessorId", "DisciplinaId");
 
-                    b.HasKey("Id");
-
                     b.HasIndex("DisciplinaId");
 
-                    b.HasKey("Id");
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Disciplinas");
-                    b.ToTable("DisciplinasMatriculadas");
+                    b.ToTable("Disciplinas Matriculadas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
@@ -235,30 +229,28 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AulasSemanais")
-                        .HasColumnType("int");
+                    b.Property<long>("AlunoId")
+                        .HasColumnType("BIGINT");
 
-                    b.Property<int>("CargaHoraria")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("ConteudoProgramatico")
+                    b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ementa")
+                    b.Property<string>("Situacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FaltasPermitidas")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sigla")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("TurmaId")
+                        .HasColumnType("BIGINT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Disciplinas");
+                    b.HasIndex("AlunoId");
+
+                    b.HasIndex("TurmaId");
+
+                    b.ToTable("Matriculas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Notas", b =>
@@ -269,44 +261,28 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<long>("DisciplinaId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long>("AlunoId")
-                        .HasColumnType("BIGINT");
                     b.Property<bool>("AprovadoReprovado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
                     b.Property<double>("Media")
                         .HasColumnType("float");
 
-                    b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
                     b.Property<double>("Nota1")
                         .HasColumnType("float");
 
-                    b.Property<string>("Situacao")
-                        .HasColumnType("nvarchar(max)");
                     b.Property<double>("Nota2")
                         .HasColumnType("float");
 
-                    b.Property<long>("TurmaId")
-                        .HasColumnType("BIGINT");
                     b.Property<double>("Nota3")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
                     b.Property<double>("Nota4")
                         .HasColumnType("float");
 
-                    b.HasIndex("AlunoId")
-                        .IsUnique();
                     b.HasKey("AlunoId", "DisciplinaId");
 
-                    b.HasIndex("TurmaId")
-                        .IsUnique();
                     b.HasIndex("DisciplinaId");
 
-                    b.ToTable("Matriculas");
                     b.ToTable("Notas");
                 });
 
