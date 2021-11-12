@@ -210,21 +210,18 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<string>("Dia")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
                     b.Property<string>("Horario")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id", "ProfessorId", "DisciplinaId");
 
-                    b.Property<string>("Sigla")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
+
                     b.HasIndex("DisciplinaId");
 
                     b.HasKey("Id");
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Disciplinas Matriculadas");
                     b.ToTable("Disciplinas");
                     b.ToTable("DisciplinasMatriculadas");
                 });
