@@ -38,6 +38,18 @@
           :filter="filter"
           :filter-included-fields="filterOn"
         >
+          <template v-slot:cell(nome)="data">
+            <b-row cols="2" cols-sm="4" class="text-center">
+              <a
+                @click="aluno = data.item"
+                v-b-modal="'ModalExcluir'"
+                size="sm"
+                class="mb-2"
+              >
+                {{ data.item.nome }}
+              </a>
+            </b-row>
+          </template>
         </b-table>
 
         <div class="form-floating mb-3">
@@ -87,7 +99,7 @@
           <select class="form-select" v-model="situacao">
             <option selected>Selecione uma opção</option>
             <option value="ATIVA">ATIVA</option>
-            <option value="INATIVA">Inativa</option>
+            <option value="INATIVA">INATIVA</option>
           </select>
         </div>
         <div class="form-floating">
@@ -104,12 +116,7 @@
           class="d-grid gap-5 mt-3"
           style="padding-left: 100px; padding-right: 100px"
         >
-          <b-button
-            v-b-modal="'ModalConfirm'"
-            type="button"
-            class="btn btn-success"
-            @click="addMatricula"
-          >
+          <b-button type="button" class="btn btn-success" @click="addMatricula">
             Salvar
           </b-button>
         </div>
@@ -130,7 +137,7 @@
         </b-button>
       </template>
       <div class="text-center">
-        O aluno {{ aluno.nome }} foi matriculado na turma {{ turmaId }} com
+        O aluno {{ aluno.nome }} foi matriculado na turma {{ turma.nome }} com
         sucesso!
       </div>
     </b-modal>
@@ -147,8 +154,8 @@ export default {
       cursoId: null,
       serieId: null,
       turmaId: null,
-      alunoId: null,
-      aluno: { id: 1, nome: "Carlos Romão" },
+      aluno: {},
+      turma: {},
       data: "",
       situacao: "Selecione uma opção",
       observacao: "",
@@ -187,6 +194,10 @@ export default {
       this.turmasAux.unshift({ id: null, nome: "Selecione uma Turma" });
     },
 
+    turmaId(value) {
+      this.turma = this.turmas.find((x) => x.id == value);
+    },
+
     filter(value) {
       let aluno = this.alunos.filter((x) => x.nome.includes(value));
       if (!value) {
@@ -209,6 +220,9 @@ export default {
       this.cursoId = null;
       this.serieId = null;
       this.turmaId = null;
+      this.data = "";
+      this.situacao = "Selecione uma opção";
+      this.observacao = "";
     },
 
     loadStudents() {
@@ -247,7 +261,19 @@ export default {
     },
 
     addMatricula() {
-      alert("Matricula Realizada com Sucesso!!!");
+      let mat_save = {
+        data: this.data,
+        situacao: this.situacao,
+        observacao: this.observacao,
+        alunoId: this.aluno.id,
+        turmaId: this.turmaId,
+      };
+
+      const url = "https://localhost:5001/Matricula/create";
+
+      axios.post(url, mat_save).then(() => {
+        this.$bvModal.show("ModalConfirm");
+      });
     },
   },
 
