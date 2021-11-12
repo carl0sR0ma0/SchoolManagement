@@ -48,7 +48,7 @@ namespace SchoolManagement.Services.Services
         {
             Matricula matricula = new Matricula(
                 matriculaDTO.Data,
-                matriculaDTO.Situcao,
+                matriculaDTO.Situacao,
                 matriculaDTO.Observacao,
                 matriculaDTO.AlunoId,
                 matriculaDTO.TurmaId

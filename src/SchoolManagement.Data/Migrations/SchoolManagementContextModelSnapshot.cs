@@ -238,7 +238,7 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<string>("Observacao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Situcao")
+                    b.Property<string>("Situacao")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("TurmaId")
@@ -246,11 +246,9 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlunoId")
-                        .IsUnique();
+                    b.HasIndex("AlunoId");
 
-                    b.HasIndex("TurmaId")
-                        .IsUnique();
+                    b.HasIndex("TurmaId");
 
                     b.ToTable("Matriculas");
                 });
