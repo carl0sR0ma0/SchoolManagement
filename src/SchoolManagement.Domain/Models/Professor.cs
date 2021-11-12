@@ -12,7 +12,7 @@ namespace SchoolManagement.Domain.Models
         protected Professor() 
         {
         }
-        public Professor (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ctps, string _licenca, string _titulacao, DateTime _dataAdmissao)
+        public Professor (string _nome, DateTime _dataNascimento, string _rg, string _cpf, Sexo _sexo, string _telefone, long _ctps, string _licenca, string _titulacao,  DateTime _dataAdmissao)
         {
             Nome = _nome;
             DataNascimento = _dataNascimento;
@@ -23,7 +23,8 @@ namespace SchoolManagement.Domain.Models
             CPTS = _ctps;
             Licenca = _licenca;
             Titulacao = _titulacao;
-            DataAdmissao = _dataAdmissao; 
+            DataAdmissao = _dataAdmissao;
+            Disciplinas  = new List<DisciplinasMatriculadas>();
             _errors = new List<string>();
 
             Validate();
@@ -31,6 +32,7 @@ namespace SchoolManagement.Domain.Models
 
         public string Licenca { get; set; }
         public string Titulacao { get; set; }
+        public List<DisciplinasMatriculadas> Disciplinas { get; set; }
 
         public override bool Validate()
         {
