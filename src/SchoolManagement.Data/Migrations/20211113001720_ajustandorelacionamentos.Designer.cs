@@ -10,8 +10,8 @@ using SchoolManagement.Data.ORM;
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    [Migration("20211112210529_CorrigindoMigrations")]
-    partial class CorrigindoMigrations
+    [Migration("20211113001720_ajustandorelacionamentos")]
+    partial class ajustandorelacionamentos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -201,25 +201,30 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ProfessorId")
-                        .HasColumnType("BIGINT");
+                    b.Property<string>("Dia")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("DisciplinaId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<string>("Dia")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Horario")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id", "ProfessorId", "DisciplinaId");
+                    b.Property<long>("MatriculaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("ProfessorId")
+                        .HasColumnType("BIGINT");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("DisciplinaId");
 
+                    b.HasIndex("MatriculaId");
+
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Disciplinas Matriculadas");
+                    b.ToTable("DisciplinasMatriculadas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
@@ -248,9 +253,11 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlunoId");
+                    b.HasIndex("AlunoId")
+                        .IsUnique();
 
-                    b.HasIndex("TurmaId");
+                    b.HasIndex("TurmaId")
+                        .IsUnique();
 
                     b.ToTable("Matriculas");
                 });
@@ -445,6 +452,12 @@ namespace SchoolManagement.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SchoolManagement.Domain.Models.Matricula", "Matricula")
+                        .WithMany("Disciplinas")
+                        .HasForeignKey("MatriculaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SchoolManagement.Domain.Models.Professor", "Professor")
                         .WithMany("Disciplinas")
                         .HasForeignKey("ProfessorId")
@@ -452,6 +465,8 @@ namespace SchoolManagement.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Disciplina");
+
+                    b.Navigation("Matricula");
 
                     b.Navigation("Professor");
                 });
@@ -486,7 +501,6 @@ namespace SchoolManagement.Data.Migrations
                     b.HasOne("SchoolManagement.Domain.Models.DisciplinasMatriculadas", "Disciplina")
                         .WithMany()
                         .HasForeignKey("DisciplinaId")
-                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -537,6 +551,11 @@ namespace SchoolManagement.Data.Migrations
             modelBuilder.Entity("SchoolManagement.Domain.Models.Disciplina", b =>
                 {
                     b.Navigation("Professores");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
+                {
+                    b.Navigation("Disciplinas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>

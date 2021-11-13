@@ -8,9 +8,9 @@ namespace SchoolManagement.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<DisciplinasMatriculadas> builder)
         {
-            builder.ToTable("Disciplinas Matriculadas");
+            builder.ToTable("DisciplinasMatriculadas");
 
-            builder.HasKey(d => new { d.Id, d.ProfessorId, d.DisciplinaId });
+            builder.HasKey(d => d.Id);
 
             builder.Property(d => d.Id)
                 .UseIdentityColumn()

@@ -25,6 +25,12 @@ namespace SchoolManagement.Data.Mappings
                 .WithOne() // WithMany
                 .HasForeignKey<Matricula>(m => m.TurmaId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(m => m.Disciplinas)
+               .WithOne(dm => dm.Matricula)
+               .HasForeignKey(dm => dm.MatriculaId)
+               .HasPrincipalKey(m => m.Id)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

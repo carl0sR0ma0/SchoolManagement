@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SchoolManagement.API.ViewModel.DisciplinaMatriculadaViewModel;
 
 namespace SchoolManagement.API.ViewModel.MatriculaViewModel
 {
@@ -12,5 +13,6 @@ namespace SchoolManagement.API.ViewModel.MatriculaViewModel
         public string Observacao { get; set; }
         public long AlunoId { get; set; }
         public long TurmaId { get; set; }
+        public List<DisciplinaMatriculadasViewModel> Disciplinas { get; set; }
     }
 }
