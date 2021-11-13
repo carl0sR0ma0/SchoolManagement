@@ -9,6 +9,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 //pages
 import Main from "./components/Main.vue";
+import Dashboard from "./components/Dashboard.vue";
 //Cadastro
 import Cadastro_Aluno from "./views/Aluno/Cadastro_Aluno.vue";
 import Cadastro_Colaborador from "./views/Colaborador/Cadastro_Colaborador.vue";
@@ -54,6 +55,12 @@ const router = new VueRouter({
       path: "/",
       name: "Main",
       component: Main,
+    },
+    //Dashboard
+    {
+      path: "/Dashboard",
+      name: "Dashboard",
+      component: Dashboard,
     },
     // Rotas Cadastro
     {
