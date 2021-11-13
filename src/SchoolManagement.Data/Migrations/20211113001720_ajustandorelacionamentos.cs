@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SchoolManagement.Data.Migrations
 {
-    public partial class CorrigindoMigrations : Migration
+    public partial class ajustandorelacionamentos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,35 +165,6 @@ namespace SchoolManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Disciplinas Matriculadas",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "BIGINT", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProfessorId = table.Column<long>(type: "BIGINT", nullable: false),
-                    DisciplinaId = table.Column<long>(type: "BIGINT", nullable: false),
-                    Dia = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Horario = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Disciplinas Matriculadas", x => new { x.Id, x.ProfessorId, x.DisciplinaId });
-                    table.UniqueConstraint("AK_Disciplinas Matriculadas_Id", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Disciplinas Matriculadas_Disciplinas_DisciplinaId",
-                        column: x => x.DisciplinaId,
-                        principalTable: "Disciplinas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Disciplinas Matriculadas_Professores_ProfessorId",
-                        column: x => x.ProfessorId,
-                        principalTable: "Professores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Turmas",
                 columns: table => new
                 {
@@ -213,36 +184,6 @@ namespace SchoolManagement.Data.Migrations
                         name: "FK_Turmas_Series_SerieId",
                         column: x => x.SerieId,
                         principalTable: "Series",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Notas",
-                columns: table => new
-                {
-                    AlunoId = table.Column<long>(type: "BIGINT", nullable: false),
-                    DisciplinaId = table.Column<long>(type: "BIGINT", nullable: false),
-                    Nota1 = table.Column<double>(type: "float", nullable: false),
-                    Nota2 = table.Column<double>(type: "float", nullable: false),
-                    Nota3 = table.Column<double>(type: "float", nullable: false),
-                    Nota4 = table.Column<double>(type: "float", nullable: false),
-                    Media = table.Column<double>(type: "float", nullable: false),
-                    AprovadoReprovado = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notas", x => new { x.AlunoId, x.DisciplinaId });
-                    table.ForeignKey(
-                        name: "FK_Notas_Alunos_AlunoId",
-                        column: x => x.AlunoId,
-                        principalTable: "Alunos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Notas_Disciplinas Matriculadas_DisciplinaId",
-                        column: x => x.DisciplinaId,
-                        principalTable: "Disciplinas Matriculadas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -276,27 +217,97 @@ namespace SchoolManagement.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "DisciplinasMatriculadas",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "BIGINT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProfessorId = table.Column<long>(type: "BIGINT", nullable: false),
+                    DisciplinaId = table.Column<long>(type: "BIGINT", nullable: false),
+                    MatriculaId = table.Column<long>(type: "BIGINT", nullable: false),
+                    Dia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Horario = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DisciplinasMatriculadas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DisciplinasMatriculadas_Disciplinas_DisciplinaId",
+                        column: x => x.DisciplinaId,
+                        principalTable: "Disciplinas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DisciplinasMatriculadas_Matriculas_MatriculaId",
+                        column: x => x.MatriculaId,
+                        principalTable: "Matriculas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DisciplinasMatriculadas_Professores_ProfessorId",
+                        column: x => x.ProfessorId,
+                        principalTable: "Professores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notas",
+                columns: table => new
+                {
+                    AlunoId = table.Column<long>(type: "BIGINT", nullable: false),
+                    DisciplinaId = table.Column<long>(type: "BIGINT", nullable: false),
+                    Nota1 = table.Column<double>(type: "float", nullable: false),
+                    Nota2 = table.Column<double>(type: "float", nullable: false),
+                    Nota3 = table.Column<double>(type: "float", nullable: false),
+                    Nota4 = table.Column<double>(type: "float", nullable: false),
+                    Media = table.Column<double>(type: "float", nullable: false),
+                    AprovadoReprovado = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notas", x => new { x.AlunoId, x.DisciplinaId });
+                    table.ForeignKey(
+                        name: "FK_Notas_Alunos_AlunoId",
+                        column: x => x.AlunoId,
+                        principalTable: "Alunos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Notas_DisciplinasMatriculadas_DisciplinaId",
+                        column: x => x.DisciplinaId,
+                        principalTable: "DisciplinasMatriculadas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Disciplinas Matriculadas_DisciplinaId",
-                table: "Disciplinas Matriculadas",
+                name: "IX_DisciplinasMatriculadas_DisciplinaId",
+                table: "DisciplinasMatriculadas",
                 column: "DisciplinaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Disciplinas Matriculadas_ProfessorId",
-                table: "Disciplinas Matriculadas",
+                name: "IX_DisciplinasMatriculadas_MatriculaId",
+                table: "DisciplinasMatriculadas",
+                column: "MatriculaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DisciplinasMatriculadas_ProfessorId",
+                table: "DisciplinasMatriculadas",
                 column: "ProfessorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matriculas_AlunoId",
                 table: "Matriculas",
                 column: "AlunoId",
-                unique: false);
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matriculas_TurmaId",
                 table: "Matriculas",
                 column: "TurmaId",
-                unique: false);
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notas_DisciplinaId",
@@ -325,31 +336,31 @@ namespace SchoolManagement.Data.Migrations
                 name: "Colaboradores");
 
             migrationBuilder.DropTable(
-                name: "Matriculas");
-
-            migrationBuilder.DropTable(
                 name: "Notas");
 
             migrationBuilder.DropTable(
                 name: "Responsavel");
 
             migrationBuilder.DropTable(
-                name: "Turmas");
-
-            migrationBuilder.DropTable(
-                name: "Disciplinas Matriculadas");
-
-            migrationBuilder.DropTable(
-                name: "Alunos");
-
-            migrationBuilder.DropTable(
-                name: "Series");
+                name: "DisciplinasMatriculadas");
 
             migrationBuilder.DropTable(
                 name: "Disciplinas");
 
             migrationBuilder.DropTable(
+                name: "Matriculas");
+
+            migrationBuilder.DropTable(
                 name: "Professores");
+
+            migrationBuilder.DropTable(
+                name: "Alunos");
+
+            migrationBuilder.DropTable(
+                name: "Turmas");
+
+            migrationBuilder.DropTable(
+                name: "Series");
 
             migrationBuilder.DropTable(
                 name: "Cursos");

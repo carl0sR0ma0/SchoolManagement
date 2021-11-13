@@ -2,6 +2,7 @@
 using SchoolManagement.Domain.Validators;
 using SchoolManager.Core.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace SchoolManagement.Domain.Models
 {
@@ -30,6 +31,7 @@ namespace SchoolManagement.Domain.Models
         public long TurmaId { get; set; }
         public Turma Turma { get; set; }
 
+        public List<DisciplinasMatriculadas> Disciplinas { get; set; }
         public override bool Validate()
         {
             var validator = new MatriculaValidator();

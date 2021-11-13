@@ -33,5 +33,8 @@ namespace SchoolManagement.Services.DTO
 
         public long TurmaId { get; set; }
         public TurmaDTO Turma { get; set; }
+
+        public long MatriculaId { get; set; }
+        public MatriculaDTO Matricula { get; set; }
     }
 }
