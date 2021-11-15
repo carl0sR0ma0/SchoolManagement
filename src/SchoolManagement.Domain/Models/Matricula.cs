@@ -8,9 +8,7 @@ namespace SchoolManagement.Domain.Models
 {
     public class Matricula : Base
     {
-        protected Matricula()
-        {
-        }
+        protected Matricula() { }
 
         public Matricula(DateTime data, string situacao, string observacao, long alunoId, long turmaId)
         {
@@ -19,6 +17,7 @@ namespace SchoolManagement.Domain.Models
             Observacao = observacao;
             AlunoId = alunoId;
             TurmaId = turmaId;
+            DisciplinaMatriculadas = new List<DisciplinaMatriculada>();
         }
 
         public DateTime Data { get; set; }
@@ -31,7 +30,8 @@ namespace SchoolManagement.Domain.Models
         public long TurmaId { get; set; }
         public Turma Turma { get; set; }
 
-        public List<DisciplinasMatriculadas> Disciplinas { get; set; }
+        public List<DisciplinaMatriculada> DisciplinaMatriculadas { get; set; }
+
         public override bool Validate()
         {
             var validator = new MatriculaValidator();

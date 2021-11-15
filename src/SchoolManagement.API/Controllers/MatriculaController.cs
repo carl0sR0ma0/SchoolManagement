@@ -30,7 +30,9 @@ namespace SchoolManagement.API.Controllers
         {
             try
             {
+                var disciplinaDTO = _mapper.Map<List<DisciplinaMatriculadaDTO>>(matriculaViewModel.DisciplinaMatriculadas);
                 var matriculaDTO = _mapper.Map<MatriculaDTO>(matriculaViewModel);
+                matriculaDTO.DisciplinaMatriculadas = disciplinaDTO;
                 var matriculaCreated = await _service.Post(matriculaDTO);
 
                 return Ok(new ResultViewModel

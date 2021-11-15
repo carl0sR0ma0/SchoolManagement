@@ -13,6 +13,6 @@ namespace SchoolManagement.API.ViewModel.MatriculaViewModel
         public string Observacao { get; set; }
         public long AlunoId { get; set; }
         public long TurmaId { get; set; }
-        public List<DisciplinaMatriculadasViewModel> Disciplinas { get; set; }
+        public List<CreateDisciplinaMatriculadaViewModel> DisciplinaMatriculadas { get; set; }
     }
 }

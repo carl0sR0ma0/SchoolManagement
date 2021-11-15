@@ -17,8 +17,9 @@ namespace SchoolManagement.Data.ORM
         public DbSet<Colaborador> Colaboradores { get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<Matricula> Matriculas { get; set; }
-        public DbSet<DisciplinasMatriculadas> DisciplinasMatriculadas { get; set; }
+        public DbSet<DisciplinaProfessor> DisciplinaProfessor { get; set; }
         public DbSet<Notas> Notas { get; set; }
+        public DbSet<DisciplinaMatriculada> DisciplinaMatriculada { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,8 +31,9 @@ namespace SchoolManagement.Data.ORM
             modelBuilder.ApplyConfiguration(new ColaboradorMap());
             modelBuilder.ApplyConfiguration(new DisciplinaMap());
             modelBuilder.ApplyConfiguration(new MatriculaMap());
-            modelBuilder.ApplyConfiguration(new DisciplinasMatriculadasMap());
+            modelBuilder.ApplyConfiguration(new DisciplinaProfessorMap());
             modelBuilder.ApplyConfiguration(new NotasMap());
+            modelBuilder.ApplyConfiguration(new DisciplinaMatriculadaMap());
         }
     }
 }

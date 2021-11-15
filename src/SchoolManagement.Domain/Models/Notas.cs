@@ -10,8 +10,6 @@ namespace SchoolManagement.Domain.Models
     {
         public long AlunoId { get; set; }
         public Aluno Aluno { get; set; }
-        public long DisciplinaId { get; set; }
-        public DisciplinasMatriculadas Disciplina { get; set; }
 
         public double Nota1 { get; set; }
         public double Nota2 { get; set; }

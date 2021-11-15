@@ -4,11 +4,11 @@ using SchoolManagement.Domain.Models;
 
 namespace SchoolManagement.Data.Mappings
 {
-    public class DisciplinasMatriculadasMap : IEntityTypeConfiguration<DisciplinasMatriculadas>
+    public class DisciplinaProfessorMap : IEntityTypeConfiguration<DisciplinaProfessor>
     {
-        public void Configure(EntityTypeBuilder<DisciplinasMatriculadas> builder)
+        public void Configure(EntityTypeBuilder<DisciplinaProfessor> builder)
         {
-            builder.ToTable("DisciplinasMatriculadas");
+            builder.ToTable("DisciplinaProfessor");
 
             builder.HasKey(d => d.Id);
 

@@ -1,5 +1,6 @@
 ﻿using SchoolManagement.Domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace SchoolManagement.Services.DTO
 {
@@ -7,7 +8,7 @@ namespace SchoolManagement.Services.DTO
     {
         public ProfessorDTO() { }
 
-        public ProfessorDTO(long id, string nome, DateTime dataNascimento, string rG, string cPF, Sexo sexo, string telefone, long ctps, string licenca, string titulacao, DateTime dataAdmissao)
+        public ProfessorDTO(long id, string nome, DateTime dataNascimento, string rG, string cPF, Sexo sexo, string telefone, long cTPS, string licenca, string titulacao, DateTime dataAdmissao)
         {
             Id = id;
             Nome = nome;
@@ -16,11 +17,11 @@ namespace SchoolManagement.Services.DTO
             CPF = cPF;
             Sexo = sexo;
             Telefone = telefone;
-            CTPS = ctps;
+            CTPS = cTPS;
             Licenca = licenca;
             Titulacao = titulacao;
             DataAdmissao = dataAdmissao;
-
+            Disciplinas = new List<DisciplinaProfessorDTO>();
         }
 
         public long Id { get; set; }
@@ -34,5 +35,7 @@ namespace SchoolManagement.Services.DTO
         public string Licenca { get; set; }
         public string Titulacao { get; set; }
         public DateTime DataAdmissao { get; set; }
+
+        public List<DisciplinaProfessorDTO> Disciplinas { get; set; }
     }
 }

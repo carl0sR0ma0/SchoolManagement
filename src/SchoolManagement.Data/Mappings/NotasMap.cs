@@ -10,7 +10,7 @@ namespace SchoolManagement.Data.Mappings
         {
             builder.ToTable("Notas");
 
-            builder.HasKey(d => new { d.AlunoId, d.DisciplinaId });
+            builder.HasKey(d => new { d.AlunoId });
 
             builder.HasOne(t => t.Aluno)
                .WithMany()
@@ -18,11 +18,11 @@ namespace SchoolManagement.Data.Mappings
                .HasPrincipalKey(t => t.Id)
                .OnDelete(DeleteBehavior.Cascade);
             
-            builder.HasOne(t => t.Disciplina)
-               .WithMany()
-               .HasForeignKey(t => t.DisciplinaId)
-               .HasPrincipalKey(t => t.Id)
-               .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(t => t.Disciplina)
+            //   .WithMany()
+            //   .HasForeignKey(t => t.DisciplinaId)
+            //   .HasPrincipalKey(t => t.Id)
+            //   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

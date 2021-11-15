@@ -12,12 +12,14 @@ namespace SchoolManagement.Data.Repositories
 {
     public class DisciplinaRepository : Repository<Disciplina>, IDisciplinaRepository
     {
-        public DisciplinaRepository(SchoolManagementContext context) : base(context)
-        {
-        }
+        public DisciplinaRepository(SchoolManagementContext context)
+            : base(context) { }
+
         public virtual async Task<List<Disciplina>> Get()
         {
-            return await _context.Set<Disciplina>().AsNoTracking().ToListAsync();
+            return await _context.Set<Disciplina>()
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public virtual async Task<Disciplina> Get(long id)

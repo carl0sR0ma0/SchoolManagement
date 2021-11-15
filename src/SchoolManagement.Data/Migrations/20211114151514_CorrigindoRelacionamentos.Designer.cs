@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20211114151514_CorrigindoRelacionamentos")]
+    partial class CorrigindoRelacionamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,33 +190,6 @@ namespace SchoolManagement.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Disciplinas");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaMatriculada", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("DisicplinaProfessorId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<string>("Horario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("MatriculaId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DisicplinaProfessorId");
-
-                    b.HasIndex("MatriculaId");
-
-                    b.ToTable("DisciplinaMatriculada");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaProfessor", b =>
@@ -459,25 +434,6 @@ namespace SchoolManagement.Data.Migrations
                     b.ToTable("Turmas");
                 });
 
-            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaMatriculada", b =>
-                {
-                    b.HasOne("SchoolManagement.Domain.Models.DisciplinaProfessor", "DisciplinaProfessor")
-                        .WithMany("DisciplinaMatriculadas")
-                        .HasForeignKey("DisicplinaProfessorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolManagement.Domain.Models.Matricula", "Matricula")
-                        .WithMany("DisciplinaMatriculadas")
-                        .HasForeignKey("MatriculaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DisciplinaProfessor");
-
-                    b.Navigation("Matricula");
-                });
-
             modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaProfessor", b =>
                 {
                     b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
@@ -569,16 +525,6 @@ namespace SchoolManagement.Data.Migrations
             modelBuilder.Entity("SchoolManagement.Domain.Models.Disciplina", b =>
                 {
                     b.Navigation("Professores");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaProfessor", b =>
-                {
-                    b.Navigation("DisciplinaMatriculadas");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
-                {
-                    b.Navigation("DisciplinaMatriculadas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
