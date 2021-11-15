@@ -15,5 +15,6 @@ namespace SchoolManagement.Services.Interfaces
         Task<MatriculaDTO> Get(long id);
         Task<List<MatriculaDTO>> Get();
         Task<MatriculaDTO> GetByRA(long ra);
+        Task<List<MatriculaDTO>> GetMatriculasByTurma(long turmaId);
     }
 }

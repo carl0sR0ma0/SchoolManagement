@@ -16,7 +16,7 @@ namespace SchoolManagement.Data.Repositories
 
         public async Task<List<Matricula>> Get()
         {
-            return await _context.Set<Matricula>().Include(x => x.Aluno).Include(x => x.Turma).AsNoTracking().ToListAsync();
+            return await _context.Set<Matricula>().Include(x => x.Aluno).Include(x => x.Turma).Include(x => x.DisciplinaMatriculadas).AsNoTracking().ToListAsync();
         }
 
         public async Task<Matricula> Get(long id)
@@ -26,6 +26,7 @@ namespace SchoolManagement.Data.Repositories
                 .Where(x => x.Id == id)
                 .Include(x => x.Aluno)
                 .Include(x => x.Turma)
+                .Include(x => x.DisciplinaMatriculadas)
                 .ToListAsync();
 
             return obj.FirstOrDefault();
@@ -39,6 +40,16 @@ namespace SchoolManagement.Data.Repositories
                 .ToListAsync();
 
             return obj.FirstOrDefault();
+        }
+
+        public virtual async Task<List<Matricula>> GetMatriculasByTurma(long turmaId)
+        {
+            return await _context.Set<Matricula>()
+                .Where(x => x.TurmaId == turmaId)
+                .Include(x => x.Aluno)
+                .Include(x => x.DisciplinaMatriculadas)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task Remove(long id)

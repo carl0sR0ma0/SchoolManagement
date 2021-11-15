@@ -18,6 +18,7 @@ import Cadastro_Serie from "./views/Serie/Cadastro_Serie.vue";
 import Cadastro_Turma from "./views/Turma/Cadastro_Turma.vue";
 //Matricula
 import FormMatricula from "./views/Matricula/FormMatricula.vue";
+import AlunosMatriculados from "./views/Matricula/AlunosMatriculados.vue";
 //Consulta
 import Consulta_Aluno from "./views/Aluno/Consulta_Aluno.vue";
 import Consulta_Colaborador from "./views/Colaborador/Consulta_Colaborador.vue";
@@ -152,6 +153,11 @@ const router = new VueRouter({
       path: "/Matricula",
       name: "Matricula",
       component: FormMatricula,
+    },
+    {
+      path: "/MatriculaPorTurma",
+      name: "MatriculaPorTurma",
+      component: AlunosMatriculados,
     },
   ],
 });

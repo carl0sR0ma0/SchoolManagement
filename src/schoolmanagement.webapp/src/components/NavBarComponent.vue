@@ -43,6 +43,9 @@
           </b-nav-item-dropdown>
           <b-nav-item-dropdown text="Matricula" right>
             <b-dropdown-item to="/Matricula">Nova Matricula</b-dropdown-item>
+            <b-dropdown-item to="/MatriculaPorTurma"
+              >Alunos Matriculados Por Turma</b-dropdown-item
+            >
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>

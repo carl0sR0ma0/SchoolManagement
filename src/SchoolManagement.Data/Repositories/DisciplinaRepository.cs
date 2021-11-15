@@ -35,7 +35,7 @@ namespace SchoolManagement.Data.Repositories
         public virtual async Task Remove(long id)
         {
             var obj = await Get(id);
-            if (obj != null )
+            if (obj != null)
             {
                 _context.Remove(obj);
                 await _context.SaveChangesAsync();

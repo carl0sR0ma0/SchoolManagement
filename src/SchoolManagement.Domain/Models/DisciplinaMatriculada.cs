@@ -21,10 +21,10 @@ namespace SchoolManagement.Domain.Models
         }
 
         public long DisicplinaProfessorId { get; set; }
-        public DisciplinaProfessor DisciplinaProfessor { get; set; }
+        public virtual DisciplinaProfessor DisciplinaProfessor { get; set; }
 
         public long MatriculaId { get; set; }
-        public Matricula Matricula { get; set; }
+        public virtual Matricula Matricula { get; set; }
         public string Horario { get; set; }
 
         public override bool Validate()

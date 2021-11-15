@@ -12,9 +12,9 @@ namespace SchoolManagement.Data.Repositories
 {
     public class DisciplinaProfessorRepository : Repository<DisciplinaProfessor>, IDisciplinaProfessorRepository
     {
-        public DisciplinaProfessorRepository(SchoolManagementContext context) : base(context)
-        {
-        }
+        public DisciplinaProfessorRepository(SchoolManagementContext context)
+            : base(context) { }
+
         public virtual async Task<List<DisciplinaProfessor>> Get()
         {
             return await _context.Set<DisciplinaProfessor>()
@@ -36,16 +36,16 @@ namespace SchoolManagement.Data.Repositories
         public virtual async Task<List<DisciplinaProfessor>> GetDisciplinasByProfessor(long professorId)
         {
             return await _context.Set<DisciplinaProfessor>()
-                .Where(x => x.ProfessorId == professorId)
                 .AsNoTracking()
+                .Where(x => x.ProfessorId == professorId)
                 .ToListAsync();
         }
         
         public virtual async Task<List<DisciplinaProfessor>> GetProfessorByDisciplina(long disciplinaId)
         {
             return await _context.Set<DisciplinaProfessor>()
-                .Where(x => x.DisciplinaId == disciplinaId)
                 .AsNoTracking()
+                .Where(x => x.DisciplinaId == disciplinaId)
                 .ToListAsync();
         }
 

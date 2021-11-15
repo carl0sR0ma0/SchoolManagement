@@ -46,6 +46,13 @@ namespace SchoolManagement.Services.Services
             return _mapper.Map<MatriculaDTO>(matricula);
         }
 
+        public async Task<List<MatriculaDTO>> GetMatriculasByTurma(long turmaId)
+        {
+            var matriculasByTurma = await _repository.GetMatriculasByTurma(turmaId);
+
+            return _mapper.Map<List<MatriculaDTO>>(matriculasByTurma);
+        }
+
         public async Task<MatriculaDTO> Post(MatriculaDTO matriculaDTO)
         {
             Matricula matricula = new Matricula(
