@@ -13,5 +13,6 @@ namespace SchoolManagement.Domain.Interfaces
         Task<Matricula> Get(long id);
         Task Remove(long id);
         Task<Matricula> GetByRA(long ra);
+        Task<List<Matricula>> GetMatriculasByTurma(long turmaId);
     }
 }

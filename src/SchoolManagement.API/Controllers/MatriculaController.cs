@@ -147,6 +147,41 @@ namespace SchoolManagement.API.Controllers
                 return StatusCode(500, Responses.ApplicationErrorMessage());
             }
         }
+        
+        [HttpGet]
+        [Route("/[controller]/getMatriculasByTurma/{turmaId}")]
+        public async Task<IActionResult> GetMatriculasByTurma(long turmaId)
+        {
+            try
+            {
+                var matriculas = await _service.GetMatriculasByTurma(turmaId);
+
+                if (matriculas.Count == 0)
+                {
+                    return Ok(new ResultViewModel
+                    {
+                        Message = "Nenhuma Matricula encontrada com o ID informado.",
+                        Success = true,
+                        Data = matriculas
+                    });
+                }
+
+                return Ok(new ResultViewModel
+                {
+                    Message = "Matricula Encontrada com sucesso!",
+                    Success = true,
+                    Data = matriculas
+                });
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(Responses.DomainErrorMessage(ex.Message, ex.Errors));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, Responses.ApplicationErrorMessage());
+            }
+        }
 
         [HttpGet]
         [Route("/[controller]/get")]
