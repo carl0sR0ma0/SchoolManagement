@@ -3,9 +3,9 @@ using SchoolManagement.Domain.Models;
 
 namespace SchoolManagement.Domain.Validators
 {
-    public class DisciplinasMatriculadasValidator : AbstractValidator<DisciplinasMatriculadas>
+    public class DisciplinaProfessorValidator : AbstractValidator<DisciplinaProfessor>
     {
-        public DisciplinasMatriculadasValidator()
+        public DisciplinaProfessorValidator()
         {
             RuleFor(x => x)
                 .NotEmpty()

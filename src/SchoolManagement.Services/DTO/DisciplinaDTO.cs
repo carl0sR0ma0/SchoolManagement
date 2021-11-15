@@ -22,6 +22,7 @@ namespace SchoolManagement.Services.DTO
             Ementa = ementa;
             AulasSemanais = aulasSemanais;
             FaltasPermitidas = faltasPermitidas;
+            Professores = new List<DisciplinaProfessorDTO>();
         }
 
         public long Id { get; set; }
@@ -32,5 +33,7 @@ namespace SchoolManagement.Services.DTO
         public string Ementa { get; set; }
         public int AulasSemanais { get; set; }
         public int FaltasPermitidas { get; set; }
+
+        public List<DisciplinaProfessorDTO> Professores { get; set; }
     }
 }

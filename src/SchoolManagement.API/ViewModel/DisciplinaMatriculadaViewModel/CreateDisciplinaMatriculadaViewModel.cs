@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.API.ViewModel.DisciplinaMatriculadaViewModel
 {
-    public class DisciplinaMatriculadasViewModel
+    public class CreateDisciplinaMatriculadaViewModel
     {
-        public long Id { get; set; }
-        public long ProfessorId { get; set; }
-        public long DisciplinaId { get; set; }
-        public string Dia { get; set; }
+
+        public long DisicplinaProfessorId { get; set; }
+        public long MatriculaId { get; set; }
         public string Horario { get; set; }
     }
 }

@@ -9,36 +9,34 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Domain.Models
 {
-    public class DisciplinasMatriculadas : Base
+    public class DisciplinaProfessor : Base
     {
-        protected  DisciplinasMatriculadas()
+        protected  DisciplinaProfessor()
         {
         }
 
-        public DisciplinasMatriculadas(long professorId, Professor professor, long disciplinaId, Disciplina disciplina, string dia, string horario, long matriculaId)
+        public DisciplinaProfessor(long professorId, long disciplinaId, string dia, string horario)
         {
             ProfessorId = professorId;
-            Professor = professor;
             DisciplinaId = disciplinaId;
-            Disciplina = disciplina;
             Dia = dia;
             Horario = horario;
-            MatriculaId = matriculaId;
+            DisciplinaMatriculadas = new List<DisciplinaMatriculada>();
         }
 
         public long ProfessorId { get; set; }
         public Professor Professor { get; set; }
         public long DisciplinaId { get; set; }
         public Disciplina Disciplina { get; set; }
-        public long MatriculaId { get; set; }
-        public Matricula Matricula { get; set; }
+
+        public List<DisciplinaMatriculada> DisciplinaMatriculadas { get; set; }
 
         public string Dia { get; set; }
         public string Horario { get; set; }
 
         public override bool Validate()
         {
-            var validator = new DisciplinasMatriculadasValidator();
+            var validator = new DisciplinaProfessorValidator();
             var validation = validator.Validate(this);
 
             if (!validation.IsValid)

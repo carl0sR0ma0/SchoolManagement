@@ -24,7 +24,7 @@ namespace SchoolManagement.Domain.Models
             Licenca = _licenca;
             Titulacao = _titulacao;
             DataAdmissao = _dataAdmissao;
-            Disciplinas  = new List<DisciplinasMatriculadas>();
+            Disciplinas  = new List<DisciplinaProfessor>();
             _errors = new List<string>();
 
             Validate();
@@ -32,7 +32,7 @@ namespace SchoolManagement.Domain.Models
 
         public string Licenca { get; set; }
         public string Titulacao { get; set; }
-        public List<DisciplinasMatriculadas> Disciplinas { get; set; }
+        public List<DisciplinaProfessor> Disciplinas { get; set; }
 
         public override bool Validate()
         {

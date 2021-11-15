@@ -24,7 +24,7 @@ namespace SchoolManagement.Domain.Models
             Ementa = ementa;
             AulasSemanais = aulasSemanais;
             FaltasPermitidas = faltasPermitidas;
-            Professores = new List<DisciplinasMatriculadas>();
+            Professores = new List<DisciplinaProfessor>();
             _errors = new List<string>();
 
             Validate();
@@ -38,7 +38,7 @@ namespace SchoolManagement.Domain.Models
         public int AulasSemanais { get; set; }
         public int FaltasPermitidas { get; set; }
 
-        public List<DisciplinasMatriculadas> Professores { get; set; }
+        public List<DisciplinaProfessor> Professores { get; set; }
 
         public override bool Validate()
         {
