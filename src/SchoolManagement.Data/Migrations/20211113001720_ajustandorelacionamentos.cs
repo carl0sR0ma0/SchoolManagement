@@ -301,13 +301,13 @@ namespace SchoolManagement.Data.Migrations
                 name: "IX_Matriculas_AlunoId",
                 table: "Matriculas",
                 column: "AlunoId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matriculas_TurmaId",
                 table: "Matriculas",
                 column: "TurmaId",
-                unique: true);
+                unique: false);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notas_DisciplinaId",

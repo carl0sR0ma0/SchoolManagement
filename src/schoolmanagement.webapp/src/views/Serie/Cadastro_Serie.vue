@@ -34,35 +34,49 @@
           class="d-grid gap-5"
           style="padding-left: 100px; padding-right: 100px"
         >
-          <b-button
-            v-b-modal="'ModalConfirm'"
-            type="button"
-            class="btn btn-success"
-            @click="addSerie"
-          >
+          <b-button type="button" class="btn btn-success" @click="addSerie">
             Salvar
           </b-button>
         </div>
       </div>
-
-      <b-modal
-        id="ModalConfirm"
-        header-bg-variant="success"
-        header-text-variant="light"
-        centered
-        hide-footer
-      >
-        <template v-slot:modal-header="{ close }">
-          <div center>Série Cadastrada</div>
-          <b-button @click="close">
-            <b-icon icon="arrow90deg-left" />
-          </b-button>
-        </template>
-        <div class="text-center">
-          A Série {{ memoria5 }} foi cadastrado com sucesso!
-        </div>
-      </b-modal>
     </div>
+    <b-modal
+      id="mccadSerie"
+      header-bg-variant="success"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <div center>Série Cadastrada</div>
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
+        </b-button>
+      </template>
+      <div class="text-center">
+        A Série {{ memoria5 }} foi cadastrado com sucesso!
+      </div>
+    </b-modal>
+
+    <b-modal
+      id="mccadSerieFail"
+      header-bg-variant="danger"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <div center>Erro ao Cadastrar</div>
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
+        </b-button>
+      </template>
+      <div class="text-center">
+        <p>Não foi possivel cadastrar a Série</p>
+        <p>- O nome deve ter no mínimo 3 caracteres.</p>
+        <p>- A descrição deve ter no mínimo 10 caracteres.</p>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -76,7 +90,7 @@ export default {
     return {
       nome: "",
       descricao: "",
-      cursoId: "",
+      cursoId: null,
       memoria5: "",
       cursos: [],
     };
@@ -92,13 +106,19 @@ export default {
 
       this.memoria5 = _serie.nome;
 
-      axios.post("https://localhost:5001/Serie/create", _serie).then((res) => {
-        console.log(res.data);
-      });
-
+      if (_serie.nome != "" && _serie.cursoId > 0) {
+        axios
+          .post("https://localhost:5001/Serie/create", _serie)
+          .then((res) => {
+            this.$bvModal.show('mccadSerie');
+          });      
       this.nome = "";
       this.descricao = "";
-      this.cursoId = "";
+      this.cursoId = null;
+      } else {
+        this.$bvModal.show('mccadSerieFail');
+      }
+
     },
     loadCurso() {
       const url = "https://localhost:5001/Curso/get";
@@ -109,7 +129,7 @@ export default {
       });
     },
   },
-  
+
   created() {
     this.loadCurso();
   },

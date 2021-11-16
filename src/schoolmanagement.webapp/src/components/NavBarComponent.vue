@@ -17,7 +17,7 @@
 
       <!-- Right aligned nav items -->
       <b-navbar-nav style="padding-left:35px" class="ml-auto">
-        <b-nav-item to="/">Teste</b-nav-item>
+        <b-nav-item to="/Dashboard">Dashboard</b-nav-item>
         <b-nav-item-dropdown text="Cadastro" right>
           <b-dropdown-item to="/Cadastro_Aluno">Aluno</b-dropdown-item>
           <b-dropdown-item to="/Cadastro_Colaborador">Colaborador</b-dropdown-item>
@@ -33,7 +33,7 @@
           <b-dropdown-item to="/Consulta_Professor">Professor</b-dropdown-item>
           <b-dropdown-item to="/Consulta_Serie">Serie</b-dropdown-item>
           <b-dropdown-item to="/Consulta_Turma">Turma</b-dropdown-item>
-          <b-nav-item-dropdown text="Matricula" right>
+            <b-nav-item-dropdown text="Matricula" right>
             <b-dropdown-item to="/Matricula">Nova Matricula</b-dropdown-item>
               <b-dropdown-item to="/MatriculaPorTurma">Alunos Matriculados Por Turma</b-dropdown-item>
         </b-nav-item-dropdown>
