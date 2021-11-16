@@ -9,13 +9,13 @@
           <div class="data-card">
             <h3>{{ alunos.length }}</h3>
             <h4>Alunos Cadastrados</h4>
-          </div>
-        </div>
+      </div>
+    </div>
         <div class="col-6 col-md-4">
           <div class="data-card">
             <h3>{{ turmas.length }}</h3>
             <h4>Turmas Cadastradas</h4>
-          </div>
+  </div>
         </div>
         <div class="col-6 col-md-4">
           <div class="data-card">
