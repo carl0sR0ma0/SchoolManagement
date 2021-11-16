@@ -1,4 +1,4 @@
-<template>
+<template >
   <div class="temp">
     <div class="container">
       <div class="center">
@@ -151,7 +151,6 @@
           style="padding-left: 100px; padding-right: 100px"
         >
           <b-button
-            v-b-modal="'ModalConfirm'"
             type="button"
             class="btn btn-success"
             @click="addAluno"
@@ -162,7 +161,7 @@
       </div>
 
       <b-modal
-        id="ModalConfirm"
+        id="mccadAluno"
         header-bg-variant="success"
         header-text-variant="light"
         centered
@@ -176,6 +175,26 @@
         </template>
         <div class="text-center">
           O aluno {{ memoria }} foi cadastrado com sucesso!
+        </div>
+      </b-modal>
+
+      <b-modal
+        id="mccadAlunoFail"
+        header-bg-variant="danger"
+        header-text-variant="light"
+        centered
+        hide-footer
+      >
+        <template v-slot:modal-header="{ close }">
+          <div center>Erro ao Cadastrar</div>
+          <b-button @click="close">
+            <b-icon icon="arrow90deg-left" />
+          </b-button>
+        </template>
+        <div class="text-center">
+          <p>Não foi possivel cadastrar o Aluno</p>
+          <p>- É necessário inserir um nome.</p>
+          <p>- É necessário inserir a data de nascimento.</p>
         </div>
       </b-modal>
     </div>
@@ -224,24 +243,27 @@ export default {
         cidade: this.cidade,
         cep: this.cep,
       };
-
       this.memoria = _aluno.nome;
-
-      axios.post("https://localhost:5001/Aluno/create", _aluno).then((res) => {
-        console.log(res.data);
-      });
-
-      this.nome = "";
-      this.dataNascimento = "";
-      this.rg = "";
-      this.cpf = "";
-      this.telefone = "";
-      this.sexo = "";
-      this.logradouro = "";
-      this.numero = "";
-      this.bairro = "";
-      this.cidade = "";
-      this.cep = "";
+      if (_aluno.nome != "" && _aluno.dataNascimento != "") {
+        axios
+          .post("https://localhost:5001/Aluno/create", _aluno)
+          .then((res) => {
+            this.$bvModal.show("mccadAluno");
+          });
+        this.nome = "";
+        this.dataNascimento = "";
+        this.rg = "";
+        this.cpf = "";
+        this.telefone = "";
+        this.sexo = "";
+        this.logradouro = "";
+        this.numero = "";
+        this.bairro = "";
+        this.cidade = "";
+        this.cep = "";
+      } else {
+        this.$bvModal.show("mccadAlunoFail");
+      }
     },
 
     randomNumber() {

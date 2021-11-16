@@ -6,9 +6,12 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
 
 //pages
 import Main from "./components/Main.vue";
+import Dashboard from "./components/Dashboard.vue";
 //Cadastro
 import Cadastro_Aluno from "./views/Aluno/Cadastro_Aluno.vue";
 import Cadastro_Colaborador from "./views/Colaborador/Cadastro_Colaborador.vue";
@@ -41,6 +44,7 @@ import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
+Vue.use(Chartkick.use(Chart))
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueSidebarMenu);
@@ -54,6 +58,12 @@ const router = new VueRouter({
       path: "/",
       name: "Main",
       component: Main,
+    },
+    //Dashboard
+    {
+      path: "/Dashboard",
+      name: "Dashboard",
+      component: Dashboard,
     },
     // Rotas Cadastro
     {
@@ -161,6 +171,7 @@ const router = new VueRouter({
     },
   ],
 });
+
 
 Vue.config.productionTip = false;
 

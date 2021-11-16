@@ -1,66 +1,83 @@
 <template >
-<div class="temp">
-  <div class="container">
-    <div class="center">
-      <h1>Cadastro de Série</h1>
+  <div class="temp">
+    <div class="container">
+      <div class="center">
+        <h1>Cadastro de Série</h1>
 
-      <div class="form-floating mb-3">
-        <input
-          v-model="nome"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-          required
-        />
-        <label for="floatingInput">Nome</label>
+        <div class="form-floating mb-3">
+          <input
+            v-model="nome"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+            required
+          />
+          <label for="floatingInput">Nome</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            v-model="descricao"
+            type="text"
+            class="form-control"
+            placeholder="teste"
+          />
+          <label for="floatingInput">Descrição</label>
+        </div>
+        <div class="form-floating mb-3">
+          <select class="form-select" v-model="cursoId">
+            <option v-for="curso in cursos" :key="curso.id" :value="curso.id">
+              {{ curso.nome }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="d-grid gap-5"
+          style="padding-left: 100px; padding-right: 100px"
+        >
+          <b-button type="button" class="btn btn-success" @click="addSerie">
+            Salvar
+          </b-button>
+        </div>
       </div>
-      <div class="form-floating mb-3">
-        <input
-          v-model="descricao"
-          type="text"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Descrição</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          v-model="cursoId"
-          type="number"
-          class="form-control"
-          placeholder="teste"
-        />
-        <label for="floatingInput">Curso ID</label>
-      </div>
-
-      <div class="d-grid gap-5" style="padding-left:100px; padding-right:100px; ">
-        <b-button v-b-modal="'ModalConfirm'" type="button" class="btn btn-success" @click="addSerie">
-          Salvar
+    </div>
+    <b-modal
+      id="mccadSerie"
+      header-bg-variant="success"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <div center>Série Cadastrada</div>
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
         </b-button>
-      </div>
-  </div>
-
-  <b-modal id="ModalConfirm"
-           header-bg-variant="success"
-           header-text-variant="light"
-           centered 
-           hide-footer
-           >
-      <template v-slot:modal-header="{close}">
-      <div center>
-        Série Cadastrada
-      </div>
-      <b-button @click="close">
-        <b-icon icon="arrow90deg-left"/>
-      </b-button>
       </template>
       <div class="text-center">
-        A Série {{memoria5}} foi cadastrado com sucesso!
+        A Série {{ memoria5 }} foi cadastrado com sucesso!
       </div>
-  </b-modal>
+    </b-modal>
 
-    </div>
-</div>
+    <b-modal
+      id="mccadSerieFail"
+      header-bg-variant="danger"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <div center>Erro ao Cadastrar</div>
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
+        </b-button>
+      </template>
+      <div class="text-center">
+        <p>Não foi possivel cadastrar a Série</p>
+        <p>- O nome deve ter no mínimo 3 caracteres.</p>
+        <p>- A descrição deve ter no mínimo 10 caracteres.</p>
+      </div>
+    </b-modal>
+  </div>
 </template>
 
 <script>
@@ -69,17 +86,15 @@ import axios from "axios";
 export default {
   name: "Cadastro_Serie",
 
-
   data() {
     return {
       nome: "",
       descricao: "",
-      cursoId: "",
+      cursoId: null,
       memoria5: "",
+      cursos: [],
     };
   },
-
-  created() {},
 
   methods: {
     addSerie() {
@@ -91,14 +106,32 @@ export default {
 
       this.memoria5 = _serie.nome;
 
-      axios.post("https://localhost:5001/Serie/create", _serie).then((res) => {
-        console.log(res.data);
-      });
-
+      if (_serie.nome != "" && _serie.cursoId > 0) {
+        axios
+          .post("https://localhost:5001/Serie/create", _serie)
+          .then((res) => {
+            this.$bvModal.show('mccadSerie');
+          });      
       this.nome = "";
       this.descricao = "";
-      this.cursoId = "";
+      this.cursoId = null;
+      } else {
+        this.$bvModal.show('mccadSerieFail');
+      }
+
     },
+    loadCurso() {
+      const url = "https://localhost:5001/Curso/get";
+
+      axios.get(url).then((res) => {
+        this.cursos = res.data.data;
+        this.cursos.unshift({ id: null, nome: "Selecione um Curso" });
+      });
+    },
+  },
+
+  created() {
+    this.loadCurso();
   },
 };
 </script>
@@ -113,7 +146,7 @@ export default {
   background: #212529;
 }
 
-.container{
+.container {
   background: #fff;
   border-radius: 15px;
 }
