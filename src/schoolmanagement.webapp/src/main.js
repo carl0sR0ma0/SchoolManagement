@@ -6,8 +6,8 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import Chartkick from 'vue-chartkick'
-import Chart from 'chart.js'
+import Chartkick from "vue-chartkick";
+import Chart from "chart.js";
 
 //pages
 import Main from "./components/Main.vue";
@@ -19,6 +19,7 @@ import Cadastro_Curso from "./views/Curso/Cadastro_Curso.vue";
 import Cadastro_Professor from "./views/Professor/Cadastro_Professor.vue";
 import Cadastro_Serie from "./views/Serie/Cadastro_Serie.vue";
 import Cadastro_Turma from "./views/Turma/Cadastro_Turma.vue";
+import Cadastro_Disciplina from "./views/Disciplina/Cadastro_Disciplina.vue";
 //Matricula
 import FormMatricula from "./views/Matricula/FormMatricula.vue";
 import AlunosMatriculados from "./views/Matricula/AlunosMatriculados.vue";
@@ -44,7 +45,7 @@ import "vue-sidebar-menu/dist/vue-sidebar-menu.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
-Vue.use(Chartkick.use(Chart))
+Vue.use(Chartkick.use(Chart));
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VueSidebarMenu);
@@ -95,6 +96,11 @@ const router = new VueRouter({
       path: "/Cadastro_Turma",
       name: "Cadastro_Turma",
       component: Cadastro_Turma,
+    },
+    {
+      path: "/Cadastro_Disciplina",
+      name: "Cadastro_Disciplina",
+      component: Cadastro_Disciplina,
     },
     // Rotas Consulta
     {
@@ -171,7 +177,6 @@ const router = new VueRouter({
     },
   ],
 });
-
 
 Vue.config.productionTip = false;
 
