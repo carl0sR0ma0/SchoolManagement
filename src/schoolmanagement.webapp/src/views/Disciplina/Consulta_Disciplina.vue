@@ -2,7 +2,8 @@
   <div class="temp">
     <div class="container">
       <div class="center">
-        <h1>Consulta de Alunos</h1>
+        <h1>Consulta de Disciplinas</h1>
+
         <b-col lg="6" class="my-1">
           <b-form-group
             label-for="filter-input"
@@ -16,7 +17,7 @@
                 id="filter-input"
                 v-model="filter"
                 type="search"
-                placeholder="Procurar Aluno"
+                placeholder="Procurar Disciplina"
               ></b-form-input>
 
               <b-input-group-append style="margin-left: 10px">
@@ -31,7 +32,7 @@
         <b-table
           striped
           hover
-          :items="alunos"
+          :items="disciplinas"
           :fields="fields"
           :filter="filter"
           :filter-included-fields="filterOn"
@@ -39,7 +40,7 @@
           <template v-slot:cell(options)="data">
             <b-row cols="2" cols-sm="4" class="text-center">
               <b-button
-                @click="Excluir(data.item.id)"
+                @click="del(data.item.id)"
                 v-b-modal="'ModalExcluir'"
                 size="sm"
                 variant="outline-danger"
@@ -48,7 +49,7 @@
                 <b-icon icon="trash" aria-hidden="true"></b-icon>
               </b-button>
               <b-button
-                :href="`#/Detalhe_Aluno/${data.item.id}`"
+                :href="`#/Detalhe_Disciplina/${data.item.id}`"
                 style="margin: 0 15px"
                 size="sm"
                 variant="outline-primary"
@@ -72,7 +73,7 @@
         <b-container fluid>
           <b-row class="mb-1 text-center">
             <b-col cols="3"></b-col>
-            <b-col>Aluno Excluído</b-col>
+            <b-col>Disciplina Deletada</b-col>
             <b-col><b-button @click="close()">OK</b-button></b-col>
           </b-row>
         </b-container>
@@ -85,11 +86,12 @@
 import axios from "axios";
 
 export default {
-  name: "Consulta_Aluno",
+  name: "Consulta_Disciplina",
+
   data() {
     return {
       show: false,
-      alunos: [],
+      disciplinas: [],
       fields: [
         {
           key: "nome",
@@ -97,7 +99,13 @@ export default {
           sortable: true,
         },
         {
-          key: "ra",
+          key: "sigla",
+        },
+        {
+          key: "cargaHoraria",
+        },
+        {
+          key: "aulasSemanais",
         },
         {
           key: "options",
@@ -108,27 +116,28 @@ export default {
       filterOn: [],
     };
   },
+
+  created() {
+    this.loadDisciplinas();
+  },
+
   methods: {
-    CarregarAlunos() {
-      axios.get("https://localhost:5001/Aluno/get").then((res) => {
-        this.alunos = res.data.data;
+    loadDisciplinas() {
+      axios.get("https://localhost:5001/Disciplina/get").then((res) => {
+        this.disciplinas = res.data.data;
       });
     },
 
-    Excluir(id) {
-      axios.delete(`https://localhost:5001/Aluno/delete/${id}`);
+    del(id) {
+      axios.delete(`https://localhost:5001/Disciplina/delete/${id}`);
     },
 
     close() {
-      this.CarregarAlunos();
+      this.loadDisciplinas();
       this.$refs.ModalExcluir.hide();
     },
-  },
-
-  created() {
-    this.CarregarAlunos();
   },
 };
 </script>
 
-<style scoped></style>
+<style></style>

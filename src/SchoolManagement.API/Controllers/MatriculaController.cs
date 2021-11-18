@@ -147,7 +147,7 @@ namespace SchoolManagement.API.Controllers
                 return StatusCode(500, Responses.ApplicationErrorMessage());
             }
         }
-        
+
         [HttpGet]
         [Route("/[controller]/getMatriculasByTurma/{turmaId}")]
         public async Task<IActionResult> GetMatriculasByTurma(long turmaId)

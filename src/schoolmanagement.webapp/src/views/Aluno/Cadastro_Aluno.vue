@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="temp">
     <div class="container">
       <div class="center">
@@ -150,11 +150,7 @@
           class="d-grid gap-5"
           style="padding-left: 100px; padding-right: 100px"
         >
-          <b-button
-            type="button"
-            class="btn btn-success"
-            @click="addAluno"
-          >
+          <b-button type="button" class="btn btn-success" @click="addAluno">
             Salvar
           </b-button>
         </div>

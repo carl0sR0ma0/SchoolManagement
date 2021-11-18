@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="temp">
     <div class="container">
       <div class="center">
@@ -159,6 +159,86 @@
           </div>
         </fieldset>
 
+        <h1>Disciplinas Disponíveis</h1>
+
+        <b-col lg="6" class="my-1">
+          <b-form-group
+            label-for="filter-input"
+            label-cols-sm="3"
+            label-align-sm="right"
+            label-size="sm"
+            class="mb-0"
+          >
+            <b-input-group size="sm">
+              <b-form-input
+                id="filter-input"
+                v-model="filterDisciplina"
+                type="search"
+                placeholder="Procurar Disciplina"
+              ></b-form-input>
+
+              <b-input-group-append style="margin-left: 10px">
+                <b-button
+                  :disabled="!filterDisciplina || !disciplinasProfessor"
+                  @click="clearDisciplinas"
+                  >Limpar</b-button
+                >
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+
+        <b-table
+          striped
+          hover
+          :items="disciplinas"
+          :fields="fieldsDisciplinas"
+          :filter="filterDisciplina"
+          :filter-included-fields="filterOn"
+        >
+          <template v-slot:cell(nome)="data">
+            <b-row cols="2" cols-sm="4" class="text-center">
+              <a
+                @click="addDisciplinasProfessor(data.item)"
+                size="sm"
+                class="mb-2"
+              >
+                {{ data.item.nome }}
+              </a>
+            </b-row>
+          </template>
+        </b-table>
+
+        <div v-if="disciplinasProfessor.length >= 1">
+          <h1>Disciplinas Ministradas</h1>
+          <b-table
+            striped
+            hover
+            :items="disciplinasProfessor"
+            :fields="fieldsDisciplinasProfessor"
+            :filter="filterDisciplina"
+            :filter-included-fields="filterOn"
+          >
+            <template v-slot:cell(nome)="data">
+              <b-row cols="2" cols-sm="4" class="text-center">
+                <a
+                  @click="removeDisciplinasProfessor(data.item)"
+                  size="sm"
+                  class="mb-2"
+                >
+                  {{ data.item.nome }}
+                </a>
+              </b-row>
+            </template>
+            <template v-slot:cell(dia)="row">
+              <b-form-input v-model="row.item.dia" />
+            </template>
+            <template v-slot:cell(horario)="row2">
+              <b-form-input v-model="row2.item.horario" />
+            </template>
+          </b-table>
+        </div>
+
         <div
           class="d-grid gap-5"
           style="padding-left: 100px; padding-right: 100px; margin-top: 50px"
@@ -183,7 +263,7 @@
           </b-button>
         </template>
         <div class="text-center">
-          O Professor {{ memoria4 }} foi cadastrado com sucesso!
+          O Professor {{ tempProf }} foi cadastrado com sucesso!
         </div>
       </b-modal>
 
@@ -204,8 +284,8 @@
           <p>Não foi possivel cadastrar o professor</p>
           <p>- É necessário inserir um nome.</p>
           <p>- É necessário inserir a data de nascimento.</p>
-        </div> </b-modal
-      >F
+        </div>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -218,26 +298,102 @@ export default {
 
   data() {
     return {
-      nome: "",
-      dataNascimento: "",
-      rg: "",
-      cpf: "",
-      sexo: "",
-      telefone: "",
-      ctps: "",
-      licenca: "",
-      titulacao: "",
-      dataAdmissao: "",
-      memoria4: "",
+      nome: null,
+      dataNascimento: null,
+      rg: null,
+      cpf: null,
+      sexo: null,
+      telefone: null,
+      ctps: null,
+      licenca: null,
+      titulacao: null,
+      dataAdmissao: null,
+      tempProf: null,
+      filter: null,
+      filterDisciplina: null,
+      disciplinas: [],
+      disciplinasProfessor: [],
+      filterOn: [],
+      fieldsDisciplinas: [
+        {
+          key: "nome",
+          label: "Nome",
+          sortable: true,
+        },
+        {
+          key: "sigla",
+        },
+        {
+          key: "aulasSemanais",
+        },
+      ],
+      fieldsDisciplinasProfessor: [
+        {
+          key: "nome",
+          label: "Nome",
+          sortable: true,
+        },
+        {
+          key: "sigla",
+        },
+        {
+          key: "aulasSemanais",
+        },
+        {
+          key: "dia",
+        },
+        {
+          key: "horario",
+        },
+      ],
     };
   },
 
-  created() {},
+  created() {
+    this.loadDisciplinas();
+  },
 
   methods: {
+    loadDisciplinas() {
+      const url = "https://localhost:5001/Disciplina/get";
+
+      axios.get(url).then((res) => {
+        this.disciplinas = res.data.data;
+      });
+    },
+
+    addDisciplinasProfessor(item) {
+      if (!this.disciplinasProfessor.find((x) => x.id == item.id)) {
+        item.dia = "";
+        item.horario = "";
+        this.disciplinasProfessor.push(item);
+        let i = this.disciplinas.indexOf(item);
+        if (i > -1) this.disciplinas.splice(i, 1);
+      }
+    },
+
+    removeDisciplinasProfessor(item) {
+      if (!this.disciplinas.find((x) => x.id == item.id)) {
+        this.disciplinas.push(item);
+        let i = this.disciplinasProfessor.indexOf(item);
+        if (i > -1) this.disciplinasProfessor.splice(i, 1);
+      }
+    },
+
     addProfessor() {
+      let auxDisciplinas = [];
+      this.disciplinasProfessor.forEach((element) => {
+        let dp = {
+          disciplinaId: element.id,
+          professorId: 0,
+          dia: element.dia,
+          horario: element.horario,
+        };
+        auxDisciplinas.push(dp);
+      });
+
       let _professor = {
-        ctps: this.ctps,
+        ctps: parseInt(this.ctps),
         nome: this.nome,
         dataNascimento: this.dataNascimento,
         rg: this.rg,
@@ -247,29 +403,42 @@ export default {
         licenca: this.licenca,
         titulacao: this.titulacao,
         dataAdmissao: this.dataAdmissao,
+        disciplinas: auxDisciplinas,
       };
+      this.tempProf = _professor.nome;
 
-      this.memoria4 = _professor.nome;
+      const url = `https://localhost:5001/Professor/create`;
 
-      if (_professor.nome != "" && _professor.dataNascimento != "") {
-        axios
-          .post("https://localhost:5001/Professor/create", _professor)
-          .then((res) => {
-            this.$bvModal.show("mccadProfessor");
-          });
-        this.nome = "";
-        this.dataNascimento = "";
-        this.rg = "";
-        this.cpf = "";
-        this.telefone = "";
-        this.sexo = "";
-        this.ctps = "";
-        this.licenca = "";
-        this.titulacao = "";
-        this.dataAdmissao = "";
-      }else {
+      if (_professor.nome && _professor.dataNascimento) {
+        axios.post(url, _professor).then((res) => {
+          this.$bvModal.show("mccadProfessor");
+          this.clearFields();
+        });
+      } else {
         this.$bvModal.show("mccadProfessorFail");
       }
+    },
+
+    clearDisciplinas() {
+      this.disciplinasProfessor.forEach((element) => {
+        this.disciplinas.push(element);
+      });
+      this.disciplinasProfessor = [];
+    },
+
+    clearFields() {
+      this.nome = null;
+      this.dataNascimento = null;
+      this.rg = null;
+      this.cpf = null;
+      this.telefone = null;
+      this.sexo = null;
+      this.ctps = null;
+      this.licenca = null;
+      this.titulacao = null;
+      this.dataAdmissao = null;
+
+      this.clearDisciplinas();
     },
   },
 };
