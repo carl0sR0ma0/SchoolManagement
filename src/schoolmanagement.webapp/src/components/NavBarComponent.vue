@@ -43,6 +43,9 @@
             >
             <b-dropdown-item to="/Consulta_Serie">Serie</b-dropdown-item>
             <b-dropdown-item to="/Consulta_Turma">Turma</b-dropdown-item>
+            <b-dropdown-item to="/Consulta_Disciplina"
+              >Disciplina</b-dropdown-item
+            >
           </b-nav-item-dropdown>
           <b-nav-item-dropdown text="Matricula" right>
             <b-dropdown-item to="/Matricula">Nova Matricula</b-dropdown-item>

@@ -30,6 +30,7 @@ import Consulta_Curso from "./views/Curso/Consulta_Curso.vue";
 import Consulta_Professor from "./views/Professor/Consulta_Professor.vue";
 import Consulta_Serie from "./views/Serie/Consulta_Serie.vue";
 import Consulta_Turma from "./views/Turma/Consulta_Turma.vue";
+import Consulta_Disciplina from "./views/Disciplina/Consulta_Disciplina.vue";
 //Detalhe
 import Detalhe_Aluno from "./views/Aluno/Detalhe_Aluno.vue";
 import Detalhe_Colaborador from "./views/Colaborador/Detalhe_Colaborador.vue";
@@ -132,6 +133,11 @@ const router = new VueRouter({
       path: "/Consulta_Turma",
       name: "Consulta_Turma",
       component: Consulta_Turma,
+    },
+    {
+      path: "/Consulta_Disciplina",
+      name: "Consulta_Disciplina",
+      component: Consulta_Disciplina,
     },
     // Rotas Detalhe da Consulta
     {
