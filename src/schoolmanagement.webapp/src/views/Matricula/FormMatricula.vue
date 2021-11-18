@@ -112,6 +112,7 @@
           ></textarea>
           <label for="observacao">Observação</label>
         </div>
+
         <b-col lg="6" class="my-1">
           <b-form-group
             label-for="filter-input"

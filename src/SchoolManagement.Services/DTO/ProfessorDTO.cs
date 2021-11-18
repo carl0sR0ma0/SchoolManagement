@@ -35,7 +35,6 @@ namespace SchoolManagement.Services.DTO
         public string Licenca { get; set; }
         public string Titulacao { get; set; }
         public DateTime DataAdmissao { get; set; }
-
         public List<DisciplinaProfessorDTO> Disciplinas { get; set; }
     }
 }
