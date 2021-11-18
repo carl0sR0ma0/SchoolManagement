@@ -38,6 +38,7 @@ import Detalhe_Curso from "./views/Curso/Detalhe_Curso.vue";
 import Detalhe_Professor from "./views/Professor/Detalhe_Professor.vue";
 import Detalhe_Serie from "./views/Serie/Detalhe_Serie.vue";
 import Detalhe_Turma from "./views/Turma/Detalhe_Turma.vue";
+import Detalhe_Disciplina from "./views/Disciplina/Detalhe_Disciplina.vue";
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import "bootstrap/dist/css/bootstrap.css";
@@ -169,6 +170,11 @@ const router = new VueRouter({
       path: "/Detalhe_Turma/:id",
       name: "Detalhe_Turma",
       component: Detalhe_Turma,
+    },
+    {
+      path: "/Detalhe_Disciplina/:id",
+      name: "Detalhe_Disciplina",
+      component: Detalhe_Disciplina,
     },
     // Matricula
     {
