@@ -75,6 +75,33 @@
           />
           <label for="floatingInput">Faltas Permitidas</label>
         </div>
+
+        <div v-if="professoresDisciplina.length >= 1">
+          <h1>Professores:</h1>
+          <b-table
+            striped
+            hover
+            :items="professoresDisciplina"
+            :fields="fieldsProfessoresDisciplina"
+            :filter="filterDisciplina"
+            :filter-included-fields="filterOn"
+          >
+            <template v-slot:cell(nome)="data">
+              <b-row cols="2" cols-sm="4" class="text-center">
+                <a size="sm" class="mb-2">
+                  {{ data.item.nome }}
+                </a>
+              </b-row>
+            </template>
+            <template v-slot:cell(dia)="row">
+              <b-form-input v-model="row.item.dia" />
+            </template>
+            <template v-slot:cell(horario)="row2">
+              <b-form-input v-model="row2.item.horario" />
+            </template>
+          </b-table>
+        </div>
+
         <div
           class="d-grid gap-5"
           style="padding-left: 100px; padding-right: 100px"
@@ -141,11 +168,36 @@ export default {
       id: this.$route.params.id,
       visualizando: true,
       memoria: null,
+      filterOn: [],
+      professoresByDisciplina: [],
+      filter: null,
+      filterDisciplina: null,
+      professoresDisciplina: [],
+      fieldsProfessoresDisciplina: [
+        {
+          key: "nome",
+          label: "Nome",
+          sortable: true,
+        },
+        {
+          key: "titulacao",
+        },
+        {
+          key: "aulasSemanais",
+        },
+        {
+          key: "dia",
+        },
+        {
+          key: "horario",
+        },
+      ],
     };
   },
 
   created() {
     this.loadDisciplina();
+    this.loadDisciplinasMinistradas();
   },
 
   methods: {
@@ -187,6 +239,38 @@ export default {
 
       axios.get(url).then((res) => {
         this.disciplina = res.data.data;
+      });
+    },
+
+    loadDisciplinasMinistradas() {
+      const url = `https://localhost:5001/DisciplinaProfessor/getdisciplinaprofessorByDisciplina/${this.id}`;
+
+      axios.get(url).then((res) => {
+        this.professoresByDisciplina = res.data.data;
+
+        this.professoresByDisciplina.forEach((element) => {
+          let dp = {
+            id: null,
+            disciplinaProfessorId: null,
+            nome: null,
+            titulacao: null,
+            dia: null,
+            horario: null,
+            aulasSemanais: null,
+          };
+          dp.dia = element.dia;
+          dp.horario = element.horario;
+          dp.id = element.professorId;
+          dp.disciplinaProfessorId = element.id;
+          const urlP = `https://localhost:5001/Professor/get/${element.professorId}`;
+          axios.get(urlP).then((res) => {
+            dp.nome = res.data.data.nome;
+            dp.titulacao = res.data.data.titulacao;
+          });
+
+          dp.aulasSemanais = this.disciplina.aulasSemanais;
+          this.professoresDisciplina.push(dp);
+        });
       });
     },
   },
