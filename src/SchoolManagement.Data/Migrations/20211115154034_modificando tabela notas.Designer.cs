@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20211115154034_modificando tabela notas")]
+    partial class modificandotabelanotas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,9 +275,11 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlunoId");
+                    b.HasIndex("AlunoId")
+                        .IsUnique();
 
-                    b.HasIndex("TurmaId");
+                    b.HasIndex("TurmaId")
+                        .IsUnique();
 
                     b.ToTable("Matriculas");
                 });

@@ -18,6 +18,7 @@ namespace SchoolManagement.Domain.Models
             DisicplinaProfessorId = disicplinaProfessorId;
             MatriculaId = matriculaId;
             Horario = horario;
+            Notas = new List<Nota>();
         }
 
         public long DisicplinaProfessorId { get; set; }
@@ -26,6 +27,7 @@ namespace SchoolManagement.Domain.Models
         public long MatriculaId { get; set; }
         public virtual Matricula Matricula { get; set; }
         public string Horario { get; set; }
+        public List<Nota> Notas { get; set; }
 
         public override bool Validate()
         {

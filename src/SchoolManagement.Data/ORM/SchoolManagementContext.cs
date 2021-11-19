@@ -18,7 +18,7 @@ namespace SchoolManagement.Data.ORM
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<Matricula> Matriculas { get; set; }
         public DbSet<DisciplinaProfessor> DisciplinaProfessor { get; set; }
-        public DbSet<Notas> Notas { get; set; }
+        public DbSet<Nota> Notas { get; set; }
         public DbSet<DisciplinaMatriculada> DisciplinaMatriculada { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

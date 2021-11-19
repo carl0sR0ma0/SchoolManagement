@@ -23,6 +23,8 @@ import Cadastro_Disciplina from "./views/Disciplina/Cadastro_Disciplina.vue";
 //Matricula
 import FormMatricula from "./views/Matricula/FormMatricula.vue";
 import AlunosMatriculados from "./views/Matricula/AlunosMatriculados.vue";
+//Nota
+import Nota from "./views/Nota/Nota.vue";
 //Consulta
 import Consulta_Aluno from "./views/Aluno/Consulta_Aluno.vue";
 import Consulta_Colaborador from "./views/Colaborador/Consulta_Colaborador.vue";
@@ -186,6 +188,11 @@ const router = new VueRouter({
       path: "/MatriculaPorTurma",
       name: "MatriculaPorTurma",
       component: AlunosMatriculados,
+    },
+    {
+      path: "/GerenciamentoNotas",
+      name: "GerenciamentoNotas",
+      component: Nota,
     },
   ],
 });
