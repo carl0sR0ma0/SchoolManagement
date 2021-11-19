@@ -20,6 +20,15 @@
             {{ turma.nome }}
           </option>
         </select>
+        <select class="form-select" v-model="disciplinaId">
+          <option
+            v-for="disciplina in disciplinas"
+            :key="disciplina.id"
+            :value="disciplina.id"
+          >
+            {{ disciplina.nome }}
+          </option>
+        </select>
       </div>
       <b-table striped hover :items="alunos" :fields="fields">
         <template v-slot:cell(nota1)="nota1">
@@ -38,6 +47,14 @@
           <b-form-input class="nota" v-model="media.item.media" />
         </template>
       </b-table>
+      <div
+        class="d-grid gap-5"
+        style="padding-left: 100px; padding-right: 100px"
+      >
+        <b-button type="button" class="btn btn-success" @click="lancarNotas">
+          Lançar Notas
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -88,6 +105,9 @@ export default {
       series: [],
       turmaId: null,
       turmas: [],
+      disciplinas: [],
+      disciplinaId: null,
+      disciplinaMatriculadas: [],
       seriesAux: [{ id: null, nome: "Selecione uma série" }],
       turmasAux: [{ id: null, nome: "Selecione uma turma" }],
       alunos: [],
@@ -133,6 +153,7 @@ export default {
 
       axios.get(url).then((res) => {
         let aux = res.data.data;
+        this.disciplinaMatriculadas = aux[0].disciplinaMatriculadas;
         aux.forEach((element) => {
           this.alunos.push(element.aluno);
         });
@@ -165,12 +186,45 @@ export default {
         this.turmas.unshift({ id: null, nome: "Selecione uma Turma..." });
       });
     },
+
+    loadDisciplinas() {
+      const url = "https://localhost:5001/Disciplina/get";
+
+      axios.get(url).then((res) => {
+        this.disciplinas = res.data.data;
+        this.disciplinas.unshift({
+          id: null,
+          nome: "Selecione uma Disciplina...",
+        });
+      });
+    },
+
+    lancarNotas() {
+      this.disciplinaMatriculadas.forEach((el) => {
+        const urlDP = `https://localhost:5001/DisciplinaProfessor/get/${el.disicplinaProfessorId}`;
+
+        axios.get(urlDP).then(() => {});
+      });
+
+      this.alunos.forEach((element) => {
+        let lancaNotaAluno = {
+          alunoId: element.Id,
+          disciplinaMatriculadaId: 1,
+        };
+        if (!element.nota2) {
+          //create
+        } else {
+          //update
+        }
+      });
+    },
   },
 
   created() {
     this.loadCourse();
     this.loadSeries();
     this.loadClasses();
+    this.loadDisciplinas();
   },
 };
 </script>
