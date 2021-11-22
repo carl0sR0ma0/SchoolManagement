@@ -60,6 +60,43 @@
         </b-button>
       </div>
     </div>
+
+    <!-- Modal Confirm -->
+    <b-modal
+      id="ModalConfirmNotas"
+      header-bg-variant="success"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        Aluno Matriculado
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
+        </b-button>
+      </template>
+      <div class="text-center">As notas foram lançadas com Sucesso!!!</div>
+    </b-modal>
+
+    <b-modal
+      id="mclanNotaFail"
+      header-bg-variant="danger"
+      header-text-variant="light"
+      centered
+      hide-footer
+    >
+      <template v-slot:modal-header="{ close }">
+        <div center>Erro ao Lançar a Nota</div>
+        <b-button @click="close">
+          <b-icon icon="arrow90deg-left" />
+        </b-button>
+      </template>
+      <div class="text-center">
+        <p>
+          Por favor selecionar a disciplina em que o aluno esteja matriculado.
+        </p>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -77,10 +114,9 @@ export default {
       series: [],
       turmaId: null,
       turmas: [],
-      disciplinas: [],
       disciplinaId: null,
       disciplinaMatriculadas: [],
-      disciplinasProfessor: [],
+      disciplinas: [],
       disciplinaMatriculada: {},
       seriesAux: [{ id: null, nome: "Selecione uma série" }],
       turmasAux: [{ id: null, nome: "Selecione uma turma" }],
@@ -139,28 +175,35 @@ export default {
     },
 
     disciplinaId(value) {
-      console.log("this.disciplinasProfessor :>> ", this.disciplinasProfessor);
-
-      this.discAux = this.disciplinasProfessor.find(
-        (x) => x.disciplinaId == value
-      );
+      if (value != null) {
+        if (!this.disciplinaMatriculadas.find((x) => x.disciplinaId == value)) {
+          this.$bvModal.show("mclanNotaFail");
+          this.disciplinaId = null;
+        }
+      }
+      this.discAux = this.disciplinas.find((x) => x.id == value);
 
       this.disciplinaMatriculada = this.disciplinaMatriculadas.find(
-        (x) => (x.disicplinaProfessorId = this.discAux.id)
+        (x) => x.disciplinaId == this.discAux.id
       );
 
       this.alunos.forEach((element) => {
-        const url = `https://localhost:5001/Nota/getByAlunoDisciplina/${element.id}/${this.disciplinaMatriculada.id}`;
+        const url = `https://localhost:5001/Nota/getByAlunoDisciplina/${element.id}/${this.disciplinaId}`;
 
         axios.get(url).then((res) => {
           if (res.data.data.length > 0) {
             element.nota1 = res.data.data[0].nota1;
             element.nota2 = !res.data.data[0].nota2
-              ? undefined
+              ? 0
               : res.data.data[0].nota2;
             element.nota3 = res.data.data[0].nota3;
             element.nota4 = res.data.data[0].nota4;
-            element.media = res.data.data[0].media;
+            element.media =
+              (res.data.data[0].nota1 +
+                res.data.data[0].nota2 +
+                res.data.data[0].nota3 +
+                res.data.data[0].nota4) /
+              4;
             element.aprovadoReprovado = res.data.data[0].aprovadoReprovado;
           }
         });
@@ -189,32 +232,20 @@ export default {
       axios.get(url).then((res) => {
         let aux = res.data.data;
         aux.forEach((el) => {
-          console.log("el :>> ", el);
-          this.disciplinaMatriculadas = el.disciplinaMatriculadas;
-        });
-
-        console.log(
-          "this.disciplinaMatriculadas :>> ",
-          this.disciplinaMatriculadas
-        );
-        this.disciplinas.unshift({
-          id: null,
-          nome: "Selecione uma Disciplina...",
-        });
-        this.disciplinaMatriculadas.forEach((el) => {
-          const urlDP = `https://localhost:5001/DisciplinaProfessor/get/${el.disicplinaProfessorId}`;
-
-          axios.get(urlDP).then((res) => {
-            this.disciplinasProfessor.push(res.data.data);
-            let dp = res.data.data;
-            const urlD = `https://localhost:5001/Disciplina/get/${dp.disciplinaId}`;
-
-            axios.get(urlD).then((disc) => {
-              this.disciplinas.push(disc.data.data);
-            });
+          el.disciplinaMatriculadas.forEach((a) => {
+            this.disciplinaMatriculadas.push(a);
           });
         });
 
+        const urlD = `https://localhost:5001/Disciplina/get`;
+
+        axios.get(urlD).then((res) => {
+          this.disciplinas = res.data.data;
+          this.disciplinas.unshift({
+            id: null,
+            nome: "Selecione uma Disciplina...",
+          });
+        });
         aux.forEach((element) => {
           this.alunos.push(element.aluno);
         });
@@ -248,22 +279,16 @@ export default {
       });
     },
 
-    // loadDisciplinas() {
-    //   const url = "https://localhost:5001/Disciplina/get";
-
-    //   axios.get(url).then((res) => {
-    //     this.disciplinas = res.data.data;
-    //   });
-    // },
-
     lancarNotas() {
       this.alunos.forEach((element) => {
         let lancaNotaAluno = {
           alunoId: element.id,
-          disciplinaMatriculadaId: this.disciplinaMatriculada.id,
-          media: parseFloat(element.media),
+          turmaId: this.turmaId,
+          disciplinaId: this.disciplinaId,
+          media: element.media ? parseFloat(element.media) : 0.0,
           aprovadoReprovado: false,
         };
+
         if (element.nota2 == undefined) {
           //create
           lancaNotaAluno.nota1 = parseFloat(element.nota1);
@@ -272,8 +297,9 @@ export default {
           lancaNotaAluno.nota4 = 0;
           const url = `https://localhost:5001/Nota/create`;
 
-          axios.post(url, lancaNotaAluno).then((res) => {
-            alert(res.data.message);
+          axios.post(url, lancaNotaAluno).then(() => {
+            this.$bvModal.show("ModalConfirmNotas");
+            this.clearFields();
           });
         } else {
           //update
@@ -283,14 +309,22 @@ export default {
           lancaNotaAluno.nota4 = parseFloat(element.nota4);
           const url = `https://localhost:5001/Nota/update`;
 
-          axios.put(url, lancaNotaAluno).then((res) => {
-            alert(res.data.message);
+          axios.put(url, lancaNotaAluno).then(() => {
+            this.$bvModal.show("ModalConfirmNotas");
+            this.clearFields();
           });
         }
       });
     },
 
-    loadNotasOfStudents(alunoId, disciplinaId) {},
+    clearFields() {
+      this.alunos = [];
+      this.filter = null;
+      this.cursoId = null;
+      this.serieId = null;
+      this.turmaId = null;
+      this.disciplinaId = null;
+    },
   },
 
   created() {

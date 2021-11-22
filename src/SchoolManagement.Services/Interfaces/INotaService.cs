@@ -11,10 +11,12 @@ namespace SchoolManagement.Services.Interfaces
     {
         Task<NotaDTO> Post(NotaDTO notaDTO);
         Task<NotaDTO> Update(NotaDTO notaDTO);
-        Task Remove(long alunoId, long disciplinaId);
+        Task Remove(long turmaId, long disciplinaId, long alunoId);
         Task<List<NotaDTO>> Get();
         Task<List<NotaDTO>> GetNotasByAluno(long alunoId);
-        Task<List<NotaDTO>> GetNotasByAlunoDisciplina(long alunoId, long disciplinaId);
         Task<List<NotaDTO>> GetNotasByDisciplina(long disciplinaId);
+        Task<List<NotaDTO>> GetNotasByAlunoDisciplina(long alunoId, long disciplinaId);
+        Task<List<NotaDTO>> GetNotasByTurmaDisciplina(long turmaId, long disciplinaId);
+        Task<List<NotaDTO>> GetNotasByTurmaAluno(long turmaId, long alunoId);
     }
 }

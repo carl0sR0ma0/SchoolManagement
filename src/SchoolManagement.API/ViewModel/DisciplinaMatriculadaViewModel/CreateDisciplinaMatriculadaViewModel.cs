@@ -8,7 +8,7 @@ namespace SchoolManagement.API.ViewModel.DisciplinaMatriculadaViewModel
     public class CreateDisciplinaMatriculadaViewModel
     {
 
-        public long DisicplinaProfessorId { get; set; }
+        public long DisciplinaId { get; set; }
         public long MatriculaId { get; set; }
         public string Horario { get; set; }
     }

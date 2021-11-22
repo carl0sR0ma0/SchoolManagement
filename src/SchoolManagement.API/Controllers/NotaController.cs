@@ -24,6 +24,7 @@ namespace SchoolManagement.API.Controllers
             _mapper = mapper;
         }
 
+
         [HttpPost]
         [Route("/[controller]/create")]
         public async Task<IActionResult> Post([FromBody] CreateNotaViewModel notaViewModel)
@@ -77,8 +78,8 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpDelete]
-        [Route("/[controller]/delete/{alunoId}/{disciplinaId}")]
-        public async Task<IActionResult> Delete(long alunoId, long disciplinaId)
+        [Route("/[controller]/delete/{turmaId}/{disciplinaId}/{alunoId}")]
+        public async Task<IActionResult> Delete(long turmaId, long disciplinaId, long alunoId)
         {
             try
             {
@@ -93,7 +94,7 @@ namespace SchoolManagement.API.Controllers
                         Data = nota
                     });
                 }
-                await _service.Remove(alunoId, disciplinaId);
+                await _service.Remove(turmaId, disciplinaId, alunoId);
                 return Ok(new ResultViewModel
                 {
                     Message = "Nota Removida com Sucesso!",
@@ -109,6 +110,32 @@ namespace SchoolManagement.API.Controllers
             {
                 return StatusCode(500, Responses.ApplicationErrorMessage());
             }
+        }
+
+        [HttpGet]
+        [Route("/[controller]/get")]
+        public async Task<IActionResult> Get()
+        {
+            try
+            {
+                var allNotas = await _service.Get();
+
+                return Ok(new ResultViewModel
+                {
+                    Message = "Notas encontradas com sucesso!",
+                    Success = true,
+                    Data = allNotas
+                });
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(Responses.DomainErrorMessage(ex.Message, ex.Errors));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, Responses.ApplicationErrorMessage());
+            }
+
         }
 
         [HttpGet]
@@ -144,8 +171,8 @@ namespace SchoolManagement.API.Controllers
             {
                 return StatusCode(500, Responses.ApplicationErrorMessage());
             }
-        }  
-        
+        }
+
         [HttpGet]
         [Route("/[controller]/getByDisciplina/{disciplinaId}")]
         public async Task<IActionResult> GetNotaByDisciplina(long disciplinaId)
@@ -179,8 +206,8 @@ namespace SchoolManagement.API.Controllers
             {
                 return StatusCode(500, Responses.ApplicationErrorMessage());
             }
-        } 
-        
+        }
+
         [HttpGet]
         [Route("/[controller]/getByAlunoDisciplina/{alunoId}/{disciplinaId}")]
         public async Task<IActionResult> GetNotaByAlunoDisciplina(long alunoId, long disciplinaId)
@@ -217,18 +244,63 @@ namespace SchoolManagement.API.Controllers
         }
 
         [HttpGet]
-        [Route("/[controller]/get")]
-        public async Task<IActionResult> Get()
+        [Route("/[controller]/getByTurmaDisciplina/{turmaId}/{disciplinaId}")]
+        public async Task<IActionResult> GetNotasByTurmaDisciplina(long turmaId, long disciplinaId)
         {
             try
             {
-                var allNotas = await _service.Get();
+                var nota = await _service.GetNotasByTurmaDisciplina(turmaId, disciplinaId);
+
+                if (nota == null)
+                {
+                    return Ok(new ResultViewModel
+                    {
+                        Message = "Nenhuma Nota encontrada com o ID informado.",
+                        Success = true,
+                        Data = nota
+                    });
+                }
 
                 return Ok(new ResultViewModel
                 {
-                    Message = "Notas encontradas com sucesso!",
+                    Message = "Nota Encontrada com sucesso!",
                     Success = true,
-                    Data = allNotas
+                    Data = nota
+                });
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(Responses.DomainErrorMessage(ex.Message, ex.Errors));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, Responses.ApplicationErrorMessage());
+            }
+        }
+
+        [HttpGet]
+        [Route("/[controller]/getByTurmaAluno/{turmaId}/{alunoId}")]
+        public async Task<IActionResult> GetNotasByTurmaAluno(long turmaId, long alunoId)
+        {
+            try
+            {
+                var nota = await _service.GetNotasByTurmaAluno(turmaId, alunoId);
+
+                if (nota == null)
+                {
+                    return Ok(new ResultViewModel
+                    {
+                        Message = "Nenhuma Nota encontrada com o ID informado.",
+                        Success = true,
+                        Data = nota
+                    });
+                }
+
+                return Ok(new ResultViewModel
+                {
+                    Message = "Nota Encontrada com sucesso!",
+                    Success = true,
+                    Data = nota
                 });
             }
             catch (DomainException ex)

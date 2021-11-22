@@ -11,7 +11,7 @@ namespace SchoolManagement.API.ViewModel.DisciplinaMatriculadaViewModel
         [Required(ErrorMessage = "O Id não pode ser vazio!")]
         [Range(1, long.MaxValue, ErrorMessage = "O Id não pode ser menor que 1")]
         public long Id { get; set; }
-        public long DisciplinaProfessorId { get; set; }
+        public long DisciplinaId { get; set; }
         public long MatriculaId { get; set; }
         public string Horario { get; set; }
     }
