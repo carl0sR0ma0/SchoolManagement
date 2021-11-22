@@ -40,7 +40,7 @@ namespace SchoolManagement.Services.Services
         public async Task<DisciplinaMatriculadaDTO> Post(DisciplinaMatriculadaDTO disciplinaDTO)
         {
             DisciplinaMatriculada disciplina = new DisciplinaMatriculada(
-                disciplinaDTO.DisicplinaProfessorId, disciplinaDTO.MatriculaId, disciplinaDTO.Horario);
+                disciplinaDTO.DisciplinaId, disciplinaDTO.MatriculaId, disciplinaDTO.Horario);
             disciplina.Validate();
 
             var disciplinaCreated = await _repository.Create(disciplina);

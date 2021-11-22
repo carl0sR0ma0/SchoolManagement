@@ -4,25 +4,31 @@ using SchoolManagement.Domain.Models;
 
 namespace SchoolManagement.Data.Mappings
 {
-    public class NotasMap : IEntityTypeConfiguration<Notas>
+    public class NotasMap : IEntityTypeConfiguration<Nota>
     {
-        public void Configure(EntityTypeBuilder<Notas> builder)
+        public void Configure(EntityTypeBuilder<Nota> builder)
         {
             builder.ToTable("Notas");
 
-            builder.HasKey(d => new { d.AlunoId });
+            builder.HasKey(n => new { n.AlunoId, n.TurmaId, n.DisciplinaId });
 
-            builder.HasOne(t => t.Aluno)
-               .WithMany()
-               .HasForeignKey(t => t.AlunoId)
+            builder.HasOne(n => n.Aluno)
+               .WithMany(a => a.Notas)
+               .HasForeignKey(n => n.AlunoId)
+               .HasPrincipalKey(a => a.Id)
+               .OnDelete(DeleteBehavior.Cascade);
+            
+            builder.HasOne(n => n.Turma)
+               .WithMany(t => t.Notas)
+               .HasForeignKey(n => n.TurmaId)
                .HasPrincipalKey(t => t.Id)
                .OnDelete(DeleteBehavior.Cascade);
             
-            //builder.HasOne(t => t.Disciplina)
-            //   .WithMany()
-            //   .HasForeignKey(t => t.DisciplinaId)
-            //   .HasPrincipalKey(t => t.Id)
-            //   .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(n => n.Disciplina)
+               .WithMany(d => d.Notas)
+               .HasForeignKey(n => n.DisciplinaId)
+               .HasPrincipalKey(d => d.Id)
+               .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

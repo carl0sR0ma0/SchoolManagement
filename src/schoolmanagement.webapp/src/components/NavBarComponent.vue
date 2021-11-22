@@ -53,6 +53,9 @@
               >Alunos Matriculados Por Turma</b-dropdown-item
             >
           </b-nav-item-dropdown>
+          <b-nav-item-dropdown text="Notas" right>
+            <b-dropdown-item to="/GerenciamentoNotas">Gerenciamento de Notas</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

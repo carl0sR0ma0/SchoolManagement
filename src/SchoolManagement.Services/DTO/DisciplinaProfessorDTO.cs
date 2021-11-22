@@ -19,7 +19,6 @@ namespace SchoolManagement.Services.DTO
             Disciplina = disciplina;
             Dia = dia;
             Horario = horario;
-            DisciplinaMatriculadas = new List<DisciplinaMatriculadaDTO>();
         }
 
         public long Id { get; set; }
@@ -27,7 +26,6 @@ namespace SchoolManagement.Services.DTO
         public ProfessorDTO Professor { get; set; }
         public long DisciplinaId { get; set; }
         public DisciplinaDTO Disciplina { get; set; }
-        public List<DisciplinaMatriculadaDTO> DisciplinaMatriculadas { get; set; }
 
         public string Dia { get; set; }
         public string Horario { get; set; }

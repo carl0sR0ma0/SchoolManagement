@@ -11,9 +11,7 @@ namespace SchoolManagement.Domain.Models
 {
     public class Turma : Base
     {
-        protected Turma()
-        {
-        }
+        protected Turma() { }
 
         public Turma(string nome, string turno, string ano, string sigla, string situacao, long serieId)
         {
@@ -23,7 +21,13 @@ namespace SchoolManagement.Domain.Models
             Sigla = sigla;
             Situacao = situacao;
             SerieId = serieId;
+            Notas = new List<Nota>();
+            PlanoDeEnsino = new List<PlanoDeEnsino>();
+            _errors = new List<string>();
+
+            Validate();
         }
+
         public string Nome { get; set; }
         public string Turno { get; set; }
         public string Ano { get; set; }
@@ -32,6 +36,9 @@ namespace SchoolManagement.Domain.Models
 
         public long SerieId { get; set; }
         public Serie Serie { get; set; }
+
+        public List<Nota> Notas { get; set; }
+        public List<PlanoDeEnsino> PlanoDeEnsino { get; set; }
 
         public override bool Validate()
         {

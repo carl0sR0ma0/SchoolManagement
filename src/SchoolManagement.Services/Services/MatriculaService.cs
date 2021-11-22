@@ -68,7 +68,7 @@ namespace SchoolManagement.Services.Services
             var matriculaCreated = await _repository.Create(matricula);
             foreach (var item in matriculaDTO.DisciplinaMatriculadas)
             {
-                DisciplinaMatriculada dm = new DisciplinaMatriculada(item.DisicplinaProfessorId, matriculaCreated.Id, item.Horario);
+                DisciplinaMatriculada dm = new DisciplinaMatriculada(item.DisciplinaId, matriculaCreated.Id, item.Horario);
                 await _Disciplinarepository.Create(dm);
             }
             return _mapper.Map<MatriculaDTO>(matriculaCreated);

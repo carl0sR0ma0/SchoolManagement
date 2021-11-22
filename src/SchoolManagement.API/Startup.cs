@@ -76,6 +76,10 @@ namespace SchoolManagement.API
                 cfg.CreateMap<DisciplinaMatriculada, DisciplinaMatriculadaDTO>().ReverseMap();
                 cfg.CreateMap<CreateDisciplinaMatriculadaViewModel, DisciplinaMatriculadaDTO>().ReverseMap();
                 cfg.CreateMap<UpdateDisciplinaMatriculadaViewModel, DisciplinaMatriculadaDTO>().ReverseMap();
+                
+                cfg.CreateMap<Nota, NotaDTO>().ReverseMap();
+                cfg.CreateMap<CreateNotaViewModel, NotaDTO>().ReverseMap();
+                cfg.CreateMap<UpdateNotaViewModel, NotaDTO>().ReverseMap();
             });
 
             services.AddSingleton(autoMapperConfig.CreateMapper());

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.ORM;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20211115154034_modificando tabela notas")]
+    partial class modificandotabelanotas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,7 +201,7 @@ namespace SchoolManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("DisciplinaId")
+                    b.Property<long>("DisicplinaProfessorId")
                         .HasColumnType("BIGINT");
 
                     b.Property<string>("Horario")
@@ -210,7 +212,7 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DisciplinaId");
+                    b.HasIndex("DisicplinaProfessorId");
 
                     b.HasIndex("MatriculaId");
 
@@ -273,73 +275,46 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AlunoId");
+                    b.HasIndex("AlunoId")
+                        .IsUnique();
 
-                    b.HasIndex("TurmaId");
+                    b.HasIndex("TurmaId")
+                        .IsUnique();
 
                     b.ToTable("Matriculas");
                 });
 
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Nota", b =>
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Notas", b =>
                 {
                     b.Property<long>("AlunoId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long>("TurmaId")
+                    b.Property<long>("DisciplinaMatriculadaId")
                         .HasColumnType("BIGINT");
 
-                    b.Property<long>("DisciplinaId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<bool?>("AprovadoReprovado")
+                    b.Property<bool>("AprovadoReprovado")
                         .HasColumnType("bit");
 
-                    b.Property<double?>("Media")
+                    b.Property<double>("Media")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Nota1")
+                    b.Property<double>("Nota1")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Nota2")
+                    b.Property<double>("Nota2")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Nota3")
+                    b.Property<double>("Nota3")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Nota4")
+                    b.Property<double>("Nota4")
                         .HasColumnType("float");
 
-                    b.HasKey("AlunoId", "TurmaId", "DisciplinaId");
+                    b.HasKey("AlunoId", "DisciplinaMatriculadaId");
 
-                    b.HasIndex("DisciplinaId");
-
-                    b.HasIndex("TurmaId");
+                    b.HasIndex("DisciplinaMatriculadaId");
 
                     b.ToTable("Notas");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.PlanoDeEnsino", b =>
-                {
-                    b.Property<long>("TurmaId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<long>("DisciplinaId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<string>("Dia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Horario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("QtdAulas")
-                        .HasColumnType("int");
-
-                    b.HasKey("TurmaId", "DisciplinaId");
-
-                    b.HasIndex("DisciplinaId");
-
-                    b.ToTable("PlanoDeEnsino");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
@@ -493,9 +468,9 @@ namespace SchoolManagement.Data.Migrations
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaMatriculada", b =>
                 {
-                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
+                    b.HasOne("SchoolManagement.Domain.Models.DisciplinaProfessor", "DisciplinaProfessor")
                         .WithMany("DisciplinaMatriculadas")
-                        .HasForeignKey("DisciplinaId")
+                        .HasForeignKey("DisicplinaProfessorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -505,7 +480,7 @@ namespace SchoolManagement.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Disciplina");
+                    b.Navigation("DisciplinaProfessor");
 
                     b.Navigation("Matricula");
                 });
@@ -532,15 +507,15 @@ namespace SchoolManagement.Data.Migrations
             modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
                 {
                     b.HasOne("SchoolManagement.Domain.Models.Aluno", "Aluno")
-                        .WithMany()
-                        .HasForeignKey("AlunoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("SchoolManagement.Domain.Models.Matricula", "AlunoId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
-                        .WithMany()
-                        .HasForeignKey("TurmaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("SchoolManagement.Domain.Models.Matricula", "TurmaId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Aluno");
@@ -548,7 +523,7 @@ namespace SchoolManagement.Data.Migrations
                     b.Navigation("Turma");
                 });
 
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Nota", b =>
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Notas", b =>
                 {
                     b.HasOne("SchoolManagement.Domain.Models.Aluno", "Aluno")
                         .WithMany("Notas")
@@ -556,42 +531,15 @@ namespace SchoolManagement.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
+                    b.HasOne("SchoolManagement.Domain.Models.DisciplinaMatriculada", "DisciplinaMatriculada")
                         .WithMany("Notas")
-                        .HasForeignKey("DisciplinaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
-                        .WithMany("Notas")
-                        .HasForeignKey("TurmaId")
+                        .HasForeignKey("DisciplinaMatriculadaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Aluno");
 
-                    b.Navigation("Disciplina");
-
-                    b.Navigation("Turma");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.PlanoDeEnsino", b =>
-                {
-                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
-                        .WithMany("Turmas")
-                        .HasForeignKey("DisciplinaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
-                        .WithMany("PlanoDeEnsino")
-                        .HasForeignKey("TurmaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Disciplina");
-
-                    b.Navigation("Turma");
+                    b.Navigation("DisciplinaMatriculada");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Responsavel", b =>
@@ -637,13 +585,17 @@ namespace SchoolManagement.Data.Migrations
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Disciplina", b =>
                 {
-                    b.Navigation("DisciplinaMatriculadas");
-
-                    b.Navigation("Notas");
-
                     b.Navigation("Professores");
+                });
 
-                    b.Navigation("Turmas");
+            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaMatriculada", b =>
+                {
+                    b.Navigation("Notas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaProfessor", b =>
+                {
+                    b.Navigation("DisciplinaMatriculadas");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
@@ -654,13 +606,6 @@ namespace SchoolManagement.Data.Migrations
             modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
                 {
                     b.Navigation("Disciplinas");
-                });
-
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Turma", b =>
-                {
-                    b.Navigation("Notas");
-
-                    b.Navigation("PlanoDeEnsino");
                 });
 #pragma warning restore 612, 618
         }

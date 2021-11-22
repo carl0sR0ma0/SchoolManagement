@@ -16,7 +16,7 @@ namespace SchoolManagement.Domain.Validators
                 .NotEmpty()
                 .WithMessage("A entidade não pode ser vazia.");
 
-            RuleFor(x => x.DisicplinaProfessorId)
+            RuleFor(x => x.DisciplinaId)
                 .NotEmpty()
                 .WithMessage("É necessário inserir a Disciplina.");
         }
