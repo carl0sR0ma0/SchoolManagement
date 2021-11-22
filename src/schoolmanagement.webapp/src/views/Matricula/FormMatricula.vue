@@ -382,7 +382,7 @@ export default {
       let auxDisciplinas = [];
       this.disciplinasMatriculadas.forEach((element) => {
         let dm = {
-          disicplinaProfessorId: element.id,
+          disciplinaId: element.disciplina.id,
           matriculaId: 0,
           horario: element.horario,
         };
@@ -397,7 +397,6 @@ export default {
         turmaId: this.turmaId,
         disciplinaMatriculadas: auxDisciplinas,
       };
-
       const url = "https://localhost:5001/Matricula/create";
 
       axios.post(url, mat_save).then(() => {

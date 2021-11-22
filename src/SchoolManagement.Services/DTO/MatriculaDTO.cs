@@ -8,8 +8,7 @@ namespace SchoolManagement.Services.DTO
 {
     public class MatriculaDTO
     {
-        public MatriculaDTO()
-        { }
+        public MatriculaDTO() { }
 
         public MatriculaDTO(long id, DateTime data, string situacao, string observacao, long alunoId, AlunoDTO aluno, long turmaId, TurmaDTO turma)
         {

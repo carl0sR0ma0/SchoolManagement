@@ -26,29 +26,58 @@ namespace SchoolManagement.Data.Repositories
         {
             return await _context.Set<Nota>()
                 .AsNoTracking()
-                .Where(d => d.AlunoId == alunoId)
+                .Where(n => n.AlunoId == alunoId)
                 .ToListAsync();
         }
 
         public async Task<List<Nota>> GetNotasByAlunoDisciplina(long alunoId, long disciplinaId)
         {
             return await _context.Set<Nota>()
-               .AsNoTracking()
-               .Where(d => d.AlunoId == alunoId && d.DisciplinaMatriculadaId == disciplinaId)
-               .ToListAsync();
+              .AsNoTracking()
+              .Where(n => n.AlunoId == alunoId &&
+                          n.DisciplinaId == disciplinaId
+                    )
+              .ToListAsync();
         }
 
-        public async Task <List<Nota>> GetNotasByDisciplina(long disciplinaId)
+        public async Task<List<Nota>> GetNotasByTurmaAluno(long turmaId, long alunoId)
         {
             return await _context.Set<Nota>()
-               .AsNoTracking()
-               .Where(d => d.DisciplinaMatriculadaId == disciplinaId)
-               .ToListAsync();
+              .AsNoTracking()
+              .Where(n => n.TurmaId == turmaId &&
+                          n.AlunoId == alunoId
+                    )
+              .ToListAsync();
         }
 
-        public async Task Remove(long alunoId, long disciplinaId)
+        public async Task<List<Nota>> GetNotasByTurmaDisciplina(long turmaId, long disciplinaId)
         {
-            var obj = await GetNotasByAlunoDisciplina(alunoId, disciplinaId);
+            return await _context.Set<Nota>()
+              .AsNoTracking()
+              .Where(n => n.TurmaId == turmaId &&
+                          n.DisciplinaId == disciplinaId
+                    )
+              .ToListAsync();
+        }
+
+        public async Task<List<Nota>> GetNotasByDisciplina(long disciplinaId)
+        {
+            return await _context.Set<Nota>()
+                .AsNoTracking()
+                .Where(n => n.DisciplinaId == disciplinaId)
+                .ToListAsync();
+        }
+
+        public async Task Remove(long turmaId, long disciplinaId, long alunoId)
+        {
+            var obj = await _context.Set<Nota>()
+              .AsNoTracking()
+              .Where(n => n.TurmaId == turmaId &&
+                          n.DisciplinaId == disciplinaId &&
+                          n.AlunoId == alunoId
+                    )
+              .FirstOrDefaultAsync();
+
             if (obj != null)
             {
                 _context.Remove(obj);

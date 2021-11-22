@@ -10,7 +10,8 @@ namespace SchoolManagement.API.ViewModel.DisciplinaViewModel
     {
         [Required(ErrorMessage = "Aluno não pode ser vazio!")]
         public long AlunoId { get; set; }
-        public long DisciplinaMatriculadaId { get; set; }
+        public long DisciplinaId { get; set; }
+        public long TurmaId { get; set; }
         public double Nota1 { get; set; }
         public double Nota2 { get; set; }
         public double Nota3 { get; set; }

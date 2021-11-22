@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="temp">
     <div class="container">
       <div class="center">
@@ -106,19 +106,22 @@ export default {
 
       this.memoria5 = _serie.nome;
 
-      if (_serie.nome != "" && _serie.cursoId > 0) {
+      if (
+        _serie.nome != "" &&
+        _serie.cursoId > 0 &&
+        _serie.descricao.length > 10
+      ) {
         axios
           .post("https://localhost:5001/Serie/create", _serie)
           .then((res) => {
-            this.$bvModal.show('mccadSerie');
-          });      
-      this.nome = "";
-      this.descricao = "";
-      this.cursoId = null;
+            this.$bvModal.show("mccadSerie");
+          });
+        this.nome = "";
+        this.descricao = "";
+        this.cursoId = null;
       } else {
-        this.$bvModal.show('mccadSerieFail');
+        this.$bvModal.show("mccadSerieFail");
       }
-
     },
     loadCurso() {
       const url = "https://localhost:5001/Curso/get";

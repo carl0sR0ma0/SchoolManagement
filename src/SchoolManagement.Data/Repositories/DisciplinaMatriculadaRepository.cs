@@ -19,7 +19,7 @@ namespace SchoolManagement.Data.Repositories
         {
             return await _context.Set<DisciplinaMatriculada>()
                 .AsNoTracking()
-                .Include(x => x.DisciplinaProfessor)
+                .Include(x => x.Disciplina)
                 .ToListAsync();
         }
 
@@ -27,7 +27,7 @@ namespace SchoolManagement.Data.Repositories
         {
             var obj = await _context.Set<DisciplinaMatriculada>()
                 .AsNoTracking()
-                .Include(x => x.DisciplinaProfessor)
+                .Include(x => x.Disciplina)
                 .Where(x => x.Id == id)
                 .ToListAsync();
 

@@ -11,9 +11,7 @@ namespace SchoolManagement.Domain.Models
 {
     public class Disciplina : Base
     {
-        protected Disciplina()
-        {
-        }
+        protected Disciplina() { }
 
         public Disciplina(string nome, string sigla, int cargaHoraria, string conteudoProgramatico, string ementa, int aulasSemanais, int faltasPermitidas)
         {
@@ -25,6 +23,9 @@ namespace SchoolManagement.Domain.Models
             AulasSemanais = aulasSemanais;
             FaltasPermitidas = faltasPermitidas;
             Professores = new List<DisciplinaProfessor>();
+            DisciplinaMatriculadas = new List<DisciplinaMatriculada>();
+            Notas = new List<Nota>();
+            Turmas = new List<PlanoDeEnsino>();
             _errors = new List<string>();
 
             Validate();
@@ -39,6 +40,9 @@ namespace SchoolManagement.Domain.Models
         public int FaltasPermitidas { get; set; }
 
         public List<DisciplinaProfessor> Professores { get; set; }
+        public List<DisciplinaMatriculada> DisciplinaMatriculadas { get; set; }
+        public List<Nota> Notas { get; set; }
+        public List<PlanoDeEnsino> Turmas { get; set; }
 
         public override bool Validate()
         {

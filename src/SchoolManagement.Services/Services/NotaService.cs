@@ -4,10 +4,7 @@ using SchoolManagement.Domain.Models;
 using SchoolManagement.Services.DTO;
 using SchoolManagement.Services.Interfaces;
 using SchoolManager.Core.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.Services.Services
@@ -47,23 +44,44 @@ namespace SchoolManagement.Services.Services
             return _mapper.Map<List<NotaDTO>>(notas);
         }
 
+        public async Task<List<NotaDTO>> GetNotasByTurmaAluno(long turmaId, long alunoId)
+        {
+            var notas = await _repository.GetNotasByTurmaAluno(turmaId, alunoId);
+            return _mapper.Map<List<NotaDTO>>(notas);
+        }
+
+        public async Task<List<NotaDTO>> GetNotasByTurmaDisciplina(long turmaId, long disciplinaId)
+        {
+            var notas = await _repository.GetNotasByTurmaDisciplina(turmaId, disciplinaId);
+            return _mapper.Map<List<NotaDTO>>(notas);
+        }
+
         public async Task<NotaDTO> Post(NotaDTO notaDTO)
         {
             Nota nota = new Nota(
-                notaDTO.AlunoId, notaDTO.DisciplinaMatriculadaId, notaDTO.Nota1, notaDTO.Nota2, notaDTO.Nota3, notaDTO.Nota4, notaDTO.Media, notaDTO.AprovadoReprovado);
+                notaDTO.AlunoId,
+                notaDTO.DisciplinaId,
+                notaDTO.TurmaId,
+                notaDTO.Nota1,
+                notaDTO.Nota2,
+                notaDTO.Nota3,
+                notaDTO.Nota4,
+                notaDTO.Media,
+                notaDTO.AprovadoReprovado
+            );
 
             var notaCreated = await _repository.Create(nota);
             return _mapper.Map<NotaDTO>(notaCreated);
         }
 
-        public async Task Remove(long alunoId, long disciplinaId)
+        public async Task Remove(long turmaId, long disciplinaId, long alunoId)
         {
-            await _repository.Remove(alunoId, disciplinaId);
+            await _repository.Remove(turmaId, disciplinaId, alunoId);
         }
 
         public async Task<NotaDTO> Update(NotaDTO notaDTO)
         {
-            var notaExists = await _repository.GetNotasByAlunoDisciplina(notaDTO.AlunoId, notaDTO.DisciplinaMatriculadaId);
+            var notaExists = await _repository.GetNotasByAlunoDisciplina(notaDTO.AlunoId, notaDTO.DisciplinaId);
 
             if (notaExists == null)
                 throw new DomainException("Não existe nenhuma nota cadastrada com o Id informado!");

@@ -17,20 +17,16 @@ namespace SchoolManagement.Data.Mappings
                 .HasColumnType("BIGINT");
 
             builder.HasOne(m => m.Aluno)
-                .WithOne()
-                .HasForeignKey<Matricula>(m => m.AlunoId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            builder.HasOne(m => m.Turma)
-                .WithOne() // WithMany
-                .HasForeignKey<Matricula>(m => m.TurmaId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithMany()
+                .HasPrincipalKey(a => a.Id)
+                .HasForeignKey(m => m.AlunoId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //builder.HasMany(m => m.Disciplinas)
-            //   .WithOne(dm => dm.Matricula)
-            //   .HasForeignKey(dm => dm.MatriculaId)
-            //   .HasPrincipalKey(m => m.Id)
-            //   .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(m => m.Turma)
+                .WithMany()
+                .HasPrincipalKey(t => t.Id)
+                .HasForeignKey(m => m.TurmaId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

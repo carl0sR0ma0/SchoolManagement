@@ -8,7 +8,6 @@ using SchoolManagement.Services.Interfaces;
 using SchoolManager.Core.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.API.Controllers
