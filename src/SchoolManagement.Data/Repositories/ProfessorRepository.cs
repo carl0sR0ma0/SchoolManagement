@@ -13,7 +13,9 @@ namespace SchoolManagement.Data.Repositories
         public ProfessorRepository(SchoolManagementContext context) : base(context) { }
         public virtual async Task<List<Professor>> Get()
         {
-            return await _context.Set<Professor>().AsNoTracking().ToListAsync();
+            return await _context.Set<Professor>()
+                .AsNoTracking()
+                .ToListAsync();
         }
         public virtual async Task<Professor> Get(long id)
         {

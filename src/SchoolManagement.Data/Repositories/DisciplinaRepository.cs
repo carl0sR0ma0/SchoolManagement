@@ -12,12 +12,14 @@ namespace SchoolManagement.Data.Repositories
 {
     public class DisciplinaRepository : Repository<Disciplina>, IDisciplinaRepository
     {
-        public DisciplinaRepository(SchoolManagementContext context) : base(context)
-        {
-        }
+        public DisciplinaRepository(SchoolManagementContext context)
+            : base(context) { }
+
         public virtual async Task<List<Disciplina>> Get()
         {
-            return await _context.Set<Disciplina>().AsNoTracking().ToListAsync();
+            return await _context.Set<Disciplina>()
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public virtual async Task<Disciplina> Get(long id)
@@ -33,7 +35,7 @@ namespace SchoolManagement.Data.Repositories
         public virtual async Task Remove(long id)
         {
             var obj = await Get(id);
-            if (obj != null )
+            if (obj != null)
             {
                 _context.Remove(obj);
                 await _context.SaveChangesAsync();

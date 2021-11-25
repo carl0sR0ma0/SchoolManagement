@@ -19,6 +19,7 @@ using SchoolManagement.Services.DTO;
 using Newtonsoft.Json;
 using SchoolManagement.API.ViewModel.DisciplinaViewModel;
 using SchoolManagement.API.ViewModel.MatriculaViewModel;
+using SchoolManagement.API.ViewModel.DisciplinaMatriculadaViewModel;
 
 namespace SchoolManagement.API
 {
@@ -67,6 +68,18 @@ namespace SchoolManagement.API
                 cfg.CreateMap<Matricula, MatriculaDTO>().ReverseMap();
                 cfg.CreateMap<CreateMatriculaViewModel, MatriculaDTO>().ReverseMap();
                 cfg.CreateMap<UpdateMatriculaViewModel, MatriculaDTO>().ReverseMap();
+                
+                cfg.CreateMap<DisciplinaProfessor, DisciplinaProfessorDTO>().ReverseMap();
+                cfg.CreateMap<CreateDisciplinaProfessorViewModel, DisciplinaProfessorDTO>().ReverseMap();
+                cfg.CreateMap<DisciplinaProfessorViewModel, MatriculaDTO>().ReverseMap();
+                
+                cfg.CreateMap<DisciplinaMatriculada, DisciplinaMatriculadaDTO>().ReverseMap();
+                cfg.CreateMap<CreateDisciplinaMatriculadaViewModel, DisciplinaMatriculadaDTO>().ReverseMap();
+                cfg.CreateMap<UpdateDisciplinaMatriculadaViewModel, DisciplinaMatriculadaDTO>().ReverseMap();
+                
+                cfg.CreateMap<Nota, NotaDTO>().ReverseMap();
+                cfg.CreateMap<CreateNotaViewModel, NotaDTO>().ReverseMap();
+                cfg.CreateMap<UpdateNotaViewModel, NotaDTO>().ReverseMap();
             });
 
             services.AddSingleton(autoMapperConfig.CreateMapper());

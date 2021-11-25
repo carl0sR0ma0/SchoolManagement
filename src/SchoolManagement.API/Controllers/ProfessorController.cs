@@ -57,7 +57,34 @@ namespace SchoolManagement.API.Controllers
         {
             try
             {
-                var professorDTO = _mapper.Map<ProfessorDTO>(professorViewModel);
+               
+
+                ProfessorDTO professorDTO = new ProfessorDTO(
+                    professorViewModel.Id,
+                    professorViewModel.Nome,
+                    professorViewModel.DataNascimento,
+                    professorViewModel.RG,
+                    professorViewModel.CPF,
+                    professorViewModel.Sexo,
+                    professorViewModel.Telefone,
+                    professorViewModel.CTPS,
+                    professorViewModel.Licenca,
+                    professorViewModel.Titulacao,
+                    professorViewModel.DataAdmissao
+                );
+
+                foreach (var item in professorViewModel.Disciplinas)
+                {
+                    var dp = new DisciplinaProfessorDTO();
+                    dp.Id = item.Id;
+                    dp.DisciplinaId = item.DisciplinaId;
+                    dp.ProfessorId = item.ProfessorId;
+                    dp.Dia = item.Dia;
+                    dp.Horario = item.Horario;
+                    professorDTO.Disciplinas.Add(dp);
+                }
+                 
+                //var professorDTO = _mapper.Map<ProfessorDTO>(professorViewModel);
                 var professorUpdated = await _service.Update(professorDTO);
 
                 return Ok(new ResultViewModel

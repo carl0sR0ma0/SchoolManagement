@@ -16,11 +16,13 @@ namespace SchoolManagement.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IMatriculaRepository _repository;
+        private readonly IDisciplinaMatriculadaRepository _Disciplinarepository;
 
-        public MatriculaService(IMapper mapper, IMatriculaRepository repository)
+        public MatriculaService(IMapper mapper, IMatriculaRepository repository, IDisciplinaMatriculadaRepository disciplinarepository)
         {
             _mapper = mapper;
             _repository = repository;
+            _Disciplinarepository = disciplinarepository;
         }
 
         public async Task<MatriculaDTO> Get(long id)
@@ -44,11 +46,18 @@ namespace SchoolManagement.Services.Services
             return _mapper.Map<MatriculaDTO>(matricula);
         }
 
+        public async Task<List<MatriculaDTO>> GetMatriculasByTurma(long turmaId)
+        {
+            var matriculasByTurma = await _repository.GetMatriculasByTurma(turmaId);
+
+            return _mapper.Map<List<MatriculaDTO>>(matriculasByTurma);
+        }
+
         public async Task<MatriculaDTO> Post(MatriculaDTO matriculaDTO)
         {
             Matricula matricula = new Matricula(
                 matriculaDTO.Data,
-                matriculaDTO.Situcao,
+                matriculaDTO.Situacao,
                 matriculaDTO.Observacao,
                 matriculaDTO.AlunoId,
                 matriculaDTO.TurmaId
@@ -57,6 +66,11 @@ namespace SchoolManagement.Services.Services
             matricula.Validate();
 
             var matriculaCreated = await _repository.Create(matricula);
+            foreach (var item in matriculaDTO.DisciplinaMatriculadas)
+            {
+                DisciplinaMatriculada dm = new DisciplinaMatriculada(item.DisciplinaId, matriculaCreated.Id, item.Horario);
+                await _Disciplinarepository.Create(dm);
+            }
             return _mapper.Map<MatriculaDTO>(matriculaCreated);
         }
 

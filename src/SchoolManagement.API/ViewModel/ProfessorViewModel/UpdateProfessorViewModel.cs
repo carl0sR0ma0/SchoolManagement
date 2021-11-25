@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Domain.Enums;
+﻿using SchoolManagement.API.ViewModel.DisciplinaMatriculadaViewModel;
+using SchoolManagement.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,5 +27,6 @@ namespace SchoolManagement.API.ViewModel.ProfessorViewModel
         public string Licenca { get; set; }
         public string Titulacao { get; set; }
         public DateTime DataAdmissao { get; set; }
+        public List<DisciplinaProfessorViewModel> Disciplinas { get; set; }
     }
 }

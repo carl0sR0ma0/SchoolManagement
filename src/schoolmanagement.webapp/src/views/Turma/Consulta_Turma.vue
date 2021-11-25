@@ -107,7 +107,7 @@ export default {
   methods: {
     CarregarTurmas(){
       axios.get("https://localhost:5001/Turma/get").then((res) => {
-      this.alunos = res.data.data;
+      this.turmas = res.data.data;
     });
     },
 

@@ -2,26 +2,26 @@
 using SchoolManagement.Domain.Validators;
 using SchoolManager.Core.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace SchoolManagement.Domain.Models
 {
     public class Matricula : Base
     {
-        protected Matricula()
-        {
-        }
+        protected Matricula() { }
 
-        public Matricula(DateTime data, string situcao, string observacao, long alunoId, long turmaId)
+        public Matricula(DateTime data, string situacao, string observacao, long alunoId, long turmaId)
         {
             Data = data;
-            Situcao = situcao;
+            Situacao = situacao;
             Observacao = observacao;
             AlunoId = alunoId;
             TurmaId = turmaId;
+            DisciplinaMatriculadas = new List<DisciplinaMatriculada>();
         }
 
         public DateTime Data { get; set; }
-        public string Situcao { get; set; } // Torna-lo um Enumeration (1 - ABERTA, 2- FECHADA, 3- ANDAMENTO, 4- OUTROS...)
+        public string Situacao { get; set; } // Torna-lo um Enumeration (1 - ABERTA, 2- FECHADA, 3- ANDAMENTO, 4- OUTROS...)
         public string Observacao { get; set; }
 
         public long AlunoId { get; set; }
@@ -29,6 +29,8 @@ namespace SchoolManagement.Domain.Models
 
         public long TurmaId { get; set; }
         public Turma Turma { get; set; }
+
+        public List<DisciplinaMatriculada> DisciplinaMatriculadas { get; set; }
 
         public override bool Validate()
         {
