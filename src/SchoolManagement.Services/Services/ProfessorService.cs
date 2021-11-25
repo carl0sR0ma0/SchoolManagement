@@ -13,16 +13,17 @@ namespace SchoolManagement.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly IProfessorRepository _repository;
+        private readonly IDisciplinaProfessorRepository _disciplinaProfrepository;
 
-        public ProfessorService(IProfessorRepository repository, IMapper mapper)
+        public ProfessorService(IProfessorRepository repository, IDisciplinaProfessorRepository disciplinaProfrepository, IMapper mapper)
         {
             this._repository = repository;
             this._mapper = mapper;
+            this._disciplinaProfrepository = disciplinaProfrepository;
         }
 
         public async Task<ProfessorDTO> Post(ProfessorDTO professorDTO)
         {
-           
             Professor professor = new Professor(
                 professorDTO.Nome,
                 professorDTO.DataNascimento,
@@ -33,12 +34,16 @@ namespace SchoolManagement.Services.Services
                 professorDTO.CTPS,
                 professorDTO.Licenca,
                 professorDTO.Titulacao,
-                professorDTO.DataAdmissao);
-
-
+                professorDTO.DataAdmissao
+             );
             professor.Validate();
 
             var professorCreated = await _repository.Create(professor);
+            foreach (var item in professorDTO.Disciplinas)
+            {
+                DisciplinaProfessor dp = new DisciplinaProfessor(professorCreated.Id, item.DisciplinaId, item.Dia, item.Horario);
+                await _disciplinaProfrepository.Create(dp);
+            }
             return _mapper.Map<ProfessorDTO>(professorCreated);
         }
         public async Task<ProfessorDTO> Update(ProfessorDTO professorDTO)
@@ -52,6 +57,19 @@ namespace SchoolManagement.Services.Services
             professor.Validate();
 
             var professorUpdated = await _repository.Update(professor);
+            foreach (var item in professor.Disciplinas)
+            {
+                item.ProfessorId = professor.Id;
+                var disciplinaProfessorUpdated = await _disciplinaProfrepository.Get(item.Id);
+
+                if (disciplinaProfessorUpdated is null)
+                {
+                    item.Id = 0;
+                    await _disciplinaProfrepository.Create(item);
+                }
+                else
+                    await _disciplinaProfrepository.Update(item);
+            }
             return _mapper.Map<ProfessorDTO>(professorUpdated);
         }
 

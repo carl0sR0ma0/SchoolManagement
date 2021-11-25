@@ -8,7 +8,6 @@ using SchoolManagement.Services.Interfaces;
 using SchoolManager.Core.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.API.Controllers
@@ -30,7 +29,9 @@ namespace SchoolManagement.API.Controllers
         {
             try
             {
+                var disciplinaDTO = _mapper.Map<List<DisciplinaMatriculadaDTO>>(matriculaViewModel.DisciplinaMatriculadas);
                 var matriculaDTO = _mapper.Map<MatriculaDTO>(matriculaViewModel);
+                matriculaDTO.DisciplinaMatriculadas = disciplinaDTO;
                 var matriculaCreated = await _service.Post(matriculaDTO);
 
                 return Ok(new ResultViewModel
@@ -134,6 +135,41 @@ namespace SchoolManagement.API.Controllers
                     Message = "Matricula Encontrada com sucesso!",
                     Success = true,
                     Data = matricula
+                });
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(Responses.DomainErrorMessage(ex.Message, ex.Errors));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, Responses.ApplicationErrorMessage());
+            }
+        }
+
+        [HttpGet]
+        [Route("/[controller]/getMatriculasByTurma/{turmaId}")]
+        public async Task<IActionResult> GetMatriculasByTurma(long turmaId)
+        {
+            try
+            {
+                var matriculas = await _service.GetMatriculasByTurma(turmaId);
+
+                if (matriculas.Count == 0)
+                {
+                    return Ok(new ResultViewModel
+                    {
+                        Message = "Nenhuma Matricula encontrada com o ID informado.",
+                        Success = true,
+                        Data = matriculas
+                    });
+                }
+
+                return Ok(new ResultViewModel
+                {
+                    Message = "Matricula Encontrada com sucesso!",
+                    Success = true,
+                    Data = matriculas
                 });
             }
             catch (DomainException ex)

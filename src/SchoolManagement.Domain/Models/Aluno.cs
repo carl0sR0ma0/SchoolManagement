@@ -28,12 +28,14 @@ namespace SchoolManagement.Domain.Models
             Cidade = _cidade;
             _errors = new List<string>();
             Responsavel = new List<Responsavel>();
+            Notas = new List<Nota>();
 
             Validate();
         }
         // PROPRIEDADES
         public long RA { get; set; }
         public List<Responsavel> Responsavel { get; set; }
+        public List<Nota> Notas { get; set; }
         // MÉTODOS
         public void AddReponsavel(Responsavel responsavel)
         {

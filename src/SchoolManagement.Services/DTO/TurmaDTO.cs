@@ -1,4 +1,6 @@
-﻿namespace SchoolManagement.Services.DTO
+﻿using System.Collections.Generic;
+
+namespace SchoolManagement.Services.DTO
 {
     public class TurmaDTO
     {
@@ -17,6 +19,8 @@
             Situacao = situacao;
             SerieId = serieId;
             Serie = serie;
+            Notas = new List<NotaDTO>();
+            PlanoDeEnsino = new List<PlanoDeEnsinoDTO>();
         }
 
         public long Id { get; set; }
@@ -29,6 +33,9 @@
 
         public long SerieId { get; set; }
         public SerieDTO Serie { get; set; }
+
+        public List<NotaDTO> Notas { get; set; }
+        public List<PlanoDeEnsinoDTO> PlanoDeEnsino { get; set; }
     }
 }
 

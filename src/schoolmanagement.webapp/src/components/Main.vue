@@ -1,9 +1,19 @@
 <template>
 <body>
-  <img src="@/assets/professor_1.png" class="controller" alt="">
-  <div class="box">
-        <h2>School Management</h2>
-  </div>
+    <div class="temp">
+      <div class="content">
+        <h4>Welcome to</h4>
+        <h1>School <span>Management</span></h1>
+      </div>
+      <div class="Dev">
+        <h3><span>Developed by</span></h3>
+        <h3>Carlos Romao</h3>
+        <h3>Claudio Amantino</h3>
+        <h3>Luciano Romano</h3>
+        <h3>Rodrigo Fessore</h3>
+        <h3>Rafael Alves</h3>
+      </div>
+    </div>
 </body>
 </template>
 
@@ -15,72 +25,40 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  }
 
-  body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #222;
+  .content{
+    position: absolute;
+    top: 35%;
+    left: 8%;
+    transform: translateY(-50%);
+    border-left: 5px solid white;
+    padding-left: 1.5rem;
   }
-
-  .box{
-  position: relative;
-  width: 90vh;
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  border-radius: 20px;
-  left: -100px;
-  }
-
-  .box:before{
-  content:'';
-  position: absolute;
-  width: 150%;
-  height: 140%;
-  background: linear-gradient(#14260d,#3b7326);
-  animation: animate 4s linear infinite;
-  }
-
-  .box:after{
-  content:'';
-  position: absolute;
-  inset: 4px;
-  background: rgba(0, 0, 0, 0.9);
-  }
-  
-  @keyframes animate {
-    0%
-    {
-      transform: rotate(0deg);
-    }
-    100%
-    {
-      transform: rotate(350deg);
-    }
-  }
-
-  .box h2{
-    font-size: 54px;
+  h1{
     color: white;
-    z-index: 10;
+    margin: 20px 0px 20px;
+    font-size: 70px;
   }
-
-  .controller{
-    z-index:11;
-    width: 30vh;
-    left: 50px;
-    top: 100px;
-    position: relative;
+  span{
+    color: #0D6EFD;
   }
-
+  h3{
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+  }
+  h4{
+    color: #C7C8C9;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  .Dev{
+    position: absolute; 
+    top: 70%; 
+    left: 80%;
+    text-align: right;
+    border-right: 5px solid white;
+    padding-right: 1.5rem;
+  }
 </style>

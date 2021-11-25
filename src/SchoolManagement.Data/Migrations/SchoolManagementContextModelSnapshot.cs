@@ -155,41 +155,6 @@ namespace SchoolManagement.Data.Migrations
                     b.ToTable("Cursos");
                 });
 
-            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIGINT")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("AlunoId")
-                        .HasColumnType("BIGINT");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Observacao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Situcao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("TurmaId")
-                        .HasColumnType("BIGINT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AlunoId")
-                        .IsUnique();
-
-                    b.HasIndex("TurmaId")
-                        .IsUnique();
-
-                    b.ToTable("Matriculas");
-                });
-
             modelBuilder.Entity("SchoolManagement.Domain.Models.Disciplina", b =>
                 {
                     b.Property<long>("Id")
@@ -223,6 +188,158 @@ namespace SchoolManagement.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Disciplinas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaMatriculada", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("DisciplinaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<string>("Horario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("MatriculaId")
+                        .HasColumnType("BIGINT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DisciplinaId");
+
+                    b.HasIndex("MatriculaId");
+
+                    b.ToTable("DisciplinaMatriculada");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaProfessor", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Dia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("DisciplinaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<string>("Horario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ProfessorId")
+                        .HasColumnType("BIGINT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DisciplinaId");
+
+                    b.HasIndex("ProfessorId");
+
+                    b.ToTable("DisciplinaProfessor");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("BIGINT")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AlunoId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Observacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Situacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("TurmaId")
+                        .HasColumnType("BIGINT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlunoId");
+
+                    b.HasIndex("TurmaId");
+
+                    b.ToTable("Matriculas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Nota", b =>
+                {
+                    b.Property<long>("AlunoId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("TurmaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("DisciplinaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<bool?>("AprovadoReprovado")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("Media")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Nota1")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Nota2")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Nota3")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Nota4")
+                        .HasColumnType("float");
+
+                    b.HasKey("AlunoId", "TurmaId", "DisciplinaId");
+
+                    b.HasIndex("DisciplinaId");
+
+                    b.HasIndex("TurmaId");
+
+                    b.ToTable("Notas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.PlanoDeEnsino", b =>
+                {
+                    b.Property<long>("TurmaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<long>("DisciplinaId")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<string>("Dia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Horario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QtdAulas")
+                        .HasColumnType("int");
+
+                    b.HasKey("TurmaId", "DisciplinaId");
+
+                    b.HasIndex("DisciplinaId");
+
+                    b.ToTable("PlanoDeEnsino");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
@@ -374,21 +491,105 @@ namespace SchoolManagement.Data.Migrations
                     b.ToTable("Turmas");
                 });
 
+            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaMatriculada", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
+                        .WithMany("DisciplinaMatriculadas")
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Domain.Models.Matricula", "Matricula")
+                        .WithMany("DisciplinaMatriculadas")
+                        .HasForeignKey("MatriculaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Disciplina");
+
+                    b.Navigation("Matricula");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.DisciplinaProfessor", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
+                        .WithMany("Professores")
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Domain.Models.Professor", "Professor")
+                        .WithMany("Disciplinas")
+                        .HasForeignKey("ProfessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Disciplina");
+
+                    b.Navigation("Professor");
+                });
+
             modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
                 {
                     b.HasOne("SchoolManagement.Domain.Models.Aluno", "Aluno")
-                        .WithOne()
-                        .HasForeignKey("SchoolManagement.Domain.Models.Matricula", "AlunoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany()
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
-                        .WithOne()
-                        .HasForeignKey("SchoolManagement.Domain.Models.Matricula", "TurmaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany()
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Aluno");
+
+                    b.Navigation("Turma");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Nota", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Models.Aluno", "Aluno")
+                        .WithMany("Notas")
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
+                        .WithMany("Notas")
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
+                        .WithMany("Notas")
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Aluno");
+
+                    b.Navigation("Disciplina");
+
+                    b.Navigation("Turma");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.PlanoDeEnsino", b =>
+                {
+                    b.HasOne("SchoolManagement.Domain.Models.Disciplina", "Disciplina")
+                        .WithMany("Turmas")
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolManagement.Domain.Models.Turma", "Turma")
+                        .WithMany("PlanoDeEnsino")
+                        .HasForeignKey("TurmaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Disciplina");
 
                     b.Navigation("Turma");
                 });
@@ -424,12 +625,42 @@ namespace SchoolManagement.Data.Migrations
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Aluno", b =>
                 {
+                    b.Navigation("Notas");
+
                     b.Navigation("Responsavel");
                 });
 
             modelBuilder.Entity("SchoolManagement.Domain.Models.Curso", b =>
                 {
                     b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Disciplina", b =>
+                {
+                    b.Navigation("DisciplinaMatriculadas");
+
+                    b.Navigation("Notas");
+
+                    b.Navigation("Professores");
+
+                    b.Navigation("Turmas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Matricula", b =>
+                {
+                    b.Navigation("DisciplinaMatriculadas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Professor", b =>
+                {
+                    b.Navigation("Disciplinas");
+                });
+
+            modelBuilder.Entity("SchoolManagement.Domain.Models.Turma", b =>
+                {
+                    b.Navigation("Notas");
+
+                    b.Navigation("PlanoDeEnsino");
                 });
 #pragma warning restore 612, 618
         }
