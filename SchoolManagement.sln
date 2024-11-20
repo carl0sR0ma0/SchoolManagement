@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManager.Core", "src\S
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "schoolmanagement.webapp", "src\schoolmanagement.webapp\", "{60E17AEF-A13D-4342-BFAF-5347CCA514BA}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50812"
 		Debug.AspNetCompiler.PhysicalPath = "src\schoolmanagement.webapp\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50812\"
